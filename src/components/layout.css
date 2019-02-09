@@ -8,6 +8,9 @@ html {
 
 body {
   margin: 0;
+  background-image: linear-gradient(-180deg, #000000 0%, #6F6F6F 80%);
+  /* border: 1px solid #979797; */
+  min-height: 2668px;
 }
 
 article,
@@ -72,16 +75,17 @@ dfn {
   font-style: italic;
 }
 
-h1 {
+/* h1 {
   font-size: 2em;
   font-family: 'Josefin Sans';
   font-style: italic;
-}
+} */
 
 .body h1 {
-  font-family: 'Open Sans';
+  color: white;
+  font-family: 'Avenir Next';
   font-style: normal;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 mark {
@@ -250,7 +254,7 @@ html {
 
 body {
   color: hsla(0, 0%, 0%, 0.8);
-  font-family: georgia, serif;
+  font-family: 'Avenir Next', serif;
   font-weight: normal;
   word-wrap: break-word;
   font-kerning: normal;
@@ -440,6 +444,7 @@ dd {
 }
 
 p {
+  color: white;
   margin-left: 0;
   margin-right: 0;
   margin-top: 0;
