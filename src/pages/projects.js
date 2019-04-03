@@ -2,30 +2,40 @@ import React from 'react'
 import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
-import styles from '../styles/index.module.css'
+import styles from '../styles/projects.module.css'
+// import Image from '../components/image'
+import logo from '../images/WebsiteSample.png'
 
 const SecondPage = () => (
   <Layout>
-    <h1>projects</h1>
-    <div class="container">
+    <h1 className={styles.headerText}>projects</h1>
+    <div className={styles.container}>
       <div className={styles.row}>
         <div className={styles.projectItem}>
+          <h2>This Website</h2>
+          <img src={logo} alt="Yuxiang Dai" />
+          <p>
+            I made this website as an experiment in using the React framework
+            GatsbyJS (the reason why switching between tabs is so fast) and
+            GraphQL. I first designed the website in Sketch and
+          </p>
+        </div>
+        <div className={styles.projectItem}>
+          <h2>This Two</h2>
+          <p>test</p>
+        </div>
+        {/* </div>
+      <div className={styles.row}> */}
+        <div className={styles.projectItem}>
+          <h2>This Three</h2>
           <p>test</p>
         </div>
         <div className={styles.projectItem}>
-          <p>test</p>
-        </div>
-      </div>
-      <div className={styles.row}>
-        <div className={styles.projectItem}>
-          <p>test</p>
-        </div>
-        <div className={styles.projectItem}>
+          <h2>This Four</h2>
           <p>test</p>
         </div>
       </div>
     </div>
-    <Link to="/">Go back to the homepage</Link>
   </Layout>
 )
 
