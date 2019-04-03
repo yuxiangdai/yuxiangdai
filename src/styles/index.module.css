@@ -6,6 +6,11 @@
     width: 50%;
 }
 
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
 #myBtn {
     display: none;
     /* Hidden by default */
