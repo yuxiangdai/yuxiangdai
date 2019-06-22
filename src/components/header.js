@@ -1,17 +1,17 @@
 import { Link } from 'gatsby'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './header.module.css'
 
-console.log(styles)
+const Container = styled.div`
+  background: black;
+  marginbottom: 1.45rem;
+  border-top: 4px solid #ff0000;
+`
 
 const Header = ({ siteTitle }) => (
-  <div
-    style={{
-      background: 'black',
-      marginBottom: '1.45rem',
-    }}
-  >
+  <Container>
     <div
       className={styles.headerContainer}
       style={{
@@ -48,7 +48,7 @@ const Header = ({ siteTitle }) => (
         </h2>
       </div>
     </div>
-  </div>
+  </Container>
 )
 
 Header.propTypes = {

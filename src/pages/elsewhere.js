@@ -5,7 +5,7 @@ import Layout from '../components/layout'
 import Image from '../components/image'
 import styles from '../styles/projects.module.css'
 
-const AboutPage = () => (
+const ElsewherePage = () => (
   <Layout>
     <div
       style={{
@@ -24,4 +24,4 @@ const AboutPage = () => (
   </Layout>
 )
 
-export default AboutPage
+export default ElsewherePage
