@@ -6,9 +6,17 @@ import styles from './header.module.css'
 
 const Container = styled.div`
   background: black;
-  marginbottom: 1.45rem;
-  border-top: 4px solid #ff0000;
+  margin-bottom: 1.45rem;
+  border-top: 4px solid #fff;
 `
+
+const HeaderSection = props => (
+  <h2 className={styles.links}>
+    <Link to={props.link} className={styles.headerText}>
+      {props.text}
+    </Link>
+  </h2>
+)
 
 const Header = ({ siteTitle }) => (
   <Container>
@@ -26,26 +34,10 @@ const Header = ({ siteTitle }) => (
         </Link>
       </h1>
       <div className={styles.linksContainer}>
-        <h2 className={styles.links}>
-          <Link to="/" className={styles.headerText}>
-            about
-          </Link>
-        </h2>
-        <h2 className={styles.links}>
-          <Link to="/projects/" className={styles.headerText}>
-            projects
-          </Link>
-        </h2>
-        <h2 className={styles.links}>
-          <Link to="/resume/" className={styles.headerText}>
-            resume
-          </Link>
-        </h2>
-        <h2 className={styles.links}>
-          <Link to="/elsewhere/" className={styles.headerText}>
-            elsewhere
-          </Link>
-        </h2>
+        <HeaderSection link="/" text="about" />
+        <HeaderSection link="/projects/" text="projects" />
+        <HeaderSection link="/resume/" text="resume" />
+        <HeaderSection link="/elsewhere/" text="elsewhere" />
       </div>
     </div>
   </Container>

@@ -21,6 +21,13 @@ const Logo = styled.img`
   width: 50%;
 `
 
+const StyledLink = styled(Link)`
+  color: white;
+  &:hover {
+    color: grey;
+  }
+`
+
 const IndexPage = () => (
   <Layout>
     <Container>
@@ -28,10 +35,14 @@ const IndexPage = () => (
       <h1>about</h1>
       <p>
         I'm Yuxiang Dai, currently an Engineering Science Student at the
-        University of Toronto studying Robotics Engineering. My main areas of
-        expertise are Full Stack Web Development and Mobile App Development.
+        University of Toronto majoring in Robotics Engineering where I have
+        studied various topics including software development, machine learning,
+        natural language processing, systems control and computer vision. In
+        software development, my main areas of expertise are Full Stack Web
+        Development and Mobile App Development. In my free time, I enjoy
+        participating in hackathons and extracurriculars.
       </p>
-      <Link to="/projects/">Go to my projects</Link>
+      <StyledLink to="/projects/">Go to my projects</StyledLink>
     </Container>
   </Layout>
 )

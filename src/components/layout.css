@@ -8,9 +8,9 @@ html {
 
 body {
   margin: 0;
-  background-image: linear-gradient(-180deg, #000000 0%, #6F6F6F 80%);
+  background-image: linear-gradient(-180deg, #000000 20%, #585858 80%);
   /* border: 1px solid #979797; */
-  min-height: 2668px;
+  min-height: 1500px;
 }
 
 article,

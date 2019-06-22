@@ -20,6 +20,10 @@
     text-decoration: none;
 }
 
+.headerText:hover {
+    color: grey;
+}
+
 .links {
     font-family: 'Avenir Next';
     font-size: 24px;
