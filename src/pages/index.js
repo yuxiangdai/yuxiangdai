@@ -16,11 +16,18 @@ const IndexPage = () => (
         paddingTop: 0,
       }}
     >
-      <h1>about</h1>
-
       <img className={styles.headerImage} src={logo} alt="Yuxiang Dai" />
-      <p>I am Yuxiang Dai</p>
-      <p>This site is a work in progress</p>
+      <h1>about</h1>
+      <p>
+        I'm Yuxiang Dai, currently an Engineering Science Student at the
+        University of Toronto studying Robotics Engineering
+      </p>
+      <p>
+        My main areas of expertise include Web Development and Mobile App
+        Development
+      </p>
+
+      <p>Here's a couple technologies I'm familiar with:</p>
       <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>
         {/* <Image /> */}
       </div>

@@ -4,7 +4,7 @@ import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import styles from '../styles/projects.module.css'
 // import Image from '../components/image'
-import logo from '../images/WebsiteSample.png'
+import logo from '../images/site.png'
 
 const SecondPage = () => (
   <Layout>
@@ -17,7 +17,8 @@ const SecondPage = () => (
           <p>
             I made this website as an experiment in using the React framework
             GatsbyJS (the reason why switching between tabs is so fast) and
-            GraphQL. I first designed the website in Sketch and
+            GraphQL. I first designed the website in Sketch and then replicated
+            the features I wanted in code
           </p>
         </div>
         <div className={styles.projectItem}>
