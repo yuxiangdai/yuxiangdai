@@ -3,17 +3,24 @@ import { Link } from 'gatsby'
 
 import Layout from '../components/layout'
 import Image from '../components/image'
+import styles from '../styles/projects.module.css'
 
 const AboutPage = () => (
   <Layout>
-    <h1>ABOUT</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-
-    <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>
-      <Image />
+    <div
+      style={{
+        margin: '0 auto',
+        maxWidth: 960,
+        padding: '0px 1.0875rem 1.45rem',
+        paddingTop: 0,
+      }}
+    >
+      <h1>elsewhere</h1>
+      <p>linkedin</p>
+      <p>github</p>
+      <p>500px</p>
+      <p>behance</p>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
   </Layout>
 )
 

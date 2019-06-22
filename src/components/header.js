@@ -37,12 +37,9 @@ const Header = ({ siteTitle }) => (
           </Link>
         </h2>
         <h2 className={styles.links}>
-          <a
-            className={styles.headerText}
-            href="https://drive.google.com/open?id=1pLyV-JBoSXRU-M6xu7SDHmrDfegQ0Ed2"
-          >
+          <Link to="/resume/" className={styles.headerText}>
             resume
-          </a>
+          </Link>
         </h2>
         <h2 className={styles.links}>
           <Link to="/elsewhere/" className={styles.headerText}>
