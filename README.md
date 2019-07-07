@@ -1,8 +1,6 @@
-Yuxiang Dai
-My Personal Site
+Yuxiang Dai's Personal Website
+=======
 
-Experiments to work with new tools
-Prettier & VSCode Auto Formatting
-Gatsby
-Styled Components
-GraphQL
+Built on GatsbyJS & React using Styled Components and GraphQL
+
+Deployed with Travis CI and Github Pages
