@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'gatsby'
-
+import { Link, graphql } from 'gatsby'
+import Image from '../components/image'
 import Layout from '../components/layout'
 import logo from '../images/Yuxiang_Signature_White.png'
 
@@ -12,7 +12,7 @@ const Container = styled.div`
   padding-top: 0;
 `
 
-const Logo = styled.img`
+const Logo = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -28,10 +28,12 @@ const StyledLink = styled(Link)`
   }
 `
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <Layout>
     <Container>
-      <Logo src={logo} alt="Yuxiang Dai" />
+      <Logo>
+        <Image />
+      </Logo>
       <h1>about</h1>
       <p>
         I'm Yuxiang Dai, currently an Engineering Science Student at the
