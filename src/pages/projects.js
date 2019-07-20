@@ -38,8 +38,10 @@ const ProjectsPage = ({ data }) => (
           </ImageContainer>
           <p>
             I made this website as an experiment in using the React framework
-            GatsbyJS and GraphQL. I first designed the website in Sketch then
-            replicated the features I wanted in code.
+            GatsbyJS and GraphQL. I first created a template for the website in
+            Sketch then replicated the features I wanted in code. The photo
+            above shows one of the original Sketch designs I based this site off
+            of.
           </p>
         </div>
         <div className={styles.projectItem}>
@@ -73,7 +75,7 @@ const ProjectsPage = ({ data }) => (
 
 export const query = graphql`
   query {
-    image1: file(relativePath: { eq: "site.png" }) {
+    image1: file(relativePath: { eq: "sketch_site.png" }) {
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
