@@ -21,8 +21,8 @@ const Image = () => (
           relativePath: { eq: "Yuxiang_Signature_White.png" }
         ) {
           childImageSharp {
-            fluid(maxWidth: 300) {
-              ...GatsbyImageSharpFluid
+            fluid(maxWidth: 1000, quality: 100) {
+              ...GatsbyImageSharpFluid_tracedSVG
             }
           }
         }

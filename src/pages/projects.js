@@ -6,13 +6,14 @@ import styles from '../styles/projects.module.css'
 import logo from '../images/site.png'
 import ball from '../images/ballance.png'
 import StyledLink from '../components/StyledLink'
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 
-const Image = styled.img`
+const ImageContainer = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 300px;
-  object-fit: scale-down;
+  margin-bottom: 10px;
 `
 
 const Container = styled.div`
@@ -22,23 +23,35 @@ const Container = styled.div`
   padding-top: 0;
 `
 
-const ProjectsPage = () => (
+const ProjectsPage = ({ data }) => (
   <Layout>
     <h1 className={styles.headerText}>projects</h1>
     <Container className={styles.container}>
       <div className={styles.row}>
         <div className={styles.projectItem}>
           <h2>This Website</h2>
-          <img src={logo} alt="Yuxiang Dai" />
+          <ImageContainer>
+            <Img
+              className={styles.image}
+              fluid={data.image1.childImageSharp.fluid}
+            />
+          </ImageContainer>
           <p>
             I made this website as an experiment in using the React framework
-            GatsbyJS and GraphQL. I first designed the website in Sketch then
-            replicated the features I wanted in code.
+            GatsbyJS and GraphQL. I first created a template for the website in
+            Sketch then replicated the features I wanted in code. The photo
+            above shows one of the original Sketch designs I based this site off
+            of.
           </p>
         </div>
         <div className={styles.projectItem}>
           <h2>Ballance</h2>
-          <Image src={ball} alt="Yuxiang Dai" />
+          <ImageContainer>
+            <Img
+              className={styles.image}
+              fluid={data.image2.childImageSharp.fluid}
+            />
+          </ImageContainer>
           <p>
             Ballance is a robotics project which uses feedback control and
             computer vision to balance a ping pong ball on a limited flat
@@ -59,5 +72,29 @@ const ProjectsPage = () => (
     </Container>
   </Layout>
 )
+
+export const query = graphql`
+  query {
+    image1: file(relativePath: { eq: "sketch_site.png" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fluid(maxWidth: 600, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+
+    image2: file(relativePath: { eq: "ballance.png" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fluid(maxWidth: 300, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+  }
+`
 
 export default ProjectsPage
