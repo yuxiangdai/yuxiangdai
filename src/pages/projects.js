@@ -13,16 +13,7 @@ const ImageContainer = styled.div`
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 300px;
-  object-fit: scale-down;
-`
-
-const Image = styled.img`
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  height: 300px;
-  object-fit: scale-down;
+  margin-bottom: 10px;
 `
 
 const Container = styled.div`
@@ -40,7 +31,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>This Website</h2>
           <ImageContainer>
-            <Img fluid={data.file.childImageSharp.fluid} />
+            <Img
+              className={styles.image}
+              fluid={data.image1.childImageSharp.fluid}
+            />
           </ImageContainer>
           <p>
             I made this website as an experiment in using the React framework
@@ -50,7 +44,12 @@ const ProjectsPage = ({ data }) => (
         </div>
         <div className={styles.projectItem}>
           <h2>Ballance</h2>
-          <Image src={ball} alt="Yuxiang Dai" />
+          <ImageContainer>
+            <Img
+              className={styles.image}
+              fluid={data.image2.childImageSharp.fluid}
+            />
+          </ImageContainer>
           <p>
             Ballance is a robotics project which uses feedback control and
             computer vision to balance a ping pong ball on a limited flat
@@ -74,11 +73,21 @@ const ProjectsPage = ({ data }) => (
 
 export const query = graphql`
   query {
-    file(relativePath: { eq: "site.png" }) {
+    image1: file(relativePath: { eq: "site.png" }) {
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
         fluid(maxWidth: 600, quality: 100) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+
+    image2: file(relativePath: { eq: "ballance.png" }) {
+      childImageSharp {
+        # Specify the image processing specifications right in the query.
+        # Makes it trivial to update as your page's design changes.
+        fluid(maxWidth: 300, quality: 100) {
           ...GatsbyImageSharpFluid
         }
       }
