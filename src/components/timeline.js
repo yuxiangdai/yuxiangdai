@@ -8,11 +8,11 @@ export const Timeline = ({ children }) => (
   </div>
 )
 
-export const Event = ({ title, subtitle, interval, children }) => (
+export const Event = ({ title, subtitle, interval, year, children }) => (
   <li className={s.event}>
+    <p className={s.year}>{year}</p>
     <label className={s.icon} />
     <div className={s.body}>
-      <p className={s.date}>{interval}</p>
       <h3>{title}</h3>
       {subtitle && <h4>{subtitle}</h4>}
       <div className={s.description}>{children}</div>

@@ -8,6 +8,7 @@ export default {
     font-weight: 300;
     line-height: 1.5;
     letter-spacing: 0.05em;
+    padding: 1em 0 2em 0;
 
     * {
       box-sizing: border-box;
@@ -30,12 +31,12 @@ export default {
     list-style: none;
 
     &:before {
-      background-color: black;
+      background-color: white;
       content: '';
       margin-left: -1px;
       position: absolute;
       top: 0;
-      left: 2em;
+      left: 5em;
       width: 2px;
       height: 100%;
     }
@@ -44,30 +45,30 @@ export default {
     position: relative;
   `,
   icon: css`
-    background-color: black;
+    background-color: white;
     display: block;
-    margin: 0.5em 0.5em 0.5em -0.5em;
+    margin: 0.5em 0.5em 0.5em 2.5em;
     position: absolute;
-    top: -8px;
-    left: 1.5em;
-    width: 2em;
-    height: 2em;
+    top: 2em;
+    left: 1.7em;
+    width: 1.5em;
+    height: 1.5em;
     border-radius: 50%;
   `,
   body: css`
-    padding: 2em 2em 0 2em;
+    padding: 7em 2em 0 5em;
     position: relative;
-    top: -1.875em;
-    left: 2em;
+    top: -114px;
+    left: 3em;
     width: 95%;
 
     h3 {
-      font-size: 1.75em;
+      color: #f5a623;
+      font-size: 1.2em;
     }
 
     h4 {
       font-size: 1.2em;
-      margin-bottom: 1.2em;
     }
   `,
   date: css`
@@ -77,6 +78,10 @@ export default {
     display: inline-block;
     margin-bottom: 1.2em;
     padding: 0.25em 1em 0.2em 1em;
+  `,
+  year: css`
+    padding-top: 2.5em;
+    position: absolute;
   `,
   description: css`
     strong {

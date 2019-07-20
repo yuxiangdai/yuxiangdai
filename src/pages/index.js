@@ -24,6 +24,7 @@ const Logo = styled.div`
 
 const StyledLink = styled(Link)`
   color: white;
+  margin: 100px 0;
   &:hover {
     color: grey;
   }
@@ -54,26 +55,25 @@ const IndexPage = ({ data }) => (
       <h1>experience</h1>
       <Timeline>
         <Event
-          interval={'June 2019 - Aug 2019'}
-          year={'2019'}
-          title={'Software Engineering Intern '}
-          subtitle={'Mark43'}
-        />
+          year={2019}
+          title={'Mark43'}
+          subtitle={'software engineering intern'}
+        >
+          Web Apps
+        </Event>
+        <Event title={'Indigo'} subtitle={'mobile developer intern'}>
+          Android &amp; iOS App
+        </Event>
         <Event
-          interval={'Oct 2018 - April 2019'}
-          title={'Mobile Developer Intern '}
-          subtitle={'Indigo'}
-        />
-        <Event
-          interval={'May 2018 - Oct 2018'}
-          title={'Full Stack Developer Intern '}
-          subtitle={'Indigo'}
-        />
-        <Event
-          interval={'May 2017 - Sept 2017'}
-          title={'Developer Intern '}
-          subtitle={'TD'}
-        />
+          year={2018}
+          title={'Indigo'}
+          subtitle={'full stack developer intern'}
+        >
+          Web Apps, Performance Tools
+        </Event>
+        <Event year={2017} title={'TD'} subtitle={'developer intern'}>
+          Web Apps
+        </Event>
       </Timeline>
 
       <StyledLink to="/projects/">Go to my projects</StyledLink>
