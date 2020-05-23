@@ -17,13 +17,17 @@ const Layout = ({ children }) => (
         }
       }
     `}
-    render={data => (
+    render={(data) => (
       <>
         <Helmet
           title={data.site.siteMetadata.title}
           meta={[
-            { name: 'description', content: 'Sample' },
-            { name: 'keywords', content: 'sample, something' },
+            {
+              name: 'description',
+              content:
+                'Personal Website of Yuxiang Dai, Student at University of Toronto',
+            },
+            { name: 'keywords', content: 'yuxiang dai, yuxiang, dai' },
           ]}
         >
           <html lang="en" />
