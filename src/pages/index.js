@@ -43,13 +43,15 @@ const IndexPage = ({ data }) => (
       <AboutSection>
         <h1>about</h1>
         <p>
-          I'm Yuxiang Dai, currently an Engineering Science Student at the
-          University of Toronto majoring in Robotics Engineering where I have
-          studied various topics including software development, machine
-          learning, natural language processing, systems control and computer
-          vision. In software development, my main areas of expertise are Full
-          Stack Web Development and Mobile App Development. In my free time, I
-          enjoy participating in hackathons and extracurriculars.
+          I'm Yuxiang Dai, a recent graduate from the University of Toronto
+          where I majored in Robotics Engineering (Engineering Science). At
+          UofT, I studied various topics including software development, machine
+          learning, natural language processing, systems control, and computer
+          vision. In software development, my main areas of expertise have been
+          Full Stack Web Development and Mobile App Development. In my free time
+          I enjoy watching various sports including the NBA, F1, UFC and golf. I
+          also used to actively participate in hackathons and engineering clubs
+          as a student.
         </p>
       </AboutSection>
       <h1>experience</h1>
@@ -59,20 +61,20 @@ const IndexPage = ({ data }) => (
           title={'Mark43'}
           subtitle={'software engineering intern'}
         >
-          Web Apps
+          Web Apps for law enforcement
         </Event>
         <Event title={'Indigo'} subtitle={'mobile developer intern'}>
-          Android &amp; iOS App
+          Android &amp; iOS Apps for E-commerce, 10K+ daily users
         </Event>
         <Event
           year={2018}
           title={'Indigo'}
           subtitle={'full stack developer intern'}
         >
-          Web Apps, Performance Tools
+          Web Apps for load testing & performance monitoring
         </Event>
         <Event year={2017} title={'TD'} subtitle={'developer intern'}>
-          Web Apps
+          Web Apps for cloud architecture diagramming
         </Event>
       </Timeline>
 

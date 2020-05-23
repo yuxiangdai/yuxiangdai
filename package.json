@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "yuxiangdai",
   "description": "Personal website for Yuxiang Dai",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Yuxiang Dai <yuxiang.dai43@gmail.com>",
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.1",
     "emotion": "^10.0.14",
@@ -47,6 +47,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "url": "https://github.com/yuxiangdai/yuxiangdai/t"
   }
 }
