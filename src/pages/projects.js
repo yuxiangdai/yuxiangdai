@@ -1,13 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
 import Layout from '../components/layout'
-import styles from '../styles/projects.module.css'
 // import Image from '../components/image'
 import logo from '../images/site.png'
 import ball from '../images/ballance.png'
 import StyledLink from '../components/StyledLink'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
+import styles from '../styles/projects.module.css'
 
 const ImageContainer = styled.div`
   display: block;
@@ -20,6 +20,9 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 0px 1.0875rem 1.45rem;
   padding-top: 0;
+  display: flex;
+  max-width: 1440px;
+  justify-content: center;
 `
 
 const ProjectsPage = ({ data }) => (

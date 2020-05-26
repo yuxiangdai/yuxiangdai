@@ -10,13 +10,11 @@
     margin: 5%;
 }
 
-.container {
+/* .container {
     display: flex;
     max-width: 1440px;
-    /* align-items: center; */
     justify-content: center;
-    /* align-content: space-between; */
-}
+} */
 
 .row {
     display: flex;
