@@ -1,13 +1,13 @@
 .headerImage {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 142px;
-    width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 142px;
+  width: 50%;
 }
 
 .image {
-    margin: 5%;
+  margin: 5%;
 }
 
 /* .container {
@@ -17,21 +17,21 @@
 } */
 
 .row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 70%;
-    align-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 70%;
+  align-content: space-between;
 }
 
 .projectItem {
-    border-style: solid;
-    border-radius: 5px;
-    border-color: white;
-    border-width: 1px;
-    width: 40%;
-    padding: 20px;
-    margin: 2% 5% 5% 5%;
+  border-style: solid;
+  border-radius: 5px;
+  border-color: white;
+  border-width: 1px;
+  width: 40%;
+  padding: 20px;
+  margin: 2% 5% 5% 5%;
 }
 
 /* .projectItem:nth-of-type(odd) {
@@ -39,14 +39,14 @@
 } */
 
 h1 {
-    text-align: center
+  text-align: center;
 }
 
 h2 {
-    color: white;
-    text-align: center;
-    font-family: 'Avenir Next';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 20px;
+  color: white;
+  text-align: center;
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
 }

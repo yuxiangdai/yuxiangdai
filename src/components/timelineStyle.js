@@ -2,7 +2,7 @@ import { css } from 'emotion'
 
 export default {
   container: css`
-    font-family: 'Avenir Next', 'Open Sans', sans-serif;
+    font-family: 'Noto Sans', 'Open Sans', sans-serif;
     font-size: 1em;
     color: white;
     font-weight: 300;
@@ -22,7 +22,7 @@ export default {
     }
 
     p {
-      font-family: 'Avenir Next', 'Open Sans', sans-serif;
+      font-family: 'Noto Sans', 'Open Sans', sans-serif;
     }
   `,
   timeline: css`
