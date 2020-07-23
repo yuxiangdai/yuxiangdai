@@ -1,6 +1,4 @@
-Yuxiang Dai's Personal Website
+Yuxiang Dai
 =======
 
-Built on GatsbyJS & React using Styled Components and GraphQL
-
-Deployed with Travis CI and Github Pages
+Software Developer based in Toronto, Ontario
