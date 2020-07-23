@@ -15,8 +15,8 @@ deploy:
     branch: master
 before_script:
   - 'npm i -g gatsby'
-  - 'npm i'
+  - 'yarn install'
 script:
   - 'npm run test'
 after_success:
-  - 'npm run deploy'
+  - 'yarn run deploy'
