@@ -12,7 +12,7 @@ deploy:
   local_dir: public
   keep-history: true
   on:
-    branch: master
+    branch: source
 before_script:
   - 'npm i -g gatsby'
   - 'yarn install'
