@@ -37,6 +37,7 @@ const Header = ({ siteTitle }) => (
         <HeaderSection link="/" text="about" />
         <HeaderSection link="/projects/" text="projects" />
         <HeaderSection link="/resume/" text="resume" />
+        <HeaderSection link="/photos/" text="photography" />
         <HeaderSection link="/elsewhere/" text="elsewhere" />
       </div>
     </div>
