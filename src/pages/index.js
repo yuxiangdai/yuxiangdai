@@ -43,27 +43,33 @@ const IndexPage = ({ data }) => (
       <AboutSection>
         <h1>about</h1>
         <p>
-          I'm Yuxiang Dai, currently a Software Developer at Amazon. I am a graduate of the University of Toronto
-          where I majored in Robotics Engineering (Engineering Science). At
-          UofT, I studied various topics including software development, machine
-          learning, natural language processing, systems control, and computer
-          vision. In software development, my main areas of expertise have been
-          Full Stack Web Development and Mobile App Development. 
+          I'm Yuxiang Dai, currently a Software Developer at Amazon. I am a
+          graduate of the University of Toronto where I majored in Robotics
+          Engineering (Engineering Science). At UofT, I studied various topics
+          including software development, machine learning, natural language
+          processing, systems control, and computer vision. In software
+          development, my main areas of expertise have been Full Stack Web
+          Development and Mobile App Development.
         </p>
         <p>
-        In my free time, I enjoy watching various sports including the NBA, Formula One, and PGA Tour. I
-          also used to actively participate in hackathons and engineering clubs as a student.
+          In my free time, I enjoy watching various sports including the NBA,
+          Formula One, and PGA Tour. I also used to actively participate in
+          hackathons and engineering clubs as a student.
         </p>
       </AboutSection>
       <h1>experience</h1>
       <Timeline>
+        <Event year={2024}></Event>
+        <Event
+          year={2022}
+          title={'Amazon'}
+          subtitle={'software development engineer II'}
+        ></Event>
         <Event
           year={2020}
           title={'Amazon'}
           subtitle={'software development engineer'}
-        >
-          
-        </Event>
+        ></Event>
         <Event
           year={2019}
           title={'Mark43'}
