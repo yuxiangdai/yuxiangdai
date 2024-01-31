@@ -1,7 +1,6 @@
-dist: trusty
 language: node_js
 node_js:
-  - '14'
+  - 'node'
 cache:
   directories:
     - node_modules
