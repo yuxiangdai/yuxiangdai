@@ -149,7 +149,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        gatsbyImageData(width: 600, quality: 100, placeholder: BLURRED)
+        gatsbyImageData(width: 600, quality: 100, placeholder: NONE)
       }
     }
 
@@ -157,7 +157,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
+        gatsbyImageData(width: 300, quality: 100, placeholder: NONE)
       }
     }
 
@@ -165,7 +165,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
+        gatsbyImageData(width: 300, quality: 100, placeholder: NONE)
       }
     }
 
@@ -173,7 +173,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
+        gatsbyImageData(width: 300, quality: 100, placeholder: NONE)
       }
     }
 
@@ -181,7 +181,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
+        gatsbyImageData(width: 300, quality: 100, placeholder: NONE)
       }
     }
 
@@ -189,7 +189,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
+        gatsbyImageData(width: 300, quality: 100, placeholder: NONE)
       }
     }
   }

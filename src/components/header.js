@@ -5,9 +5,17 @@ import React from 'react'
 import * as styles from './header.module.css'
 
 const Container = styled.div`
-  background: black;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   margin-bottom: 1.45rem;
-  border-top: 4px solid #fff;
+  border-top: 2px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
 `
 
 const HeaderSection = props => (
