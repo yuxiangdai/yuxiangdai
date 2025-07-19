@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkyuxiangdai=self.webpackChunkyuxiangdai||[]).push([[480],{1812:function(e,t,r){r.r(t),r.d(t,{default:function(){return i}});var n=r(6540),a=(r(4794),r(9325));var i=()=>n.createElement(a.A,null,n.createElement("h1",null,"resume"),n.createElement("iframe",{src:"https://drive.google.com/file/d/1pLyV-JBoSXRU-M6xu7SDHmrDfegQ0Ed2/preview",width:"80%",style:{margin:"0 10%"},height:"1100px"}))}}]);
+//# sourceMappingURL=component---src-pages-resume-js-f46ba848af39728baf65.js.map
