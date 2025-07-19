@@ -6,8 +6,8 @@ import logo from '../images/site.png'
 import ball from '../images/ballance.png'
 import StyledLink from '../components/StyledLink'
 import { graphql } from 'gatsby'
-import Img from 'gatsby-image'
-import styles from '../styles/projects.module.css'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import * as styles from '../styles/projects.module.css'
 
 const ImageContainer = styled.div`
   display: block;
@@ -33,9 +33,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>yuxiangdai.com</h2>
           <ImageContainer>
-            <Img
+            <GatsbyImage
               className={styles.image}
-              fluid={data.image1.childImageSharp.fluid}
+              image={getImage(data.image1)}
+              alt="Website design"
             />
           </ImageContainer>
           <p>
@@ -50,9 +51,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>Ballance</h2>
           <ImageContainer>
-            <Img
+            <GatsbyImage
               className={styles.image}
-              fluid={data.image2.childImageSharp.fluid}
+              image={getImage(data.image2)}
+              alt="Ballance project"
             />
           </ImageContainer>
           <p>
@@ -66,9 +68,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>TellORB</h2>
           <ImageContainer>
-            <Img
+            <GatsbyImage
               className={styles.image}
-              fluid={data.tellorb.childImageSharp.fluid}
+              image={getImage(data.tellorb)}
+              alt="TellORB project"
             />
           </ImageContainer>
           <p>
@@ -85,9 +88,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>Uncanny</h2>
           <ImageContainer>
-            <Img
+            <GatsbyImage
               className={styles.image}
-              fluid={data.uncanny.childImageSharp.fluid}
+              image={getImage(data.uncanny)}
+              alt="Uncanny project"
             />
           </ImageContainer>
           <p>
@@ -103,9 +107,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>TurtleBot Projects</h2>
           <ImageContainer>
-            <Img
+            <GatsbyImage
               className={styles.image}
-              fluid={data.turtlebot3.childImageSharp.fluid}
+              image={getImage(data.turtlebot3)}
+              alt="TurtleBot project"
             />
           </ImageContainer>
           <p>
@@ -119,9 +124,10 @@ const ProjectsPage = ({ data }) => (
         <div className={styles.projectItem}>
           <h2>KUKA Robotic Arm</h2>
           <ImageContainer>
-            <Img
+            <GatsbyImage
               className={styles.image}
-              fluid={data.kuka.childImageSharp.fluid}
+              image={getImage(data.kuka)}
+              alt="KUKA robotic arm"
             />
           </ImageContainer>
           <p>
@@ -143,9 +149,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 600, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 600, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -153,9 +157,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 300, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -163,9 +165,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 300, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -173,9 +173,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 300, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -183,9 +181,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 300, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -193,9 +189,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 300, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 300, quality: 100, placeholder: BLURRED)
       }
     }
   }

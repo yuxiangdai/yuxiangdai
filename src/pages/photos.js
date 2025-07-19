@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 
 import Layout from '../components/layout'
-import Img from 'gatsby-image'
-import styles from '../styles/photos.module.css'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import * as styles from '../styles/photos.module.css'
 import { graphql } from 'gatsby'
 
 const Link = styled.a`
@@ -49,10 +49,11 @@ export default function PhotosPage({ data }) {
         <h1>photos</h1>
         <ImageContainer>
           {Object.keys(data).map((key, index) => (
-            <Img
+            <GatsbyImage
               key={index}
               className={styles.image}
-              fluid={data[key].childImageSharp.fluid}
+              image={getImage(data[key])}
+              alt={`Photo ${index + 1}`}
             />
           ))}
         </ImageContainer>
@@ -67,9 +68,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 4000, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 4000, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -77,9 +76,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 4000, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 4000, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -87,9 +84,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 4000, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 4000, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -97,9 +92,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 4000, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 4000, quality: 100, placeholder: BLURRED)
       }
     }
 
@@ -107,9 +100,7 @@ export const query = graphql`
       childImageSharp {
         # Specify the image processing specifications right in the query.
         # Makes it trivial to update as your page's design changes.
-        fluid(maxWidth: 4000, quality: 100) {
-          ...GatsbyImageSharpFluid
-        }
+        gatsbyImageData(width: 4000, quality: 100, placeholder: BLURRED)
       }
     }
   }
