@@ -3,25 +3,6 @@ module.exports = {
     title: 'Yuxiang Dai',
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-google-fonts-v2`,
-      options: {
-        fonts: [
-          {
-            family: `Source Sans Pro`,
-            variants: [`400`, `700`],
-          },
-          {
-            family: `Noto Sans`,
-            variants: [`400`, `700`],
-          },
-          {
-            family: `Roboto`,
-            subsets: [`latin`],
-          },
-        ],
-      },
-    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
@@ -33,20 +14,18 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     'gatsby-transformer-sharp',
     'gatsby-plugin-sharp',
+    'gatsby-plugin-image',
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'gatsby-starter-default',
-        short_name: 'starter',
+        name: 'Yuxiang Dai Portfolio',
+        short_name: 'Yuxiang Dai',
         start_url: '/',
         background_color: '#663399',
         theme_color: '#663399',
         display: 'minimal-ui',
-        icon: 'src/images/favicon-32x32.png', // This path is relative to the root of the site.
+        icon: 'src/images/favicon-32x32.png',
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.app/offline
-    // 'gatsby-plugin-offline',
   ],
 }
