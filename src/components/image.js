@@ -9,7 +9,7 @@ const Image = () => {
         relativePath: { eq: "Yuxiang_Signature_White.png" }
       ) {
         childImageSharp {
-          gatsbyImageData(width: 1000, quality: 100, placeholder: BLURRED)
+          gatsbyImageData(width: 1000, quality: 100, placeholder: NONE)
         }
       }
     }

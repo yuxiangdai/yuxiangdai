@@ -43,10 +43,26 @@ export const TimelineUL = styled.ul`
 
 export const EventLI = styled.li`
   position: relative;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  margin: 20px 0;
+  padding: 12px 20px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
 `
 
 export const Icon = styled.label`
-  background-color: white;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   display: block;
   margin: 0.5em 0.5em 0.5em 2.5em;
   position: absolute;
@@ -55,6 +71,8 @@ export const Icon = styled.label`
   width: 1.5em;
   height: 1.5em;
   border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
 `
 
 export const Body = styled.div`

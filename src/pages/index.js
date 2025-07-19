@@ -31,6 +31,24 @@ const StyledLink = styled(Link)`
 
 const AboutSection = styled.div`
   margin-bottom: 150px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+`
+
+const ExperienceSection = styled.div`
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  margin-bottom: 80px;
 `
 
 const IndexPage = ({ data }) => (
@@ -40,7 +58,7 @@ const IndexPage = ({ data }) => (
         <StaticImage
           src="../images/Yuxiang_Signature_White.png"
           alt="Yuxiang Dai signature"
-          placeholder="blurred"
+          placeholder="none"
           layout="constrained"
           width={500}
         />
@@ -62,13 +80,11 @@ const IndexPage = ({ data }) => (
           hackathons and engineering clubs as a student.
         </p>
       </AboutSection>
-      <h1>experience</h1>
-      <Timeline>
+      <ExperienceSection>
+        <h1>experience</h1>
+        <Timeline>
         <Event
-          year={2025}
-        ></Event>
-        <Event
-          year={2024}
+          year={'now'}
           title={'Ideogram'}
           subtitle={'member of technical staff'}
         ></Event>
@@ -102,7 +118,8 @@ const IndexPage = ({ data }) => (
         <Event year={2017} title={'TD'} subtitle={'developer intern'}>
           Web Apps for cloud architecture diagramming
         </Event>
-      </Timeline>
+        </Timeline>
+      </ExperienceSection>
 
       <StyledLink to="/projects/">Go to my projects</StyledLink>
     </Container>
