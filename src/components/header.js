@@ -2,7 +2,7 @@ import { Link } from 'gatsby'
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
-import styles from './header.module.css'
+import * as styles from './header.module.css'
 
 const Container = styled.div`
   background: black;
