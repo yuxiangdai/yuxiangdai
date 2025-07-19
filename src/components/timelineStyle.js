@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  font-family: 'Noto Sans', 'Open Sans', sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1em;
   color: white;
   font-weight: 300;
   line-height: 1.5;
-  letter-spacing: 0.05em;
+  letter-spacing: -0.01em;
   padding: 1em 0 2em 0;
 
   * {
@@ -20,7 +20,7 @@ export const Container = styled.div`
   }
 
   p {
-    font-family: 'Noto Sans', 'Open Sans', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 `
 

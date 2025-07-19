@@ -3,6 +3,15 @@ module.exports = {
     title: 'Yuxiang Dai',
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Inter:300,400,500,600,700`
+        ],
+        display: 'swap'
+      },
+    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
