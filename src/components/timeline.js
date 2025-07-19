@@ -1,21 +1,20 @@
 import React from 'react'
-
-import s from './timelineStyle'
+import { Container, TimelineUL, EventLI, Icon, Body, Year, Description } from './timelineStyle'
 
 export const Timeline = ({ children }) => (
-  <div className={s.container}>
-    <ul className={s.timeline}>{children}</ul>
-  </div>
+  <Container>
+    <TimelineUL>{children}</TimelineUL>
+  </Container>
 )
 
 export const Event = ({ title, subtitle, interval, year, children }) => (
-  <li className={s.event}>
-    <p className={s.year}>{year}</p>
-    <label className={s.icon} />
-    <div className={s.body}>
+  <EventLI>
+    <Year>{year}</Year>
+    <Icon />
+    <Body>
       <h3>{title}</h3>
       {subtitle && <h4>{subtitle}</h4>}
-      <div className={s.description}>{children}</div>
-    </div>
-  </li>
+      <Description>{children}</Description>
+    </Body>
+  </EventLI>
 )

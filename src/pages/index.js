@@ -1,9 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link, graphql } from 'gatsby'
-import Image from '../components/image'
+import { Link } from 'gatsby'
+import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
-import logo from '../images/Yuxiang_Signature_White.png'
 import { Timeline, Event } from '../components/timeline'
 
 const Container = styled.div`
@@ -38,12 +37,18 @@ const IndexPage = ({ data }) => (
   <Layout>
     <Container>
       <Logo>
-        <Image />
+        <StaticImage
+          src="../images/Yuxiang_Signature_White.png"
+          alt="Yuxiang Dai signature"
+          placeholder="blurred"
+          layout="constrained"
+          width={500}
+        />
       </Logo>
       <AboutSection>
         <h1>about</h1>
         <p>
-          I'm Yuxiang Dai, currently a Software Developer at Amazon. I am a
+          I'm Yuxiang Dai, currently a Software Developer. I am a
           graduate of the University of Toronto where I majored in Robotics
           Engineering (Engineering Science). At UofT, I studied various topics
           including software development, machine learning, natural language
@@ -59,7 +64,14 @@ const IndexPage = ({ data }) => (
       </AboutSection>
       <h1>experience</h1>
       <Timeline>
-        <Event year={2024}></Event>
+        <Event
+          year={2025}
+        ></Event>
+        <Event
+          year={2024}
+          title={'Ideogram'}
+          subtitle={'member of technical staff'}
+        ></Event>
         <Event
           year={2022}
           title={'Amazon'}
