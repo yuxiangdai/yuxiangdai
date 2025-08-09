@@ -43,9 +43,9 @@ const Header = ({ siteTitle }) => (
       </h1>
       <div className={styles.linksContainer}>
         <HeaderSection link="/" text="about" />
-        <HeaderSection link="/projects/" text="projects" />
         <HeaderSection link="/resume/" text="resume" />
         <HeaderSection link="/photos/" text="photography" />
+        <HeaderSection link="/projects/" text="projects" />
         <HeaderSection link="/elsewhere/" text="elsewhere" />
       </div>
     </div>

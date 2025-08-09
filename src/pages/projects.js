@@ -11,9 +11,7 @@ import * as styles from '../styles/projects.module.css'
 
 const ImageContainer = styled.div`
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0.8rem;
 `
 
 const Container = styled.div`
