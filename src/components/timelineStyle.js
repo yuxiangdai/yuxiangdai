@@ -3,11 +3,11 @@ import styled from 'styled-components'
 export const Container = styled.div`
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 1em;
-  color: white;
+  color: #e8e6e1;
   font-weight: 300;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
-  padding: 1em 0 2em 0;
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+  padding: 2em 0 4em 0;
 
   * {
     box-sizing: border-box;
@@ -26,83 +26,67 @@ export const Container = styled.div`
 
 export const TimelineUL = styled.ul`
   position: relative;
-  max-width: 95%;
+  max-width: 100%;
   list-style: none;
-
-  &:before {
-    background-color: white;
-    content: '';
-    margin-left: -1px;
-    position: absolute;
-    top: 0;
-    left: 5em;
-    width: 2px;
-    height: 100%;
-  }
 `
 
 export const EventLI = styled.li`
   position: relative;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 12px;
-  margin: 20px 0;
-  padding: 12px 20px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateX(4px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  }
+  margin: 2rem 0;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: flex-start;
 `
 
 export const Icon = styled.label`
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  display: block;
-  margin: 0.5em 0.5em 0.5em 2.5em;
-  position: absolute;
-  top: 2em;
-  left: 1.7em;
-  width: 1.5em;
-  height: 1.5em;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  transition: all 0.2s ease;
+  display: none;
 `
 
 export const Body = styled.div`
-  padding: 7em 2em 0 5em;
-  position: relative;
-  top: -114px;
-  left: 3em;
-  width: 95%;
+  flex: 1;
 
   h3 {
-    color: #f5a623;
-    font-size: 1.2em;
+    color: #ffffff;
+    font-size: 1.1em;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    margin: 0;
+    line-height: 1;
   }
 
   h4 {
-    font-size: 1.2em;
+    color: #d1cec9;
+    font-size: 0.9em;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.5rem;
+    margin-top: 0.2rem;
   }
 `
 
 export const Year = styled.p`
-  padding-top: 2.5em;
-  position: absolute;
+  color: #d1cec9;
+  font-size: 0.85em;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  width: 4em;
+  flex-shrink: 0;
+  margin-right: 1em;
+  line-height: 1;
+  margin-top: 0;
 `
 
 export const Description = styled.div`
+  color: #d1cec9;
+  font-size: 0.9em;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+
   strong {
-    font-weight: 700;
+    font-weight: 400;
   }
 
   p {
-    padding-bottom: 1.2em;
+    padding-bottom: 1.5em;
   }
 `

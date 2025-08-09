@@ -7,9 +7,10 @@
 }
 
 .image {
-  margin: 5%;
-  /* height: 250px; */
-  width: auto;
+  margin: 0 0 2rem 0;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
 }
 
 
