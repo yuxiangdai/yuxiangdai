@@ -18,8 +18,8 @@ const BackgroundImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: ${props => props.active ? 0.7 : 0};
-  transition: opacity 0.8s ease-in-out;
+  opacity: ${props => props.loaded ? (props.active ? 0.7 : 0) : 0};
+  transition: opacity ${props => props.loaded ? '0.8s ease-in-out' : '1.2s ease-in-out'};
   display: block;
   -webkit-mask-image:
     linear-gradient(to right, transparent, #000 8%, #000 92%, transparent),
@@ -48,14 +48,33 @@ const backgroundImages = [
 
 const BackgroundCycler = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+  const [imagesLoaded, setImagesLoaded] = useState({})
   
   useEffect(() => {
+    // Delay background loading to let signature load first
+    const loadTimer = setTimeout(() => {
+      setLoaded(true)
+    }, 1000) // Start loading backgrounds after 1 second
+    
+    return () => clearTimeout(loadTimer)
+  }, [])
+  
+  useEffect(() => {
+    if (!loaded) return
+    
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % backgroundImages.length)
     }, 3000) // Change every 3 seconds
     
     return () => clearInterval(interval)
-  }, [])
+  }, [loaded])
+  
+  const handleImageLoad = (index) => {
+    setImagesLoaded(prev => ({ ...prev, [index]: true }))
+  }
+  
+  if (!loaded) return null // Don't render until after delay
   
   return (
     <BackgroundContainer>
@@ -65,6 +84,9 @@ const BackgroundCycler = () => {
           src={image.default || image}
           alt="Background texture"
           active={index === currentIndex}
+          loaded={imagesLoaded[index]}
+          loading="lazy"
+          onLoad={() => handleImageLoad(index)}
         />
       ))}
     </BackgroundContainer>
