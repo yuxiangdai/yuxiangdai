@@ -7,14 +7,133 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(180deg, #000000 0%, #000000 16%, transparent 40%),
-    radial-gradient(circle at 30% 30%, rgba(255, 60, 60, 0.25) 0%, transparent 45%),
-    radial-gradient(circle at 70% 40%, rgba(255, 180, 50, 0.25) 0%, transparent 45%),
-    radial-gradient(circle at 40% 70%, rgba(160, 80, 255, 0.25) 0%, transparent 50%),
-    radial-gradient(circle at 60% 60%, rgba(80, 150, 255, 0.25) 0%, transparent 50%),
+    linear-gradient(180deg, #0a0a0a 0%, #1a0e1a 20%, transparent 50%),
+    radial-gradient(ellipse at 20% 30%, rgba(138, 43, 226, 0.15) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(186, 85, 211, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 30% 80%, rgba(75, 0, 130, 0.18) 0%, transparent 65%),
+    radial-gradient(ellipse at 70% 70%, rgba(221, 160, 221, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.03) 0%, transparent 20%),
+    radial-gradient(circle at 85% 25%, rgba(255, 255, 255, 0.02) 0%, transparent 15%),
+    radial-gradient(circle at 25% 75%, rgba(255, 255, 255, 0.025) 0%, transparent 18%),
+    radial-gradient(circle at 75% 85%, rgba(255, 255, 255, 0.03) 0%, transparent 22%),
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.015) 0%, transparent 12%),
     #0a0a0a;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: var(--stars-display, block);
+  background-image:
+    radial-gradient(1.5px 1.5px at 12px 18px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 43px 67px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 78px 23px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 124px 89px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 156px 45px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 189px 12px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 234px 78px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 267px 34px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 298px 91px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 334px 56px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 21px 94px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 67px 8px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 98px 73px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 142px 29px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 176px 84px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 213px 51px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 245px 7px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 289px 62px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 318px 38px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 356px 95px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 38px 26px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 84px 81px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 113px 47px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 159px 3px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 194px 68px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 228px 24px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 271px 79px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 305px 15px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 342px 70px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 5px 55px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 52px 11px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 87px 96px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 126px 62px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 167px 18px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 203px 83px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 251px 39px, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(1px 1px at 286px 4px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(2px 2px at 323px 87px, rgba(255, 255, 255, 0.8), transparent),
+    radial-gradient(1px 1px at 360px 53px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 29px 76px, rgba(255, 255, 255, 0.9), transparent);
+  background-repeat: repeat;
+  background-size: 400px 200px;
+  animation: twinkle1 45s infinite;
+}
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  display: var(--stars-display, block);
+  background-image:
+    radial-gradient(1px 1px at 17px 32px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(0.8px 0.8px at 46px 71px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.2px 1.2px at 89px 14px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 132px 58px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(0.8px 0.8px at 167px 85px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.2px 1.2px at 201px 41px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 248px 27px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(0.8px 0.8px at 283px 73px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.2px 1.2px at 329px 6px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 8px 92px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(0.8px 0.8px at 61px 48px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.2px 1.2px at 104px 79px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 149px 21px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(0.8px 0.8px at 192px 67px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.2px 1.2px at 225px 93px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 264px 54px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(0.8px 0.8px at 307px 19px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.2px 1.2px at 351px 84px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 35px 63px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(0.8px 0.8px at 76px 36px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.2px 1.2px at 119px 2px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 158px 88px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(0.8px 0.8px at 217px 44px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.2px 1.2px at 256px 77px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 298px 33px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(0.8px 0.8px at 339px 99px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.2px 1.2px at 23px 52px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 68px 16px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(0.8px 0.8px at 107px 91px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1.2px 1.2px at 146px 37px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1px 1px at 187px 74px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(0.8px 0.8px at 231px 9px, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1.2px 1.2px at 276px 65px, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 314px 42px, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(0.8px 0.8px at 359px 81px, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1px 1px at 41px 25px, rgba(186, 85, 211, 0.3), transparent),
+    radial-gradient(0.8px 0.8px at 93px 59px, rgba(138, 43, 226, 0.4), transparent),
+    radial-gradient(1px 1px at 151px 95px, rgba(221, 160, 221, 0.3), transparent),
+    radial-gradient(0.8px 0.8px at 209px 31px, rgba(186, 85, 211, 0.4), transparent),
+    radial-gradient(1px 1px at 273px 86px, rgba(138, 43, 226, 0.3), transparent),
+    radial-gradient(0.8px 0.8px at 326px 47px, rgba(221, 160, 221, 0.4), transparent);
+  background-repeat: repeat;
+  background-size: 380px 180px;
+  animation: twinkle2 60s infinite;
 }
 
 
@@ -744,6 +863,142 @@ pre code:after,
 pre tt:before,
 pre tt:after {
   content: '';
+}
+
+@keyframes twinkle1 {
+  0% { opacity: 1; }
+  15% { opacity: 0.4; }
+  25% { opacity: 0.8; }
+  35% { opacity: 0.2; }
+  50% { opacity: 0.9; }
+  65% { opacity: 0.3; }
+  75% { opacity: 0.7; }
+  85% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@keyframes twinkle2 {
+  0% { opacity: 0.6; }
+  12% { opacity: 0.9; }
+  28% { opacity: 0.2; }
+  40% { opacity: 0.8; }
+  55% { opacity: 0.3; }
+  68% { opacity: 1; }
+  78% { opacity: 0.4; }
+  90% { opacity: 0.7; }
+  100% { opacity: 0.6; }
+}
+
+/* Hide stars on photography page */
+body:has([class*="PhotosPageWrapper"]) {
+  --stars-display: none;
+}
+
+/* Hide stars in lightboxes and modals */
+body:has([class*="Lightbox"][style*="visible"]) {
+  --stars-display: none;
+}
+
+body:has([class*="lightbox"]) {
+  --stars-display: none;
+}
+
+body:has([class*="modal"]) {
+  --stars-display: none;
+}
+
+body:has([class*="Modal"]) {
+  --stars-display: none;
+}
+
+/* Hide stars when overlay elements are present */
+body:has([style*="position: fixed"][style*="z-index"]) {
+  --stars-display: none;
+}
+
+body:has([style*="position: absolute"][style*="z-index"]) {
+  --stars-display: none;
+}
+
+/* Hide stars when any overlay with high z-index is present */
+body:has([style*="z-index: 1000"]) {
+  --stars-display: none;
+}
+
+body:has([style*="z-index: 999"]) {
+  --stars-display: none;
+}
+
+body:has([style*="z-index: 100"]) {
+  --stars-display: none;
+}
+
+/* Hide stars when background overlay is present */
+body:has([style*="background: rgba"][style*="position: fixed"]) {
+  --stars-display: none;
+}
+
+/* Hide stars when any dark overlay is present */
+body:has([style*="background-color: rgba(0, 0, 0"]) {
+  --stars-display: none;
+}
+
+/* Catch-all for overlays */
+body:has([class*="overlay"]) {
+  --stars-display: none;
+}
+
+body:has([class*="Overlay"]) {
+  --stars-display: none;
+}
+
+body:has([id*="modal"]) {
+  --stars-display: none;
+}
+
+body:has([id*="Modal"]) {
+  --stars-display: none;
+}
+
+body:has([id*="overlay"]) {
+  --stars-display: none;
+}
+
+body:has([id*="popup"]) {
+  --stars-display: none;
+}
+
+/* Class-based star hiding for programmatic control */
+body.hide-stars,
+body.modal-open,
+body.overlay-open {
+  --stars-display: none;
+}
+
+/* Hide stars when body overflow is hidden (common with modals) */
+body[style*="overflow: hidden"] {
+  --stars-display: none;
+}
+
+/* More comprehensive modal detection */
+*[style*="position: fixed"][style*="top: 0"][style*="left: 0"][style*="width: 100"] ~ body::before,
+*[style*="position: fixed"][style*="top: 0"][style*="left: 0"][style*="width: 100"] ~ body::after {
+  display: none !important;
+}
+
+/* Alternative approach - look for common modal patterns in the DOM */
+div[style*="position: fixed"][style*="z-index"]:not([style*="z-index: 1"]):not([style*="z-index: 2"]) ~ * body::before,
+div[style*="position: fixed"][style*="z-index"]:not([style*="z-index: 1"]):not([style*="z-index: 2"]) ~ * body::after {
+  display: none !important;
+}
+
+/* Additional fallback - force hide stars on any high z-index element */
+body:has(> *[style*="z-index: 100"]),
+body:has(> *[style*="z-index: 200"]),
+body:has(> *[style*="z-index: 999"]),
+body:has(> *[style*="z-index: 1000"]),
+body:has(> *[style*="z-index: 9999"]) {
+  --stars-display: none !important;
 }
 
 @media only screen and (max-width: 480px) {
