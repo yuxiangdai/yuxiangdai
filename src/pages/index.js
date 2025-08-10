@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import { Timeline, Event } from '../components/timeline'
+import BackgroundCycler from '../components/BackgroundCycler'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -19,6 +20,14 @@ const Logo = styled.div`
   margin-bottom: 10rem;
   width: 40%;
   opacity: 0.9;
+  position: relative;
+`
+
+
+const SignatureLayer = styled.div`
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 `
 
 
@@ -44,13 +53,16 @@ const IndexPage = () => (
   <Layout>
     <Container>
       <Logo>
-        <StaticImage
-          src="../images/Yuxiang_Signature_White.png"
-          alt="Yuxiang Dai signature"
-          placeholder="none"
-          layout="constrained"
-          width={500}
-        />
+        <BackgroundCycler />
+        <SignatureLayer>
+          <StaticImage
+            src="../images/Yuxiang_Signature_White.png"
+            alt="Yuxiang Dai signature"
+            placeholder="none"
+            layout="constrained"
+            width={500}
+          />
+        </SignatureLayer>
       </Logo>
       <AboutSection>
         <h1>about</h1>
