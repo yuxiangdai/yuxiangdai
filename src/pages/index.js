@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import { Timeline, Event } from '../components/timeline'
-import BackgroundCycler from '../components/BackgroundCycler'
 
 const Container = styled.div`
   margin: 0 auto;
@@ -53,7 +52,6 @@ const IndexPage = () => (
   <Layout>
     <Container>
       <Logo>
-        <BackgroundCycler />
         <SignatureLayer>
           <StaticImage
             src="../images/Yuxiang_Signature_White.png"
