@@ -5,12 +5,12 @@ import React from 'react'
 import * as styles from './header.module.css'
 
 const Container = styled.div`
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(10, 11, 14, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   margin-bottom: 1.45rem;
-  border-top: 2px solid rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 2px solid rgba(80, 130, 200, 0.15);
+  border-bottom: 1px solid rgba(100, 160, 230, 0.08);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   position: sticky;
   top: 0;

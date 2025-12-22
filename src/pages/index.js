@@ -3,12 +3,23 @@ import styled from 'styled-components'
 import { StaticImage } from 'gatsby-plugin-image'
 import Layout from '../components/layout'
 import { Timeline, Event } from '../components/timeline'
+import MilkyWayBackground from '../components/MilkyWayBackground'
 
 const Container = styled.div`
   margin: 0 auto;
   max-width: 800px;
   padding: 0 2rem 4rem;
   padding-top: 0;
+`
+
+const HeroSection = styled.div`
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
 `
 
 const Logo = styled.div`
@@ -20,6 +31,7 @@ const Logo = styled.div`
   width: 40%;
   opacity: 0.9;
   position: relative;
+  z-index: 1;
 `
 
 
@@ -50,25 +62,36 @@ const ExperienceSection = styled.div`
 
 const IndexPage = () => (
   <Layout>
+    <HeroSection>
+      <MilkyWayBackground
+        starDensity={1200}
+        bandStrength={0.8}
+        twinkleSpeed={0.6}
+        driftSpeed={0.5}
+        maxDpr={1.5}
+      />
+      <Container>
+        <Logo>
+          <SignatureLayer>
+            <StaticImage
+              src="../images/Yuxiang_Signature_White.png"
+              alt="Yuxiang Dai signature"
+              placeholder="none"
+              layout="constrained"
+              width={500}
+            />
+          </SignatureLayer>
+        </Logo>
+      </Container>
+    </HeroSection>
     <Container>
-      <Logo>
-        <SignatureLayer>
-          <StaticImage
-            src="../images/Yuxiang_Signature_White.png"
-            alt="Yuxiang Dai signature"
-            placeholder="none"
-            layout="constrained"
-            width={500}
-          />
-        </SignatureLayer>
-      </Logo>
       <AboutSection>
         <h1>about</h1>
         <p>
-          I currently work on generative AI products at Ideogram.
+          I currently work at Symbolica AI.
         </p>
         <p>
-          I was previously working on Supply Chain Forecasting at Amazon.
+          I was previously working on generative AI products at Ideogram and Supply Chain Forecasting at Amazon.
         </p>
         <p>
           I studied Robotics Engineering at the University of Toronto's Engineering Science program.
@@ -82,6 +105,11 @@ const IndexPage = () => (
         <Timeline>
           <Event
             year={'now'}
+            title={'Symbolica AI'}
+            subtitle={'member of technical staff'}
+          ></Event>
+          <Event
+            year={2024}
             title={'Ideogram'}
             subtitle={'member of technical staff'}
           ></Event>
@@ -117,7 +145,6 @@ const IndexPage = () => (
           </Event>
         </Timeline>
       </ExperienceSection>
-
     </Container>
   </Layout>
 )
