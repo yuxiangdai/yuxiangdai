@@ -25,8 +25,8 @@ const Container = styled.div`
 
 const ProjectsPage = ({ data }) => (
   <Layout>
-    <h1 className={styles.headerText}>projects</h1>
-    <Container className={styles.container}>
+    <h1>projects</h1>
+    <Container>
       <div className={styles.row}>
         <div className={styles.projectItem}>
           <h2>yuxiangdai.com</h2>

@@ -2,6 +2,12 @@
   padding: 28px 5% 16px 5%;
 }
 
+@media (max-width: 768px) {
+  .headerContainer {
+    padding: 12px 4% 10px 4%;
+  }
+}
+
 .linksContainer {
   margin: 0 0 0 auto;
 }
@@ -14,6 +20,12 @@
   font-size: 36px;
   text-transform: lowercase;
   letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 24px;
+  }
 }
 
 .headerText {
@@ -32,4 +44,11 @@
   float: left;
   margin: 12px 0px 0px 34px;
   letter-spacing: -0.01em;
+}
+
+@media (max-width: 768px) {
+  .links {
+    font-size: 16px;
+    margin: 8px 0px 0px 16px;
+  }
 }

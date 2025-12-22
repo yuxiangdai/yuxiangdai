@@ -11,16 +11,24 @@ const Container = styled.div`
   max-width: 800px;
   padding: 0 2rem 4rem;
   padding-top: 0;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem 3rem;
+  }
 `
 
 const HeroSection = styled.div`
   position: relative;
   overflow: hidden;
   min-height: 100vh;
+  margin-top: -1.45rem;
   margin-left: -2rem;
   margin-right: -2rem;
   padding-left: 2rem;
   padding-right: 2rem;
+  z-index: 0;
 `
 
 const Logo = styled.div`
@@ -33,6 +41,12 @@ const Logo = styled.div`
   opacity: 0.9;
   position: relative;
   z-index: 1;
+
+  @media (max-width: 768px) {
+    margin-top: 4rem;
+    margin-bottom: 6rem;
+    width: 70%;
+  }
 `
 
 
@@ -47,18 +61,28 @@ const AboutSection = styled.div`
   margin-bottom: 8rem;
   padding-bottom: 4rem;
   border-bottom: 1px solid rgba(184, 181, 176, 0.15);
-  
+
   p {
     color: #e8e6e1;
     font-size: 0.9rem;
     line-height: 1.6;
     margin-bottom: 1.2rem;
   }
+
+  @media (max-width: 768px) {
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+  }
 `
 
 const ExperienceSection = styled.div`
   margin-bottom: 8rem;
   padding-top: 2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 4rem;
+    padding-top: 1rem;
+  }
 `
 
 const IndexPage = () => (
