@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { StaticImage } from 'gatsby-plugin-image'
+import { Link } from 'gatsby'
 import Layout from '../components/layout'
 import { Timeline, Event } from '../components/timeline'
 import MilkyWayBackground from '../components/MilkyWayBackground'
@@ -97,7 +98,7 @@ const IndexPage = () => (
           I studied Robotics Engineering at the University of Toronto's Engineering Science program.
         </p>
         <p>
-          Outside of work, I enjoy photography, hiking, classical music and visiting art museums.
+          Outside of work, I enjoy <Link to="/photos/" style={{ color: '#5a9fd4', textDecoration: 'none', borderBottom: '1px solid rgba(90, 159, 212, 0.3)', transition: 'border-color 0.2s ease' }}>photography</Link>, hiking, classical music and visiting art museums.
         </p>
       </AboutSection>
       <ExperienceSection>
@@ -106,7 +107,7 @@ const IndexPage = () => (
           <Event
             year={'now'}
             title={'Symbolica AI'}
-            subtitle={'member of technical staff'}
+            subtitle={'software engineer'}
           ></Event>
           <Event
             year={2024}
@@ -114,35 +115,10 @@ const IndexPage = () => (
             subtitle={'member of technical staff'}
           ></Event>
           <Event
-            year={2022}
-            title={'Amazon'}
-            subtitle={'software development engineer II'}
-          ></Event>
-          <Event
             year={2020}
             title={'Amazon'}
             subtitle={'software development engineer'}
           ></Event>
-          <Event
-            year={2019}
-            title={'Mark43'}
-            subtitle={'software engineering intern'}
-          >
-            Web Apps for law enforcement
-          </Event>
-          <Event title={'Indigo'} subtitle={'mobile developer intern'}>
-            Android &amp; iOS Apps for E-commerce, 10K+ daily users
-          </Event>
-          <Event
-            year={2018}
-            title={'Indigo'}
-            subtitle={'full stack developer intern'}
-          >
-            Web Apps for load testing & performance monitoring
-          </Event>
-          <Event year={2017} title={'TD'} subtitle={'developer intern'}>
-            Web Apps for cloud architecture diagramming
-          </Event>
         </Timeline>
       </ExperienceSection>
     </Container>
