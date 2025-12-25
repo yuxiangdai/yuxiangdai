@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Yuxiang Dai',
     description:
-      'Personal website of Yuxiang Dai, software engineer and University of Toronto alumnus.',
+      'Software engineer at Symbolica AI, previously at Ideogram and Amazon. Robotics Engineering alum at the University of Toronto.',
     siteUrl: 'https://yuxiangdai.com',
     author: 'Yuxiang Dai',
   },

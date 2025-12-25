@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
+import Helmet from 'react-helmet'
 
 import Layout from '../components/layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import { graphql } from 'gatsby'
+import { graphql, useStaticQuery } from 'gatsby'
 
 const PhotosPageWrapper = styled.div`
   background: #0a0a0a;
@@ -192,6 +193,19 @@ const CountdownText = styled.span`
 
 
 export default function PhotosPage({ data }) {
+  const siteData = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+          siteUrl
+        }
+      }
+    }
+  `)
+
+  const siteMetadata = siteData.site.siteMetadata
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [lightboxImage, setLightboxImage] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -322,6 +336,35 @@ export default function PhotosPage({ data }) {
   return (
     <PhotosPageWrapper>
       <Layout>
+        <Helmet
+          title="Photography"
+          meta={[
+            {
+              name: 'description',
+              content:
+                'Photography by Yuxiang Dai, featuring landscapes and travel imagery.',
+            },
+          ]}
+        >
+          <link rel="canonical" href={`${siteMetadata.siteUrl}/photos/`} />
+          <script type="application/ld+json">
+            {JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              name: 'Photography',
+              url: `${siteMetadata.siteUrl}/photos/`,
+              description:
+                'Photography by Yuxiang Dai, featuring landscapes and travel imagery.',
+              isPartOf: {
+                '@type': 'WebSite',
+                name: siteMetadata.title,
+                url: siteMetadata.siteUrl,
+                description: siteMetadata.description,
+              },
+            })}
+          </script>
+        </Helmet>
+        <h1 className="sr-only">Photography</h1>
         <GalleryContainer
           className="gallery-container"
         >

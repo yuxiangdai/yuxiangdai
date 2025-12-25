@@ -51,15 +51,24 @@ const Layout = ({ children }) => (
           <html lang="en" />
           <link rel="canonical" href={data.site.siteMetadata.siteUrl} />
           <script type="application/ld+json">
-            {JSON.stringify({
-              '@context': 'https://schema.org',
-              '@type': 'Person',
-              name: data.site.siteMetadata.author,
-              url: data.site.siteMetadata.siteUrl,
-              description: data.site.siteMetadata.description,
-              jobTitle: 'Software Engineer',
-              alumniOf: 'University of Toronto',
-            })}
+            {JSON.stringify([
+              {
+                '@context': 'https://schema.org',
+                '@type': 'Person',
+                name: data.site.siteMetadata.author,
+                url: data.site.siteMetadata.siteUrl,
+                description: data.site.siteMetadata.description,
+                jobTitle: 'Software Engineer',
+                alumniOf: 'University of Toronto',
+              },
+              {
+                '@context': 'https://schema.org',
+                '@type': 'WebSite',
+                name: data.site.siteMetadata.title,
+                url: data.site.siteMetadata.siteUrl,
+                description: data.site.siteMetadata.description,
+              },
+            ])}
           </script>
         </Helmet>
         <Header siteTitle={data.site.siteMetadata.title} />
