@@ -9,10 +9,13 @@ import './layout.css'
 const Layout = ({ children }) => (
   <StaticQuery
     query={graphql`
-      query SiteTitleQuery {
+      query SiteMetadataQuery {
         site {
           siteMetadata {
             title
+            description
+            siteUrl
+            author
           }
         }
       }
@@ -21,19 +24,46 @@ const Layout = ({ children }) => (
       <>
         <Helmet
           title={data.site.siteMetadata.title}
+          titleTemplate={`%s | ${data.site.siteMetadata.title}`}
           meta={[
             {
               name: 'description',
-              content:
-                'Personal Website of Yuxiang Dai, Student at University of Toronto',
+              content: data.site.siteMetadata.description,
             },
-            { name: 'keywords', content: 'yuxiang dai, yuxiang, dai' },
+            { name: 'keywords', content: 'yuxiang dai, software engineer, portfolio' },
+            { name: 'robots', content: 'index,follow' },
+            { property: 'og:site_name', content: data.site.siteMetadata.title },
+            { property: 'og:type', content: 'website' },
+            { property: 'og:title', content: data.site.siteMetadata.title },
+            {
+              property: 'og:description',
+              content: data.site.siteMetadata.description,
+            },
+            { property: 'og:url', content: data.site.siteMetadata.siteUrl },
+            { name: 'twitter:card', content: 'summary' },
+            { name: 'twitter:title', content: data.site.siteMetadata.title },
+            {
+              name: 'twitter:description',
+              content: data.site.siteMetadata.description,
+            },
           ]}
         >
           <html lang="en" />
+          <link rel="canonical" href={data.site.siteMetadata.siteUrl} />
+          <script type="application/ld+json">
+            {JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Person',
+              name: data.site.siteMetadata.author,
+              url: data.site.siteMetadata.siteUrl,
+              description: data.site.siteMetadata.description,
+              jobTitle: 'Software Engineer',
+              alumniOf: 'University of Toronto',
+            })}
+          </script>
         </Helmet>
         <Header siteTitle={data.site.siteMetadata.title} />
-        <div
+        <main
           className="body"
           style={{
             margin: '0 auto',
@@ -45,7 +75,7 @@ const Layout = ({ children }) => (
           }}
         >
           {children}
-        </div>
+        </main>
       </>
     )}
   />

@@ -1,6 +1,10 @@
 module.exports = {
   siteMetadata: {
     title: 'Yuxiang Dai',
+    description:
+      'Personal website of Yuxiang Dai, software engineer and University of Toronto alumnus.',
+    siteUrl: 'https://yuxiangdai.com',
+    author: 'Yuxiang Dai',
   },
   plugins: [
     {
