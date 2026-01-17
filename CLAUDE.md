@@ -15,6 +15,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ### Deployment
 - `npm run deploy` - Build and deploy to GitHub Pages using gh-pages
+- **CI/CD**: GitHub Actions auto-deploys on push to `source` branch (see `.github/workflows/deploy.yml`)
+- **Branch strategy**: `source` is the main development branch; `master`/`gh-pages` is for deployed output
 
 ## Architecture
 
@@ -39,9 +41,9 @@ This is a personal portfolio website built with **Gatsby 5** and **React 18**, u
 - `gatsby-config.js` - Gatsby configuration with plugins
 
 ### Key Components
-- **Timeline Component**: Custom timeline for displaying work experience with years, titles, and descriptions
-- **Layout Component**: Uses StaticQuery for site metadata and provides consistent page structure
-- **styled-components**: Consistent styling approach throughout the site
+- **Layout Component**: Uses StaticQuery for site metadata, includes Header and provides consistent page structure with SEO via react-helmet
+- **Timeline Component** (`timeline.js` + `timelineStyle.js`): Displays work experience with years, titles, and descriptions using styled-components
+- **MilkyWayBackground**: Animated canvas-based starry background with configurable star density, twinkle effects, and drift animation
 
 ### Styling Approach
 - Primary styling via styled-components for component-level styles
