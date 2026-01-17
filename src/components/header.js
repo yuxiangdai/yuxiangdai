@@ -1,51 +1,115 @@
 import { Link } from 'gatsby'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
-import * as styles from './header.module.css'
+import { theme } from '../styles/tokens'
 
-const Container = styled.div`
-  background: rgba(10, 11, 14, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(100, 160, 230, 0.08);
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 `
 
-const HeaderSection = props => (
-  <h2 className={styles.links}>
-    <Link to={props.link} className={styles.headerText}>
-      {props.text}
-    </Link>
-  </h2>
-)
+const Container = styled.header`
+  background: rgba(10, 11, 14, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: ${theme.zIndex.nav};
+
+  /* Entrance animation */
+  animation: ${fadeIn} 0.6s ${theme.motion.easing} forwards;
+`
+
+const HeaderInner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: ${theme.layout.maxWidthWide};
+  margin: 0 auto;
+  padding: ${theme.space[4]}px ${theme.space[5]}px;
+
+  @media (max-width: 768px) {
+    padding: ${theme.space[3]}px ${theme.space[4]}px;
+  }
+`
+
+const SiteTitle = styled(Link)`
+  font-family: ${theme.fonts.body};
+  font-style: italic;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: ${theme.colors.text};
+  text-decoration: none;
+  transition: color ${theme.motion.duration} ${theme.motion.easing};
+
+  &:hover {
+    color: ${theme.colors.textMuted};
+  }
+`
+
+const Nav = styled.nav`
+  display: flex;
+  align-items: center;
+  gap: ${theme.space[5]}px;
+
+  @media (max-width: 768px) {
+    gap: ${theme.space[4]}px;
+  }
+`
+
+const NavLink = styled.a`
+  font-family: ${theme.fonts.body};
+  font-size: ${theme.typography.small.size};
+  font-weight: 400;
+  color: ${theme.colors.textMuted};
+  text-decoration: none;
+  transition: color ${theme.motion.duration} ${theme.motion.easing};
+
+  &:hover {
+    color: ${theme.colors.text};
+  }
+
+  &:focus {
+    outline: 2px solid ${theme.colors.accent};
+    outline-offset: 4px;
+  }
+`
+
+const NavLinkGatsby = styled(Link)`
+  font-family: ${theme.fonts.body};
+  font-size: ${theme.typography.small.size};
+  font-weight: 400;
+  color: ${theme.colors.textMuted};
+  text-decoration: none;
+  transition: color ${theme.motion.duration} ${theme.motion.easing};
+
+  &:hover {
+    color: ${theme.colors.text};
+  }
+
+  &:focus {
+    outline: 2px solid ${theme.colors.accent};
+    outline-offset: 4px;
+  }
+`
 
 const Header = ({ siteTitle }) => (
   <Container>
-    <div
-      className={styles.headerContainer}
-      style={{
-        display: 'flex',
-        margin: '0 auto',
-        'justify-content': 'flex-end',
-      }}
-    >
-      <h1 className={styles.title}>
-        <Link to="/" className={styles.headerText}>
-          {siteTitle}
-        </Link>
-      </h1>
-      <div className={styles.linksContainer}>
-        <HeaderSection link="/" text="about" />
-        <HeaderSection link="/resume/" text="resume" />
-        <HeaderSection link="/photos/" text="photography" />
-        <HeaderSection link="/projects/" text="projects" />
-        <HeaderSection link="/elsewhere/" text="elsewhere" />
-      </div>
-    </div>
+    <HeaderInner>
+      <SiteTitle to="/#hero">{siteTitle}</SiteTitle>
+      <Nav>
+        <NavLink href="/#work">Work</NavLink>
+        <NavLink href="/#photography">Photography</NavLink>
+        <NavLink href="/#about">About</NavLink>
+        <NavLinkGatsby to="/resume/">Resume</NavLinkGatsby>
+      </Nav>
+    </HeaderInner>
   </Container>
 )
 

@@ -1,13 +1,14 @@
 import styled from 'styled-components'
+import { theme } from '../styles/tokens'
 
 export const Container = styled.div`
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: ${theme.fonts.body};
   font-size: 1em;
-  color: #e8e6e1;
-  font-weight: 300;
+  color: ${theme.colors.text};
+  font-weight: 400;
   line-height: 1.8;
   letter-spacing: 0.02em;
-  padding: 2em 0 4em 0;
+  padding: 1em 0 2em 0;
 
   * {
     box-sizing: border-box;
@@ -20,7 +21,7 @@ export const Container = styled.div`
   }
 
   p {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: ${theme.fonts.body};
   }
 `
 
@@ -32,8 +33,8 @@ export const TimelineUL = styled.ul`
 
 export const EventLI = styled.li`
   position: relative;
-  margin: 2rem 0;
-  padding: 0.75rem 1.25rem;
+  margin: 1.5rem 0;
+  padding: 0.5rem 0;
   display: flex;
   align-items: flex-start;
 `
@@ -46,44 +47,47 @@ export const Body = styled.div`
   flex: 1;
 
   h3 {
-    color: #ffffff;
-    font-size: 1.1em;
-    font-weight: 400;
-    letter-spacing: 0.02em;
+    color: ${theme.colors.text};
+    font-family: ${theme.fonts.body};
+    font-size: 1.05em;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     margin: 0;
-    line-height: 1;
+    line-height: 1.2;
   }
 
   h4 {
-    color: #d1cec9;
+    color: ${theme.colors.textMuted};
+    font-family: ${theme.fonts.body};
     font-size: 0.9em;
-    font-weight: 300;
-    letter-spacing: 0.03em;
+    font-weight: 400;
+    letter-spacing: 0.02em;
     margin-bottom: 0.5rem;
-    margin-top: 0.2rem;
+    margin-top: 0.25rem;
   }
 `
 
 export const Year = styled.p`
-  color: #d1cec9;
+  color: ${theme.colors.textMuted};
+  font-family: ${theme.fonts.body};
   font-size: 0.85em;
-  font-weight: 300;
-  letter-spacing: 0.05em;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   width: 4em;
   flex-shrink: 0;
-  margin-right: 1em;
-  line-height: 1;
+  margin-right: 1.5em;
+  line-height: 1.2;
   margin-top: 0;
 `
 
 export const Description = styled.div`
-  color: #d1cec9;
+  color: ${theme.colors.textMuted};
   font-size: 0.9em;
-  line-height: 1.7;
+  line-height: 1.6;
   letter-spacing: 0.01em;
 
   strong {
-    font-weight: 400;
+    font-weight: 500;
   }
 
   p {

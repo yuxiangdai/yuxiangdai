@@ -20,32 +20,22 @@ const Layout = ({ children }) => (
     render={(data) => (
       <>
         <Helmet
-          title={data.site.siteMetadata.title}
+          title={"data.site.siteMetadata.title"}
           meta={[
             {
               name: 'description',
               content:
-                'Personal Website of Yuxiang Dai, Student at University of Toronto',
+                'Yuxiang Dai - Senior software engineer working on systems, agents, and thoughtful tools. San Francisco.',
             },
-            { name: 'keywords', content: 'yuxiang dai, yuxiang, dai' },
+            { name: 'keywords', content: 'yuxiang dai, software engineer, ai, symbolica' },
           ]}
         >
           <html lang="en" />
         </Helmet>
-        <Header siteTitle={data.site.siteMetadata.title} />
-        <div
-          className="body"
-          style={{
-            margin: '0 auto',
-            // maxWidth: 960,
-            padding: '0px 1.0875rem 1.45rem',
-            paddingTop: '1.45rem',
-            position: 'relative',
-            zIndex: 10,
-          }}
-        >
+        <Header siteTitle="yuxiang dai" />
+        <main>
           {children}
-        </div>
+        </main>
       </>
     )}
   />
