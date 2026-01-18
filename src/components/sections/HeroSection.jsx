@@ -53,12 +53,14 @@ const Name = styled.h1`
   margin: 0 0 ${theme.space[4]}px 0;
   overflow: hidden;
   padding-bottom: 0.1em;
+  cursor: default;
 `
 
 const NameChar = styled.span`
   display: inline-block;
   opacity: 0;
   transform: translateY(100%);
+  will-change: transform;
 `
 
 const Subtitle = styled.p`
@@ -335,6 +337,96 @@ const HeroSection = () => {
 
     return () => {
       entranceTl.kill()
+    }
+  }, [])
+
+  // Ripple hover effect on name
+  useEffect(() => {
+    const nameEl = nameRef.current
+    const chars = nameCharsRef.current.filter(Boolean)
+    if (!nameEl || chars.length === 0) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
+    let isHovering = false
+    let rafId = null
+
+    const handleMouseMove = (e) => {
+      if (!isHovering) return
+
+      const rect = nameEl.getBoundingClientRect()
+      const mouseX = e.clientX - rect.left
+
+      // Find closest character index based on mouse X position
+      let closestIndex = 0
+      let closestDist = Infinity
+
+      chars.forEach((char, i) => {
+        if (!char) return
+        const charRect = char.getBoundingClientRect()
+        const charCenter = charRect.left + charRect.width / 2 - rect.left
+        const dist = Math.abs(mouseX - charCenter)
+        if (dist < closestDist) {
+          closestDist = dist
+          closestIndex = i
+        }
+      })
+
+      // Cancel any pending animation frame
+      if (rafId) cancelAnimationFrame(rafId)
+
+      // Use RAF to batch animations
+      rafId = requestAnimationFrame(() => {
+        if (!isHovering) return // Double-check we're still hovering
+
+        // Animate each character based on distance from closest
+        chars.forEach((char, i) => {
+          if (!char) return
+          const distance = Math.abs(i - closestIndex)
+          const delay = distance * 0.02
+          const yOffset = Math.max(0, 6 - distance * 1.5) * -1 // Closer = more lift
+
+          gsap.to(char, {
+            y: yOffset,
+            duration: 0.25,
+            delay,
+            ease: 'power2.out',
+            overwrite: true,
+          })
+        })
+      })
+    }
+
+    const handleMouseEnter = () => {
+      isHovering = true
+    }
+
+    const handleMouseLeave = () => {
+      isHovering = false
+      if (rafId) cancelAnimationFrame(rafId)
+
+      // Kill all ongoing animations and reset all characters
+      chars.forEach((char) => {
+        if (!char) return
+        gsap.killTweensOf(char)
+        gsap.to(char, {
+          y: 0,
+          duration: 0.4,
+          ease: 'power2.out',
+        })
+      })
+    }
+
+    nameEl.addEventListener('mouseenter', handleMouseEnter)
+    nameEl.addEventListener('mousemove', handleMouseMove)
+    nameEl.addEventListener('mouseleave', handleMouseLeave)
+
+    return () => {
+      nameEl.removeEventListener('mouseenter', handleMouseEnter)
+      nameEl.removeEventListener('mousemove', handleMouseMove)
+      nameEl.removeEventListener('mouseleave', handleMouseLeave)
+      if (rafId) cancelAnimationFrame(rafId)
     }
   }, [])
 
