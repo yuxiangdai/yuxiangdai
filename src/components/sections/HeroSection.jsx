@@ -1,27 +1,7 @@
-import React from 'react'
-import styled, { keyframes } from 'styled-components'
+import React, { useEffect, useRef } from 'react'
+import styled from 'styled-components'
+import { gsap } from 'gsap'
 import { theme } from '../../styles/tokens'
-
-// Entrance animations
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`
 
 const Section = styled.section`
   min-height: 100vh;
@@ -47,11 +27,14 @@ const Name = styled.h1`
   letter-spacing: ${theme.typography.h1.letterSpacing};
   color: ${theme.colors.text};
   margin: 0 0 ${theme.space[4]}px 0;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+`
 
-  /* Entrance animation */
+const NameChar = styled.span`
+  display: inline-block;
   opacity: 0;
-  animation: ${fadeInUp} 0.8s ${theme.motion.easing} forwards;
-  animation-delay: 0.1s;
+  transform: translateY(100%);
 `
 
 const Subtitle = styled.p`
@@ -62,11 +45,17 @@ const Subtitle = styled.p`
   color: ${theme.colors.textMuted};
   margin: 0 0 ${theme.space[3]}px 0;
   max-width: 540px;
+`
 
-  /* Entrance animation */
+const SubtitleWord = styled.span`
+  display: inline-block;
+  margin-right: 0.3em;
   opacity: 0;
-  animation: ${fadeInUp} 0.8s ${theme.motion.easing} forwards;
-  animation-delay: 0.25s;
+  transform: translateY(20px);
+
+  &:last-child {
+    margin-right: 0;
+  }
 `
 
 const Microline = styled.p`
@@ -76,21 +65,129 @@ const Microline = styled.p`
   line-height: ${theme.typography.small.lineHeight};
   color: ${theme.colors.textMuted};
   margin: 0;
-
-  /* Entrance animation */
-  opacity: 0;
-  animation: ${fadeIn} 0.8s ${theme.motion.easing} forwards;
-  animation-delay: 0.45s;
 `
 
-const HeroSection = () => (
-  <Section id="hero">
-    <Name>Yuxiang Dai</Name>
-    <Subtitle>
-      Senior software engineer working on systems, agents, and thoughtful tools.
-    </Subtitle>
-    <Microline>San Francisco · Symbolica AI · ex-Amazon</Microline>
-  </Section>
-)
+const MicrolinePart = styled.span`
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-10px);
+`
+
+const Separator = styled.span`
+  display: inline-block;
+  margin: 0 0.5em;
+  opacity: 0;
+`
+
+const HeroSection = () => {
+  const sectionRef = useRef(null)
+  const nameCharsRef = useRef([])
+  const subtitleWordsRef = useRef([])
+  const microlinePartsRef = useRef([])
+  const separatorsRef = useRef([])
+
+  const name = 'Yuxiang Dai'
+  const subtitle = 'Senior software engineer working on systems, agents, and thoughtful tools.'
+  const microlineParts = ['San Francisco', 'Symbolica AI', 'ex-Amazon']
+
+  useEffect(() => {
+    // Check for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (prefersReducedMotion) {
+      // Show everything immediately without animation
+      nameCharsRef.current.forEach(char => {
+        if (char) gsap.set(char, { opacity: 1, y: 0 })
+      })
+      subtitleWordsRef.current.forEach(word => {
+        if (word) gsap.set(word, { opacity: 1, y: 0 })
+      })
+      microlinePartsRef.current.forEach(part => {
+        if (part) gsap.set(part, { opacity: 1, x: 0 })
+      })
+      separatorsRef.current.forEach(sep => {
+        if (sep) gsap.set(sep, { opacity: 1 })
+      })
+      return
+    }
+
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+
+    // Animate name characters with stagger
+    tl.to(nameCharsRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.04,
+      ease: 'power3.out',
+    })
+
+    // Animate subtitle words with wave effect
+    tl.to(subtitleWordsRef.current, {
+      y: 0,
+      opacity: 1,
+      duration: 0.6,
+      stagger: 0.03,
+      ease: 'power2.out',
+    }, '-=0.4')
+
+    // Animate microline parts sliding in
+    tl.to(microlinePartsRef.current, {
+      x: 0,
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: 'power2.out',
+    }, '-=0.3')
+
+    // Fade in separators
+    tl.to(separatorsRef.current, {
+      opacity: 1,
+      duration: 0.3,
+      stagger: 0.1,
+    }, '-=0.3')
+
+    return () => {
+      tl.kill()
+    }
+  }, [])
+
+  return (
+    <Section id="hero" ref={sectionRef}>
+      <Name>
+        {name.split('').map((char, i) => (
+          <NameChar
+            key={i}
+            ref={el => nameCharsRef.current[i] = el}
+          >
+            {char === ' ' ? '\u00A0' : char}
+          </NameChar>
+        ))}
+      </Name>
+      <Subtitle>
+        {subtitle.split(' ').map((word, i) => (
+          <SubtitleWord
+            key={i}
+            ref={el => subtitleWordsRef.current[i] = el}
+          >
+            {word}
+          </SubtitleWord>
+        ))}
+      </Subtitle>
+      <Microline>
+        {microlineParts.map((part, i) => (
+          <React.Fragment key={i}>
+            <MicrolinePart ref={el => microlinePartsRef.current[i] = el}>
+              {part}
+            </MicrolinePart>
+            {i < microlineParts.length - 1 && (
+              <Separator ref={el => separatorsRef.current[i] = el}>·</Separator>
+            )}
+          </React.Fragment>
+        ))}
+      </Microline>
+    </Section>
+  )
+}
 
 export default HeroSection

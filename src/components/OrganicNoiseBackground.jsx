@@ -118,41 +118,6 @@ const OrganicNoiseBackground = () => {
       ctx.fillStyle = mainGradient
       ctx.fillRect(0, 0, width, height)
 
-      // Secondary ambient blobs (slower, organic drift)
-      const t = timeRef.current * 0.0005
-
-      // Blob 2 - top left area, drifts slowly
-      const blob2X = width * (0.2 + Math.sin(t) * 0.1)
-      const blob2Y = height * (0.3 + Math.cos(t * 0.7) * 0.1)
-      const blob2Radius = Math.min(width, height) * 0.35
-
-      const gradient2 = ctx.createRadialGradient(
-        blob2X, blob2Y, 0,
-        blob2X, blob2Y, blob2Radius
-      )
-      gradient2.addColorStop(0, 'rgba(31, 93, 255, 0.35)')
-      gradient2.addColorStop(0.5, 'rgba(45, 90, 135, 0.15)')
-      gradient2.addColorStop(1, 'rgba(10, 11, 14, 0)')
-
-      ctx.fillStyle = gradient2
-      ctx.fillRect(0, 0, width, height)
-
-      // Blob 3 - bottom right area
-      const blob3X = width * (0.8 + Math.cos(t * 1.3) * 0.08)
-      const blob3Y = height * (0.7 + Math.sin(t * 0.9) * 0.08)
-      const blob3Radius = Math.min(width, height) * 0.3
-
-      const gradient3 = ctx.createRadialGradient(
-        blob3X, blob3Y, 0,
-        blob3X, blob3Y, blob3Radius
-      )
-      gradient3.addColorStop(0, 'rgba(31, 93, 255, 0.3)')
-      gradient3.addColorStop(0.5, 'rgba(45, 90, 135, 0.12)')
-      gradient3.addColorStop(1, 'rgba(10, 11, 14, 0)')
-
-      ctx.fillStyle = gradient3
-      ctx.fillRect(0, 0, width, height)
-
       // Continue animation
       if (!prefersReducedMotion) {
         animationRef.current = requestAnimationFrame(draw)
