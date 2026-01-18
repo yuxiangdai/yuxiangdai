@@ -169,8 +169,8 @@ const HeroSection = () => {
           float aspect = uResolution.x / uResolution.y;
           vec2 uvAspect = vec2(uv.x * aspect, uv.y);
 
-          // Dot matrix parameters
-          float dotSize = 0.01;
+          // Dot matrix parameters - make dots much bigger
+          float dotSize = 0.02;
           float spacing = 0.025;
 
           // Calculate grid position
@@ -182,22 +182,45 @@ const HeroSection = () => {
           float dot = distance(gridFract, vec2(0.5));
           dot = 1.0 - smoothstep(dotSize, dotSize * 2.0, dot);
 
-          // Mouse influence - only light up dots near mouse
+          // Mouse influence
           float mouseDist = distance(uv, uMouse);
           float mouseRadius = 0.4;
           float mouseInfluence = 1.0 - smoothstep(0.0, mouseRadius, mouseDist);
-          
-          // Color based on mouse proximity
+
+          // Simple wave functions
+          float wave(vec2 p, float time, float freq, float amp) {
+            return sin(p.x * freq + time) * amp;
+          }
+
+          float multiWave(vec2 p, float time) {
+            float w1 = wave(p, time, 2.0, 0.15);
+            float w2 = wave(p + vec2(0.5, 0.0), time * 1.3, 3.0, 0.1);
+            float w3 = wave(p - vec2(0.5, 0.0), time * 0.8, 4.0, 0.08);
+            return (w1 + w2 + w3) / 3.0;
+          }
+
+          // WebGL wave displacement
+          float wave1 = multiWave(gridIndex * 0.1, uTime);
+          float wave2 = multiWave(gridIndex * 0.1 + vec2(0.5, 0.0), uTime * 1.3);
+          float wave3 = multiWave(gridIndex * 0.1 - vec2(0.5, 0.0), uTime * 0.8);
+          float waveEffect = (wave1 + wave2 + wave3) / 3.0;
+
+          // Add mouse-based ripples
+          float mouseWave = sin(distance(gridIndex * 0.2 - vec2(0.5, 0.5), uMouse * 10.0) - uTime * 8.0) * 0.2 * mouseInfluence;
+          float totalWave = waveEffect + mouseWave;
+
+          // Color based on mouse proximity and waves
           vec3 dotColor = vec3(0.3, 0.6, 1.0);
-          dotColor.r += mouseInfluence * 0.4;
-          dotColor.g += mouseInfluence * 0.3;
-          dotColor.b += mouseInfluence * 0.1;
-          
-          // Apply mouse influence to dot intensity
-          dot *= mouseInfluence * 1.2;
+          dotColor.r += mouseInfluence * 0.5 + totalWave * 0.3;
+          dotColor.g += mouseInfluence * 0.3 + totalWave * 0.2;
+          dotColor.b += mouseInfluence * 0.1 + totalWave * 0.1;
+
+          // Apply effects to dot intensity
+          float baseIntensity = 0.4 + totalWave * 0.5;
+          dot = max(baseIntensity, dot) * (1.0 + mouseInfluence * 0.5);
 
           // Background color
-          vec3 backgroundColor = vec3(0.03, 0.035, 0.05);
+          vec3 backgroundColor = vec3(0.02, 0.025, 0.04);
 
           // Mix background and dots
           vec3 finalColor = mix(backgroundColor, dotColor, dot);
