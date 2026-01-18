@@ -199,7 +199,7 @@ const IdeogramTitle = ({ text }) => {
   )
 }
 
-// Amazon - Delivery box animation (letters arrive like packages)
+// Amazon - Delivery truck and package arrival animation
 const AmazonTitle = ({ text }) => {
   const wrapperRef = useRef(null)
   const charsRef = useRef([])
@@ -208,42 +208,49 @@ const AmazonTitle = ({ text }) => {
   const playAnimation = useCallback(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    // Animate the smile underline
+    // Animate orange underline
     gsap.to(wrapperRef.current, {
       '--underline-width': '100%',
       duration: 0.6,
       ease: 'power2.out',
     })
 
-    // Letters "arrive" with a bounce
+    // Orange pulse effect on letters
     charsRef.current.forEach((char, i) => {
       if (!char) return
-      gsap.fromTo(char,
-        { y: -20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.4,
-          delay: i * 0.05,
-          ease: 'bounce.out',
-        }
-      )
+      
+      const tl = gsap.timeline({ delay: i * 0.05 })
+      
+      // Pulse with orange color
+      tl.to(char, {
+        color: '#ff9900',
+        scale: 1.15,
+        duration: 0.2,
+      }).to(char, {
+        color: '',
+        scale: 1,
+        duration: 0.4,
+      }, '+=0.1')
     })
   }, [])
 
   const handleMouseLeave = useCallback(() => {
+    // Retract orange underline
     gsap.to(wrapperRef.current, {
       '--underline-width': '0%',
       duration: 0.3,
       ease: 'power2.in',
     })
 
-    charsRef.current.forEach((char) => {
+    // Reset letters to normal
+    charsRef.current.forEach((char, i) => {
       if (!char) return
+      
       gsap.to(char, {
-        y: 0,
-        opacity: 1,
+        color: '',
+        scale: 1,
         duration: 0.2,
+        delay: i * 0.02,
       })
     })
   }, [])
