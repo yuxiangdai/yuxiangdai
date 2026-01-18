@@ -164,6 +164,18 @@ const HeroSection = () => {
         uniform vec2 uResolution;
         varying vec2 vUv;
 
+        // Simple wave functions
+        float wave(vec2 p, float time, float freq, float amp) {
+          return sin(p.x * freq + time) * amp;
+        }
+
+        float multiWave(vec2 p, float time) {
+          float w1 = wave(p, time, 2.0, 0.15);
+          float w2 = wave(p + vec2(0.5, 0.0), time * 1.3, 3.0, 0.1);
+          float w3 = wave(p - vec2(0.5, 0.0), time * 0.8, 4.0, 0.08);
+          return (w1 + w2 + w3) / 3.0;
+        }
+
         void main() {
           vec2 uv = vUv;
           float aspect = uResolution.x / uResolution.y;
@@ -186,18 +198,6 @@ const HeroSection = () => {
           float mouseDist = distance(uv, uMouse);
           float mouseRadius = 0.4;
           float mouseInfluence = 1.0 - smoothstep(0.0, mouseRadius, mouseDist);
-
-          // Simple wave functions
-          float wave(vec2 p, float time, float freq, float amp) {
-            return sin(p.x * freq + time) * amp;
-          }
-
-          float multiWave(vec2 p, float time) {
-            float w1 = wave(p, time, 2.0, 0.15);
-            float w2 = wave(p + vec2(0.5, 0.0), time * 1.3, 3.0, 0.1);
-            float w3 = wave(p - vec2(0.5, 0.0), time * 0.8, 4.0, 0.08);
-            return (w1 + w2 + w3) / 3.0;
-          }
 
           // WebGL wave displacement
           float wave1 = multiWave(gridIndex * 0.1, uTime);
