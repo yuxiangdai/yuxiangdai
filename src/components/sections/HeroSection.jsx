@@ -170,8 +170,8 @@ const HeroSection = () => {
           vec2 uvAspect = vec2(uv.x * aspect, uv.y);
 
           // Dot matrix parameters
-          float dotSize = 0.01; // Make dots bigger
-          float spacing = 0.025; // Make spacing smaller
+          float dotSize = 0.01;
+          float spacing = 0.025;
 
           // Calculate grid position
           vec2 gridPos = uvAspect / spacing;
