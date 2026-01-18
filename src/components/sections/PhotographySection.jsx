@@ -15,18 +15,6 @@ const Section = styled.section`
   scroll-margin-top: 80px;
 `
 
-const SectionHeader = styled.div`
-  position: relative;
-  z-index: 10;
-  padding: ${theme.space[4]}px ${theme.space[5]}px;
-  max-width: ${theme.layout.maxWidth};
-  margin: 0 auto;
-
-  @media (max-width: 768px) {
-    padding: ${theme.space[3]}px ${theme.space[4]}px;
-  }
-`
-
 const SectionTitle = styled.h2`
   font-family: ${theme.fonts.body};
   font-size: ${theme.typography.small.size};
@@ -34,7 +22,9 @@ const SectionTitle = styled.h2`
   color: ${theme.colors.textMuted};
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin: 0;
+  margin: 0 0 ${theme.space[6]}px 0;
+  position: relative;
+  z-index: 10;
 `
 
 const PhotoContainer = styled.div`
@@ -48,21 +38,14 @@ const PhotoStack = styled.div`
   position: relative;
   width: 100%;
   height: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 ${theme.space[5]}px;
-
-  @media (max-width: 768px) {
-    padding: 0 ${theme.space[4]}px;
-  }
 `
 
 const PhotoFrame = styled.div`
   position: absolute;
-  top: 50%;
+  top: calc(50% + 24px);
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100% - ${theme.space[5] * 2}px);
+  width: 70%;
   max-width: 900px;
   aspect-ratio: 3 / 2;
   border-radius: ${theme.radius.md};
@@ -74,9 +57,12 @@ const PhotoFrame = styled.div`
     height: 100%;
   }
 
+  .gatsby-image-wrapper img {
+    object-fit: cover;
+  }
+
   @media (max-width: 768px) {
-    width: calc(100% - ${theme.space[4] * 2}px);
-    aspect-ratio: 16 / 10;
+    width: 90%;
   }
 `
 
@@ -114,7 +100,7 @@ const ViewAllLink = styled(Link)`
 
 const PhotographySection = () => {
   const sectionRef = useRef(null)
-  const headerRef = useRef(null)
+  const titleRef = useRef(null)
   const containerRef = useRef(null)
   const photoRefs = useRef([])
 
@@ -125,7 +111,6 @@ const PhotographySection = () => {
     const photos = photoRefs.current.filter(Boolean)
 
     if (prefersReducedMotion) {
-      // Just show the last photo
       photos.forEach((photo, i) => {
         gsap.set(photo, {
           opacity: i === photos.length - 1 ? 1 : 0
@@ -134,20 +119,37 @@ const PhotographySection = () => {
       return
     }
 
-    // Pin the header title while scrolling through photos (below nav header)
-    const headerPin = ScrollTrigger.create({
+    // Pin the title while scrolling through photos
+    ScrollTrigger.create({
       trigger: sectionRef.current,
       start: 'top 80px',
       end: `+=${(photos.length * 100) + 100}%`,
-      pin: headerRef.current,
+      pin: titleRef.current,
       pinSpacing: false,
       onUpdate: (self) => {
-        if (self.isActive && headerRef.current) {
-          headerRef.current.style.top = '80px'
+        if (self.isActive && titleRef.current) {
+          titleRef.current.style.top = `${80 + theme.space[4]}px`
+          // Change text color when image expands
+          if (self.progress > 0.1) {
+            titleRef.current.style.color = 'rgba(255, 255, 255, 0.9)'
+          } else {
+            titleRef.current.style.color = ''
+          }
         }
       },
       onEnter: () => {
-        if (headerRef.current) headerRef.current.style.top = '80px'
+        if (titleRef.current) {
+          titleRef.current.style.top = `${80 + theme.space[4]}px`
+          // Remove background from pin-spacer after it's created
+          setTimeout(() => {
+            const pinSpacers = document.querySelectorAll('.pin-spacer')
+            pinSpacers.forEach(spacer => {
+              if (spacer.querySelector('h2')?.textContent?.toLowerCase().includes('photography')) {
+                spacer.style.background = 'transparent'
+              }
+            })
+          }, 100)
+        }
       },
     })
 
@@ -155,7 +157,7 @@ const PhotographySection = () => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: 'top top',
+        start: 'top 80px',
         end: `+=${photos.length * 100}%`,
         pin: true,
         scrub: 0.8,
@@ -165,12 +167,39 @@ const PhotographySection = () => {
     // Show first photo immediately
     tl.set(photos[0], { opacity: 1 })
 
-    // Hold first photo
-    tl.to({}, { duration: 0.5 })
+    // Expand first photo to full viewport (overlapping the title)
+    tl.to(photos[0], {
+      width: '100vw',
+      maxWidth: 'none',
+      aspectRatio: 'auto',
+      height: '100vh',
+      top: '0',
+      left: '0',
+      xPercent: 0,
+      yPercent: 0,
+      borderRadius: 0,
+      duration: 1,
+      ease: 'power2.inOut',
+    })
 
-    // Crossfade between photos
+    // Hold expanded photo
+    tl.to({}, { duration: 0.3 })
+
+    // Crossfade between photos (all at full size)
     for (let i = 0; i < photos.length - 1; i++) {
-      // Fade out current, fade in next simultaneously
+      // Set next photo to full size before fading in
+      tl.set(photos[i + 1], {
+        width: '100vw',
+        maxWidth: 'none',
+        aspectRatio: 'auto',
+        height: '100vh',
+        top: '0',
+        left: '0',
+        xPercent: 0,
+        yPercent: 0,
+        borderRadius: 0,
+      })
+
       tl.to(photos[i], {
         opacity: 0,
         duration: 1,
@@ -180,10 +209,9 @@ const PhotographySection = () => {
         opacity: 1,
         duration: 1,
         ease: 'power2.inOut',
-      }, '<') // Start at same time
+      }, '<')
 
-      // Hold
-      tl.to({}, { duration: 0.5 })
+      tl.to({}, { duration: 0.3 })
     }
 
     return () => {
@@ -199,9 +227,15 @@ const PhotographySection = () => {
 
   return (
     <Section id="photography" ref={sectionRef}>
-      <SectionHeader ref={headerRef}>
-        <SectionTitle>Photography</SectionTitle>
-      </SectionHeader>
+      <div style={{ 
+        padding: `${theme.space[4]}px ${theme.space[5]}px`, 
+        maxWidth: theme.layout.maxWidth, 
+        margin: '0 auto',
+        position: 'relative',
+        zIndex: 10
+      }}>
+        <SectionTitle ref={titleRef}>Photography</SectionTitle>
+      </div>
 
       <PhotoContainer ref={containerRef}>
         <PhotoStack>

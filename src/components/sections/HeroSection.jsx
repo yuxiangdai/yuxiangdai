@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { theme } from '../../styles/tokens'
 import * as THREE from 'three'
+import TextRotator from '../TextRotator'
 
 // Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
@@ -120,7 +121,8 @@ const HeroSection = () => {
   const animationRef = useRef(null)
 
   const name = 'Yuxiang Dai'
-  const subtitle = 'Senior software engineer working on systems, agents, and thoughtful tools.'
+  const subtitlePrefix = 'Senior software engineer working on'
+  const subtitleRotatingWords = ['systems.', 'agents.', 'websites.', 'robots.', 'spaghetti code.', 'bugs.', 'coffee breaks.']
   const microlineParts = ['San Francisco', 'Symbolica AI']
 
   // Dot Matrix Effect
@@ -446,7 +448,7 @@ const HeroSection = () => {
             ))}
           </Name>
           <Subtitle ref={subtitleRef}>
-            {subtitle.split(' ').map((word, i) => (
+            {subtitlePrefix.split(' ').map((word, i) => (
               <SubtitleWord
                 key={i}
                 ref={el => subtitleWordsRef.current[i] = el}
@@ -454,6 +456,15 @@ const HeroSection = () => {
                 {word}
               </SubtitleWord>
             ))}
+            <SubtitleWord
+              ref={el => subtitleWordsRef.current[subtitlePrefix.split(' ').length] = el}
+            >
+              <TextRotator
+                words={subtitleRotatingWords}
+                minWidth="160px"
+                color={theme.colors.text}
+              />
+            </SubtitleWord>
           </Subtitle>
           <Microline ref={microlineRef}>
             {microlineParts.map((part, i) => (

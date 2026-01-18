@@ -8,7 +8,8 @@ import { graphql } from 'gatsby'
 const PhotosPageWrapper = styled.div`
   background: #0a0a0a;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
+  position: relative;
 `
 
 const GalleryContainer = styled.div`
@@ -19,9 +20,7 @@ const GalleryContainer = styled.div`
   scroll-behavior: smooth;
   height: calc(100vh - 80px);
   width: 100vw;
-  position: fixed;
-  top: 80px;
-  left: 0;
+  position: relative;
   z-index: 1;
   
   /* Hide scrollbar completely for cleaner look */
@@ -54,14 +53,14 @@ const ImageSlide = styled.div`
 const StyledImage = styled(GatsbyImage)`
   width: 100vw !important;
   height: calc(100vh - 80px) !important;
-  object-fit: contain !important;
+  object-fit: cover !important;
   object-position: center !important;
   
   /* Override any Gatsby image default styles */
   & img {
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
     object-position: center !important;
   }
 `
@@ -71,10 +70,6 @@ const Caption = styled.div`
   bottom: 3rem;
   left: 3rem;
   color: rgba(255, 255, 255, 0.8);
-  background: rgba(0, 0, 0, 0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  backdrop-filter: blur(8px);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-size: 0.8rem;
   font-weight: 300;
@@ -188,6 +183,34 @@ const CountdownText = styled.span`
   font-weight: 300;
   letter-spacing: 0.05em;
   text-transform: lowercase;
+`
+
+const PhotographyTitle = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+  text-align: center;
+  pointer-events: none;
+  z-index: 10;
+  animation: fadeIn 1.5s ease-out;
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -40%);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%);
+    }
+  }
 `
 
 
