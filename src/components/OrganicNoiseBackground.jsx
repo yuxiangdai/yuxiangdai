@@ -10,7 +10,7 @@ const Canvas = styled.canvas`
   height: 100%;
   z-index: ${theme.zIndex.background};
   pointer-events: none;
-  filter: blur(100px);
+  filter: blur(60px);
 `
 
 const OrganicNoiseBackground = () => {
@@ -31,22 +31,7 @@ const OrganicNoiseBackground = () => {
     return () => mediaQuery.removeEventListener('change', handler)
   }, [])
 
-  // Mouse tracking
-  const handleMouseMove = useCallback((e) => {
-    if (prefersReducedMotion) return
-    mouseRef.current.targetX = e.clientX / window.innerWidth
-    mouseRef.current.targetY = e.clientY / window.innerHeight
-  }, [prefersReducedMotion])
-
-  useEffect(() => {
-    if (prefersReducedMotion) return
-
-    window.addEventListener('mousemove', handleMouseMove)
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove)
-    }
-  }, [handleMouseMove, prefersReducedMotion])
+  // No mouse tracking for OrganicNoiseBackground - just static background
 
   // Animation loop
   useEffect(() => {
@@ -91,28 +76,29 @@ const OrganicNoiseBackground = () => {
       // Time progression
       timeRef.current += prefersReducedMotion ? 0 : 1
 
-      // Smooth mouse position interpolation (eased follow)
-      const easing = 0.08
-      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * easing
-      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * easing
+      // No mouse following needed
 
       // Clear canvas
       ctx.fillStyle = theme.colors.background
       ctx.fillRect(0, 0, width, height)
 
-      // Main blob that follows the mouse
-      const mouseX = mouseRef.current.x * width
-      const mouseY = mouseRef.current.y * height
-      const mainRadius = Math.min(width, height) * 0.45
+// Static blue background with subtle animation (no mouse following)
+      const time = timeRef.current * 0.001
+      
+      // Create subtle animated background gradient
+      const gradientX = width * (0.5 + Math.sin(time * 0.3) * 0.2)
+      const gradientY = height * (0.5 + Math.cos(time * 0.2) * 0.2)
+      const mainRadius = Math.min(width, height) * 0.8
 
-      // Primary mouse-following blob (bright blue)
+      // Subtle animated blue gradient background
       const mainGradient = ctx.createRadialGradient(
-        mouseX, mouseY, 0,
-        mouseX, mouseY, mainRadius
+        gradientX, gradientY, 0,
+        gradientX, gradientY, mainRadius
       )
-      mainGradient.addColorStop(0, 'rgba(31, 93, 255, 0.7)')
-      mainGradient.addColorStop(0.3, 'rgba(31, 93, 255, 0.4)')
-      mainGradient.addColorStop(0.6, 'rgba(45, 90, 135, 0.2)')
+      
+      // Very subtle blue background
+      mainGradient.addColorStop(0, 'rgba(31, 93, 255, 0.1)')
+      mainGradient.addColorStop(0.5, 'rgba(45, 90, 135, 0.05)')
       mainGradient.addColorStop(1, 'rgba(10, 11, 14, 0)')
 
       ctx.fillStyle = mainGradient

@@ -1,9 +1,29 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { theme } from '../../styles/tokens'
+import * as THREE from 'three'
+
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
+
+const DotMatrixCanvas = styled.canvas`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: ${theme.zIndex.background};
+  pointer-events: none;
+  opacity: 1;
+`
 
 const Section = styled.section`
+  position: relative;
+  z-index: 2;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +37,10 @@ const Section = styled.section`
     padding: 0 ${theme.space[4]}px;
     min-height: calc(100vh - 60px);
   }
+`
+
+const ContentWrapper = styled.div`
+  will-change: transform, opacity;
 `
 
 const Name = styled.h1`
@@ -81,15 +105,166 @@ const Separator = styled.span`
 
 const HeroSection = () => {
   const sectionRef = useRef(null)
+  const contentRef = useRef(null)
+  const nameRef = useRef(null)
+  const subtitleRef = useRef(null)
+  const microlineRef = useRef(null)
   const nameCharsRef = useRef([])
   const subtitleWordsRef = useRef([])
   const microlinePartsRef = useRef([])
   const separatorsRef = useRef([])
+  const canvasRef = useRef(null)
+  const mouseRef = useRef({ x: 0.5, y: 0.5, targetX: 0.5, targetY: 0.5 })
+  const animationRef = useRef(null)
 
   const name = 'Yuxiang Dai'
   const subtitle = 'Senior software engineer working on systems, agents, and thoughtful tools.'
   const microlineParts = ['San Francisco', 'Symbolica AI', 'ex-Amazon']
 
+  // Dot Matrix Effect
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const canvas = canvasRef.current
+    if (!canvas) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    // Scene setup
+    const scene = new THREE.Scene()
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+    })
+    renderer.setSize(window.innerWidth, window.innerHeight)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    // Full-screen quad with shader
+    const geometry = new THREE.PlaneGeometry(2, 2)
+
+    const material = new THREE.ShaderMaterial({
+      uniforms: {
+        uTime: { value: 0 },
+        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+      },
+      vertexShader: `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = vec4(position, 1.0);
+        }
+      `,
+      fragmentShader: `
+        uniform float uTime;
+        uniform vec2 uMouse;
+        uniform vec2 uResolution;
+        varying vec2 vUv;
+
+        void main() {
+          vec2 uv = vUv;
+          float aspect = uResolution.x / uResolution.y;
+          vec2 uvAspect = vec2(uv.x * aspect, uv.y);
+
+          // Dot matrix parameters
+          float dotSize = 0.01; // Make dots bigger
+          float spacing = 0.025; // Make spacing smaller
+
+          // Calculate grid position
+          vec2 gridPos = uvAspect / spacing;
+          vec2 gridIndex = floor(gridPos);
+          vec2 gridFract = fract(gridPos);
+
+          // Create dots
+          float dot = distance(gridFract, vec2(0.5));
+          dot = 1.0 - smoothstep(dotSize, dotSize * 2.0, dot);
+
+          // Mouse influence - only light up dots near mouse
+          float mouseDist = distance(uv, uMouse);
+          float mouseRadius = 0.4;
+          float mouseInfluence = 1.0 - smoothstep(0.0, mouseRadius, mouseDist);
+          
+          // Color based on mouse proximity
+          vec3 dotColor = vec3(0.3, 0.6, 1.0);
+          dotColor.r += mouseInfluence * 0.4;
+          dotColor.g += mouseInfluence * 0.3;
+          dotColor.b += mouseInfluence * 0.1;
+          
+          // Apply mouse influence to dot intensity
+          dot *= mouseInfluence * 1.2;
+
+          // Background color
+          vec3 backgroundColor = vec3(0.03, 0.035, 0.05);
+
+          // Mix background and dots
+          vec3 finalColor = mix(backgroundColor, dotColor, dot);
+
+          gl_FragColor = vec4(finalColor, 1.0);
+        }
+      `,
+      transparent: false,
+    })
+
+    const mesh = new THREE.Mesh(geometry, material)
+    scene.add(mesh)
+
+    // Mouse tracking
+    const handleMouseMove = (e) => {
+      mouseRef.current.targetX = e.clientX / window.innerWidth
+      mouseRef.current.targetY = 1.0 - (e.clientY / window.innerHeight) // Flip Y for WebGL coordinates
+    }
+
+    window.addEventListener('mousemove', handleMouseMove)
+
+    // Handle resize
+    const handleResize = () => {
+      renderer.setSize(window.innerWidth, window.innerHeight)
+      material.uniforms.uResolution.value.set(window.innerWidth, window.innerHeight)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    // Animation loop
+    let time = 0
+    const animate = () => {
+      animationRef.current = requestAnimationFrame(animate)
+
+      // Smooth mouse interpolation
+      const easing = 0.08
+      mouseRef.current.x += (mouseRef.current.targetX - mouseRef.current.x) * easing
+      mouseRef.current.y += (mouseRef.current.targetY - mouseRef.current.y) * easing
+
+    // Update uniforms
+      if (!prefersReducedMotion) {
+        time += 0.008 // Much slower for calm, pleasant animation
+      } else {
+        // Still update time for reduced motion, but much slower
+        time += 0.001
+      }
+      material.uniforms.uTime.value = time
+      material.uniforms.uMouse.value.set(mouseRef.current.x, mouseRef.current.y) // Fixed Y axis
+
+      renderer.render(scene, camera)
+    }
+
+    animate()
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', handleResize)
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+      geometry.dispose()
+      material.dispose()
+      renderer.dispose()
+    }
+  }, [])
+
+  // Text Animations
   useEffect(() => {
     // Check for reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -111,10 +286,11 @@ const HeroSection = () => {
       return
     }
 
-    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } })
+    // Entrance animation timeline
+    const entranceTl = gsap.timeline({ defaults: { ease: 'power4.out' } })
 
     // Animate name characters with stagger
-    tl.to(nameCharsRef.current, {
+    entranceTl.to(nameCharsRef.current, {
       y: 0,
       opacity: 1,
       duration: 0.8,
@@ -123,7 +299,7 @@ const HeroSection = () => {
     })
 
     // Animate subtitle words with wave effect
-    tl.to(subtitleWordsRef.current, {
+    entranceTl.to(subtitleWordsRef.current, {
       y: 0,
       opacity: 1,
       duration: 0.6,
@@ -132,7 +308,7 @@ const HeroSection = () => {
     }, '-=0.4')
 
     // Animate microline parts sliding in
-    tl.to(microlinePartsRef.current, {
+    entranceTl.to(microlinePartsRef.current, {
       x: 0,
       opacity: 1,
       duration: 0.5,
@@ -141,52 +317,57 @@ const HeroSection = () => {
     }, '-=0.3')
 
     // Fade in separators
-    tl.to(separatorsRef.current, {
+    entranceTl.to(separatorsRef.current, {
       opacity: 1,
       duration: 0.3,
       stagger: 0.1,
     }, '-=0.3')
 
     return () => {
-      tl.kill()
+      entranceTl.kill()
     }
   }, [])
 
   return (
-    <Section id="hero" ref={sectionRef}>
-      <Name>
-        {name.split('').map((char, i) => (
-          <NameChar
-            key={i}
-            ref={el => nameCharsRef.current[i] = el}
-          >
-            {char === ' ' ? '\u00A0' : char}
-          </NameChar>
-        ))}
-      </Name>
-      <Subtitle>
-        {subtitle.split(' ').map((word, i) => (
-          <SubtitleWord
-            key={i}
-            ref={el => subtitleWordsRef.current[i] = el}
-          >
-            {word}
-          </SubtitleWord>
-        ))}
-      </Subtitle>
-      <Microline>
-        {microlineParts.map((part, i) => (
-          <React.Fragment key={i}>
-            <MicrolinePart ref={el => microlinePartsRef.current[i] = el}>
-              {part}
-            </MicrolinePart>
-            {i < microlineParts.length - 1 && (
-              <Separator ref={el => separatorsRef.current[i] = el}>·</Separator>
-            )}
-          </React.Fragment>
-        ))}
-      </Microline>
-    </Section>
+    <>
+      <DotMatrixCanvas ref={canvasRef} aria-hidden="true" />
+      <Section id="hero" ref={sectionRef}>
+        <ContentWrapper ref={contentRef}>
+          <Name ref={nameRef}>
+            {name.split('').map((char, i) => (
+              <NameChar
+                key={i}
+                ref={el => nameCharsRef.current[i] = el}
+              >
+                {char === ' ' ? '\u00A0' : char}
+              </NameChar>
+            ))}
+          </Name>
+          <Subtitle ref={subtitleRef}>
+            {subtitle.split(' ').map((word, i) => (
+              <SubtitleWord
+                key={i}
+                ref={el => subtitleWordsRef.current[i] = el}
+              >
+                {word}
+              </SubtitleWord>
+            ))}
+          </Subtitle>
+          <Microline ref={microlineRef}>
+            {microlineParts.map((part, i) => (
+              <React.Fragment key={i}>
+                <MicrolinePart ref={el => microlinePartsRef.current[i] = el}>
+                  {part}
+                </MicrolinePart>
+                {i < microlineParts.length - 1 && (
+                  <Separator ref={el => separatorsRef.current[i] = el}>·</Separator>
+                )}
+              </React.Fragment>
+            ))}
+          </Microline>
+        </ContentWrapper>
+      </Section>
+    </>
   )
 }
 
