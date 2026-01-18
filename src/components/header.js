@@ -107,7 +107,7 @@ const NavLinkGatsby = styled(Link)`
 const Header = ({ siteTitle }) => (
   <Container>
     <HeaderInner>
-      <SiteTitle to="/#hero">{siteTitle}</SiteTitle>
+      <SiteTitle to="/">{siteTitle}</SiteTitle>
       <Nav>
         <NavLink href="/#about">About</NavLink>
         <NavLink href="/#work">Work</NavLink>
