@@ -119,7 +119,7 @@ const HeroSection = () => {
 
   const name = 'Yuxiang Dai'
   const subtitle = 'Senior software engineer working on systems, agents, and thoughtful tools.'
-  const microlineParts = ['San Francisco', 'Symbolica AI', 'ex-Amazon']
+  const microlineParts = ['San Francisco', 'Symbolica AI']
 
   // Dot Matrix Effect
   useEffect(() => {

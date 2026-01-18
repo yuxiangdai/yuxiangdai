@@ -35,7 +35,7 @@ const HeaderInner = styled.div`
   padding: ${theme.space[4]}px ${theme.space[5]}px;
 
   @media (max-width: 768px) {
-    padding: ${theme.space[3]}px ${theme.space[4]}px;
+    padding: ${theme.space[2]}px ${theme.space[4]}px;
   }
 `
 
@@ -47,6 +47,11 @@ const SiteTitle = styled(Link)`
   color: ${theme.colors.text};
   text-decoration: none;
   transition: color ${theme.motion.duration} ${theme.motion.easing};
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    font-size: 1.2rem;
+  }
 
   &:hover {
     color: ${theme.colors.textMuted};
@@ -59,7 +64,7 @@ const Nav = styled.nav`
   gap: ${theme.space[5]}px;
 
   @media (max-width: 768px) {
-    gap: ${theme.space[4]}px;
+    gap: ${theme.space[2]}px;
   }
 `
 
