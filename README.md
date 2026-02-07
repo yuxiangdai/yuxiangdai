@@ -14,14 +14,3 @@
 
 - Personal site: https://yuxiangdai.com
 - LinkedIn: https://linkedin.com/in/yuxiangdai
-
-### Local development
-
-- Install dependencies: `npm install`
-- Run dev server: `npm run develop`
-- Build production site: `npm run build`
-- Serve production build locally: `npm run serve`
-
-### Render check note
-
-For browser-based render checks (including screenshot tooling), prefer validating against the production server from `npm run serve` instead of the hot-reload dev server. This avoids host/proxy edge cases that can return `Not Found` even when the site itself builds correctly.
