@@ -1,0 +1,68 @@
+name: Yuxiang Dai
+location: San Francisco, CA
+contact:
+  phone: +1 510 342 0902
+  email: yuxiang.dai43@gmail.com
+  website: https://yuxiangdai.com
+  github: https://github.com/yuxiangdai
+  linkedin: https://linkedin.com/in/yuxiangdai
+
+experience:
+  - title: Software Engineer
+    company: Symbolica AI
+    start_date: 2025-11
+    end_date: Present
+    highlights:
+      - Led core engineering efforts for the public launch of Symbolica's first product (Agentica), owning production readiness across infrastructure, observability, and billing integration.
+      - Designed and deployed Symbolica's first end-to-end observability stack (OpenTelemetry, Grafana, Tempo, Loki), enabling production debugging and latency analysis for LLM agents.
+      - Architected and implemented a Python service to provision and isolate customer agent sandboxes on Fly.io, balancing security, performance, and cost constraints.
+
+  - title: Member of Technical Staff
+    company: Ideogram
+    start_date: 2024-11
+    end_date: 2025-10
+    highlights:
+      - Owned feature development and the end-to-end release process for Ideogram's iOS app, including App Store submissions, rollout coordination, and post-launch monitoring.
+      - Designed and launched production features on Ideogram's web and iOS platforms, operating at a scale of over 1M users.
+      - Played a key role in delivering Ideogram 3.0 features such as Style Reference, Character Reference, Batch Generation, and Team Billing.
+      - Designed and led A/B experiments to optimize system prompts for diffusion models, measuring image fidelity, style adherence, and failure rates to tune production rollouts.
+      - Worked closely with ML research to productionize Ideogram's first custom models for enterprise customers.
+
+  - title: Software Development Engineer
+    company: Amazon
+    start_date: 2020-08
+    end_date: 2024-11
+    highlights:
+      - Launched Amazon's global Forecasting Portal used by ~12K internal users, owning full-stack development across frontend (React/TypeScript) and backend services (Java, Redis), supporting regional rollouts and ML model updates.
+      - Built and operated ML-adjacent data processing systems (Scala, Spark) handling 350M+ products daily to support forecast analysis, adjustment and supply-chain optimization.
+      - Led development of a platform UI enabling adjacent Amazon organizations (e.g. Grocery, Amazon Prime) to onboard and manage ML models for forecast adjustments.
+
+education:
+  - institution: University of Toronto
+    degree: BASc Engineering Science, Major in Robotics Engineering
+    start_year: 2015
+    end_year: 2020
+    achievements:
+      - President's Scholarship
+      - Dean's List
+
+skills:
+  languages:
+    - Python
+    - JavaScript
+    - Java
+    - Scala
+  technologies:
+    - Google Cloud
+    - Amazon Web Services
+    - Redis
+    - Apache Spark
+    - PostgreSQL
+  other:
+    - React.js
+    - Node.js
+    - TypeScript
+    - Docker
+    - Kubernetes
+
+source_pdf: https://drive.google.com/file/d/1pLyV-JBoSXRU-M6xu7SDHmrDfegQ0Ed2/view

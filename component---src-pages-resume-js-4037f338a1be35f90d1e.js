@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkyuxiangdai=self.webpackChunkyuxiangdai||[]).push([[480],{3116:function(e,t,i){i.r(t);var l=i(6540),a=i(3230);t.default=()=>l.createElement(a.A,null,l.createElement("h1",null,"resume"),l.createElement("iframe",{title:"Resume PDF",src:"https://drive.google.com/file/d/1pLyV-JBoSXRU-M6xu7SDHmrDfegQ0Ed2/preview",width:"80%",style:{margin:"0 10%"},height:"1100px"}))}}]);
+//# sourceMappingURL=component---src-pages-resume-js-4037f338a1be35f90d1e.js.map
