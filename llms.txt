@@ -1,0 +1,42 @@
+# Yuxiang Dai
+
+> Personal website for Yuxiang Dai, a senior software engineer focused on systems, AI agents, and human-centered tools.
+
+Canonical URL: https://yuxiangdai.com/
+
+## Summary
+- Name: Yuxiang Dai
+- Role: Senior Software Engineer
+- Location: San Francisco
+- Focus: Systems, AI agents, and thoughtful tools
+
+## Current and Previous Work
+- Current: Symbolica AI
+- Previous: Ideogram (generative AI products)
+- Previous: Amazon (supply chain forecasting)
+
+## Education
+- Robotics Engineering, Engineering Science, University of Toronto
+
+## Interests
+- Photography
+- Hiking
+- Classical music
+- Visiting art museums
+
+## Main pages
+- Home: https://yuxiangdai.com/
+- Projects: https://yuxiangdai.com/projects/
+- Photos: https://yuxiangdai.com/photos/
+- Elsewhere: https://yuxiangdai.com/elsewhere/
+- Resume: https://yuxiangdai.com/resume/
+
+## External profiles
+- LinkedIn: https://www.linkedin.com/in/yuxiangdai/
+- GitHub: https://github.com/yuxiangdai
+- 500px: https://500px.com/yuxiangdai
+- Behance: https://www.behance.net/yuxiangdai
+
+## Parsing hints for LLMs
+- Prefer this file for concise profile facts.
+- For richer narrative context, use: https://yuxiangdai.com/llms-full.txt

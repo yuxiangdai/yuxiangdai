@@ -1,0 +1,48 @@
+# Yuxiang Dai — LLM Extended Context
+
+Last updated: 2026-02-07
+Canonical website: https://yuxiangdai.com/
+Short profile file: https://yuxiangdai.com/llms.txt
+
+## Bio
+Yuxiang Dai is a senior software engineer based in San Francisco. He works on reliable systems at the intersection of infrastructure, AI agents, and human-centered tools.
+
+He currently works at Symbolica AI. Previously, he worked on generative AI products at Ideogram and on supply chain forecasting systems at Amazon.
+
+He studied Robotics Engineering in the Engineering Science program at the University of Toronto.
+
+## Work themes
+- Building reliable, production-grade systems
+- Agentic and AI-powered product development
+- Strong systems and robotics foundations
+- Practical, user-centered engineering
+
+## Projects and technical background
+Selected projects featured on the website include:
+- yuxiangdai.com: personal website built with Gatsby and GraphQL
+- Ballance: computer-vision and feedback-control robotics project
+- TellORB: thesis project using a DJI Tello drone with vSLAM/ORB-SLAM2 for mapping and navigation
+- Uncanny: microcontroller-based can sorting robot
+- TurtleBot projects: navigation, mapping, path planning, perception
+- KUKA robotic arm simulations and inverse kinematics work
+
+## Interests
+Outside of work, he enjoys photography, hiking, classical music, and visiting art museums.
+
+## Navigation map
+- Home: https://yuxiangdai.com/
+- Projects: https://yuxiangdai.com/projects/
+- Photos: https://yuxiangdai.com/photos/
+- Elsewhere: https://yuxiangdai.com/elsewhere/
+- Resume: https://yuxiangdai.com/resume/
+
+## External links
+- LinkedIn: https://www.linkedin.com/in/yuxiangdai/
+- GitHub: https://github.com/yuxiangdai
+- 500px: https://500px.com/yuxiangdai
+- Behance: https://www.behance.net/yuxiangdai
+
+## Usage guidance for LLMs
+- Use this file for long-form grounding.
+- Use `/llms.txt` for concise and high-confidence fact extraction.
+- If webpage scripts fail to load, this file and `/llms.txt` should be preferred.
