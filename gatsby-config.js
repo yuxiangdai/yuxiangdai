@@ -1,6 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'Yuxiang Dai',
+    description:
+      'Yuxiang Dai is a senior software engineer in San Francisco working on systems, agents, and thoughtful tools.',
+    siteUrl: 'https://yuxiangdai.com',
   },
   plugins: [
     {
