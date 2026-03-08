@@ -3,86 +3,51 @@ import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { graphql, useStaticQuery } from 'gatsby'
 
-import Header from './header'
 import './layout.css'
+import Header from './header'
 
-const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-          description
-          siteUrl
+const Layout = ({ children, showHeader }) => (
+  <StaticQuery
+    query={graphql`
+      query SiteTitleQuery {
+        site {
+          siteMetadata {
+            title
+          }
         }
       }
-    }
-  `)
-
-  const { title, description, siteUrl } = data.site.siteMetadata
-  const personSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Yuxiang Dai',
-    url: siteUrl,
-    jobTitle: 'Senior Software Engineer',
-    worksFor: {
-      '@type': 'Organization',
-      name: 'Symbolica AI',
-    },
-    alumniOf: {
-      '@type': 'CollegeOrUniversity',
-      name: 'University of Toronto',
-    },
-    sameAs: [
-      'https://www.linkedin.com/in/yuxiangdai/',
-      'https://github.com/yuxiangdai',
-      'https://500px.com/yuxiangdai',
-      'https://www.behance.net/yuxiangdai',
-    ],
-  }
-
-  return (
-    <>
-      <Helmet
-        title={title}
-        meta={[
-          {
-            name: 'description',
-            content: description,
-          },
-          {
-            name: 'keywords',
-            content: 'yuxiang dai, software engineer, ai, symbolica',
-          },
-        ]}
-      >
-        <html lang="en" />
-        <link rel="canonical" href={`${siteUrl}/`} />
-        <link
-          rel="alternate"
-          type="text/plain"
-          href={`${siteUrl}/llms.txt`}
-          title="LLM profile"
-        />
-        <link
-          rel="alternate"
-          type="text/plain"
-          href={`${siteUrl}/llms-full.txt`}
-          title="LLM extended profile"
-        />
-        <script type="application/ld+json">
-          {JSON.stringify(personSchema)}
-        </script>
-      </Helmet>
-      <Header siteTitle="yuxiang dai" />
-      <main>{children}</main>
-    </>
-  )
-}
+    `}
+    render={(data) => (
+      <>
+        <Helmet
+          title={data.site.siteMetadata.title}
+          meta={[
+            {
+              name: 'description',
+              content:
+                'Yuxiang Dai - Senior software engineer working on systems, agents, and thoughtful tools. San Francisco.',
+            },
+            { name: 'keywords', content: 'yuxiang dai, software engineer, ai, symbolica' },
+          ]}
+        >
+          <html lang="en" />
+        </Helmet>
+        {showHeader ? <Header siteTitle="yuxiang dai" /> : null}
+        <main>
+          {children}
+        </main>
+      </>
+    )}
+  />
+)
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  showHeader: PropTypes.bool,
+}
+
+Layout.defaultProps = {
+  showHeader: true,
 }
 
 export default Layout

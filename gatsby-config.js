@@ -10,7 +10,8 @@ module.exports = {
       resolve: `gatsby-plugin-google-fonts`,
       options: {
         fonts: [
-          `Inter:wght@400;500;600;700`
+          `Inter:wght@400;500;600;700`,
+          `Crimson Text:wght@400;600;700`,
         ],
         display: 'swap'
       },
@@ -33,8 +34,8 @@ module.exports = {
         name: 'Yuxiang Dai Portfolio',
         short_name: 'Yuxiang Dai',
         start_url: '/',
-        background_color: '#663399',
-        theme_color: '#663399',
+        background_color: '#090909',
+        theme_color: '#090909',
         display: 'minimal-ui',
         icon: 'src/images/favicon-32x32.png',
       },

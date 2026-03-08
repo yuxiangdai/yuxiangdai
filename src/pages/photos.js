@@ -5,6 +5,8 @@ import Layout from '../components/layout'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { graphql } from 'gatsby'
 
+const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
+
 const PhotosPageWrapper = styled.div`
   background: #0a0a0a;
   min-height: 100vh;
@@ -18,7 +20,7 @@ const GalleryContainer = styled.div`
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  height: calc(100vh - 80px);
+  height: 100vh;
   width: 100vw;
   position: relative;
   z-index: 1;
@@ -34,7 +36,7 @@ const GalleryContainer = styled.div`
 const ImageSlide = styled.div`
   flex: none;
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: 100vh;
   scroll-snap-align: start;
   display: flex;
   align-items: center;
@@ -52,7 +54,7 @@ const ImageSlide = styled.div`
 
 const StyledImage = styled(GatsbyImage)`
   width: 100vw !important;
-  height: calc(100vh - 80px) !important;
+  height: 100vh !important;
   object-fit: cover !important;
   object-position: center !important;
   
@@ -70,9 +72,9 @@ const Caption = styled.div`
   bottom: 3rem;
   left: 3rem;
   color: rgba(255, 255, 255, 0.8);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: ${crimsonTextSemibold};
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: lowercase;
 `
@@ -178,41 +180,12 @@ const CountdownProgress = styled.div`
 
 const CountdownText = styled.span`
   color: rgba(255, 255, 255, 0.8);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: ${crimsonTextSemibold};
   font-size: 0.7rem;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: lowercase;
 `
-
-const PhotographyTitle = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: rgba(255, 255, 255, 0.9);
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: clamp(2rem, 6vw, 4rem);
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: lowercase;
-  text-align: center;
-  pointer-events: none;
-  z-index: 10;
-  animation: fadeIn 1.5s ease-out;
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translate(-50%, -40%);
-    }
-    to {
-      opacity: 1;
-      transform: translate(-50%, -50%);
-    }
-  }
-`
-
 
 export default function PhotosPage({ data }) {
   const [lightboxOpen, setLightboxOpen] = useState(false)
@@ -344,7 +317,7 @@ export default function PhotosPage({ data }) {
 
   return (
     <PhotosPageWrapper>
-      <Layout>
+  <Layout showHeader={false}>
         <GalleryContainer
           className="gallery-container"
         >
