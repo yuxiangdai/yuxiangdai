@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components'
 import Layout from '../components/layout'
 
 const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
+const showBlogSection = false
 
 const workItems = [
   {
@@ -482,37 +483,37 @@ const IndexPage = ({ data }) => (
         </PaperPanel>
       </PanelRow>
 
-      <PanelRow $offset="clamp(1rem, 9vw, 11.5rem)">
-        <PaperPanel $maxWidth="94rem" id="blog">
-          <SectionTitle data-node-id="505:112">blog</SectionTitle>
-          <WritingList>
-            {writingItems.map((item) => (
-              <WritingItem key={item.title}>
-                <WritingDate>{item.date}</WritingDate>
-                <WritingContent>
-                  {item.href ? (
-                    <WritingLink to={item.href}>
+      {showBlogSection ? (
+        <PanelRow $offset="clamp(1rem, 9vw, 11.5rem)">
+          <PaperPanel $maxWidth="94rem" id="blog">
+            <SectionTitle data-node-id="505:112">blog</SectionTitle>
+            <WritingList>
+              {writingItems.map((item) => (
+                <WritingItem key={item.title}>
+                  <WritingDate>{item.date}</WritingDate>
+                  <WritingContent>
+                    {item.href ? (
+                      <WritingLink to={item.href}>
+                        <WritingTitle>{item.title}</WritingTitle>
+                      </WritingLink>
+                    ) : (
                       <WritingTitle>{item.title}</WritingTitle>
-                    </WritingLink>
-                  ) : (
-                    <WritingTitle>{item.title}</WritingTitle>
-                  )}
-                  <WritingExcerpt>{item.excerpt}</WritingExcerpt>
-                </WritingContent>
-              </WritingItem>
-            ))}
-          </WritingList>
-        </PaperPanel>
-      </PanelRow>
+                    )}
+                    <WritingExcerpt>{item.excerpt}</WritingExcerpt>
+                  </WritingContent>
+                </WritingItem>
+              ))}
+            </WritingList>
+          </PaperPanel>
+        </PanelRow>
+      ) : null}
 
       <PhotographySection id="photography">
         <PhotographyImage image={getImage(data.photographyBanner)} alt="" loading="eager" />
         <PhotographyOverlay />
         <PhotographyContent>
           <PhotographyTitle data-node-id="505:40">photography</PhotographyTitle>
-          <PhotographySubtitle data-node-id="505:49">
-            the personal archives
-          </PhotographySubtitle>
+          <PhotographySubtitle data-node-id="505:49">a visual archive</PhotographySubtitle>
           <ArchiveButton to="/photos/">view archive</ArchiveButton>
         </PhotographyContent>
       </PhotographySection>

@@ -25,10 +25,17 @@
     "gatsby"
   ],
   "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
+    "prebuild": "node scripts/check-node.js",
     "build": "gatsby build",
+    "predevelop": "node scripts/check-node.js",
     "develop": "gatsby develop",
+    "preserve": "node scripts/check-node.js",
     "serve": "gatsby serve --host 0.0.0.0 --port 9000",
+    "prestart": "node scripts/check-node.js",
     "start": "npm run develop",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "test": "echo \"no test specified\" && exit 0",
