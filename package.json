@@ -30,9 +30,11 @@
     "develop": "gatsby develop",
     "serve": "gatsby serve --host 0.0.0.0 --port 9000",
     "start": "npm run develop",
-    "format": "prettier --write \"src/**/*.js\"",
+    "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "test": "echo \"no test specified\" && exit 0",
-    "deploy": "gatsby build && gh-pages -d public -r https://$GITHUB_TOKEN@github.com/yuxiangdai/yuxiangdai.git"
+    "deploy": "gatsby build && gh-pages -d public -r https://$GITHUB_TOKEN@github.com/yuxiangdai/yuxiangdai.git",
+    "lint": "eslint . --ext .js,.jsx",
+    "lint:fix": "npm run lint -- --fix"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.23.3",
