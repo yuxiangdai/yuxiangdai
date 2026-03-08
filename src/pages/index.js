@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { graphql, Link } from 'gatsby'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled, { keyframes } from 'styled-components'
 import Layout from '../components/layout'
-
-import photographyImage from '../images/DSCF2798.jpg'
 
 const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
 
@@ -309,14 +308,17 @@ const PhotographySection = styled.section`
   overflow: hidden;
 `
 
-const PhotographyImage = styled.img`
+const PhotographyImage = styled(GatsbyImage)`
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  object-position: center;
   filter: saturate(1.02);
+
+  img {
+    object-fit: cover !important;
+    object-position: center !important;
+  }
 `
 
 const PhotographyOverlay = styled.div`
@@ -425,7 +427,7 @@ const ResourceLink = styled.a`${resourceLinkStyles}`
 
 const ResourceRoute = styled(Link)`${resourceLinkStyles}`
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <Layout showHeader={false}>
     <PageShell data-node-id="502:54">
       <IntroSection>
@@ -504,10 +506,7 @@ const IndexPage = () => (
       </PanelRow>
 
       <PhotographySection id="photography">
-        <PhotographyImage
-          src={photographyImage}
-          alt=""
-        />
+        <PhotographyImage image={getImage(data.photographyBanner)} alt="" loading="eager" />
         <PhotographyOverlay />
         <PhotographyContent>
           <PhotographyTitle data-node-id="505:40">photography</PhotographyTitle>
@@ -534,5 +533,20 @@ const IndexPage = () => (
     </PageShell>
   </Layout>
 )
+
+export const query = graphql`
+  query IndexPageQuery {
+    photographyBanner: file(relativePath: { eq: "DSCF2798.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: FULL_WIDTH
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+  }
+`
 
 export default IndexPage

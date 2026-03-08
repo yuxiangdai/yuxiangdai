@@ -42,28 +42,33 @@ const ImageSlide = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 0;
-  cursor: pointer;
+  padding: 2rem 2rem 4.5rem;
   overflow: hidden;
   
   /* Ensure the container doesn't constrain child images */
   & > * {
     flex-shrink: 0;
   }
+
+  @media (max-width: 700px) {
+    padding: 1rem 1rem 4.75rem;
+  }
 `
 
 const StyledImage = styled(GatsbyImage)`
-  width: 100vw !important;
-  height: 100vh !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  
-  /* Override any Gatsby image default styles */
-  & img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+  max-width: min(94vw, 1800px) !important;
+  max-height: calc(100vh - 6.5rem) !important;
+  width: auto !important;
+  height: auto !important;
+
+  img {
+    object-fit: contain !important;
     object-position: center !important;
+  }
+
+  @media (max-width: 700px) {
+    max-width: calc(100vw - 2rem) !important;
+    max-height: calc(100vh - 6rem) !important;
   }
 `
 
@@ -77,45 +82,6 @@ const Caption = styled.div`
   font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: lowercase;
-`
-
-const Lightbox = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: ${props => props.isOpen ? 1 : 0};
-  visibility: ${props => props.isOpen ? 'visible' : 'hidden'};
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-`
-
-const LightboxImage = styled(GatsbyImage)`
-  max-width: 95vw;
-  max-height: 95vh;
-  object-fit: contain;
-`
-
-const CloseButton = styled.button`
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 2rem;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-  
-  &:hover {
-    opacity: 1;
-  }
 `
 
 const NavigationButton = styled.button`
@@ -188,8 +154,6 @@ const CountdownText = styled.span`
 `
 
 export default function PhotosPage({ data }) {
-  const [lightboxOpen, setLightboxOpen] = useState(false)
-  const [lightboxImage, setLightboxImage] = useState(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoScrolling, setIsAutoScrolling] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
@@ -202,17 +166,6 @@ export default function PhotosPage({ data }) {
     { key: 'image4', caption: 'garibaldi provincial park, british columbia, canada' },
     { key: 'image5', caption: 'lands end trail, san francisco, california' },
   ]
-
-  const openLightbox = (imageData, index) => {
-    setLightboxImage(imageData)
-    setCurrentIndex(index)
-    setLightboxOpen(true)
-  }
-
-  const closeLightbox = () => {
-    setLightboxOpen(false)
-    setLightboxImage(null)
-  }
 
   const scrollToImage = (index) => {
     const container = document.querySelector('.gallery-container')
@@ -255,7 +208,7 @@ export default function PhotosPage({ data }) {
 
   // Auto-scroll timer effect
   React.useEffect(() => {
-    if (!isAutoScrolling || isPaused || lightboxOpen) {
+    if (!isAutoScrolling || isPaused) {
       setCountdownProgress(0)
       return
     }
@@ -280,14 +233,11 @@ export default function PhotosPage({ data }) {
       clearInterval(timer)
       setCountdownProgress(0)
     }
-  }, [currentIndex, isAutoScrolling, isPaused, lightboxOpen])
+  }, [currentIndex, isAutoScrolling, isPaused])
 
   // Handle keyboard navigation
   React.useEffect(() => {
     const handleKeydown = (e) => {
-      if (e.key === 'Escape') {
-        closeLightbox()
-      }
       if (e.key === 'ArrowLeft') {
         handleManualNavigation('prev')
       }
@@ -302,17 +252,10 @@ export default function PhotosPage({ data }) {
 
     document.addEventListener('keydown', handleKeydown)
 
-    if (lightboxOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = 'unset'
-    }
-
     return () => {
       document.removeEventListener('keydown', handleKeydown)
-      document.body.style.overflow = 'unset'
     }
-  }, [lightboxOpen, currentIndex, isAutoScrolling])
+  }, [currentIndex, isAutoScrolling])
 
 
   return (
@@ -327,11 +270,11 @@ export default function PhotosPage({ data }) {
             return (
               <ImageSlide
                 key={index}
-                onClick={() => openLightbox(imageData, index)}
               >
                 <StyledImage
                   image={getImage(imageData)}
                   alt={caption}
+                  loading={index === 0 ? 'eager' : 'lazy'}
                 />
                 <Caption>{caption}</Caption>
               </ImageSlide>
@@ -354,23 +297,12 @@ export default function PhotosPage({ data }) {
           →
         </NavigationButton>
 
-        <CountdownContainer isVisible={isAutoScrolling && !isPaused && !lightboxOpen}>
+        <CountdownContainer isVisible={isAutoScrolling && !isPaused}>
           <CountdownText>next</CountdownText>
           <CountdownBar>
             <CountdownProgress progress={countdownProgress} />
           </CountdownBar>
         </CountdownContainer>
-
-        <Lightbox isOpen={lightboxOpen} onClick={closeLightbox}>
-          <CloseButton onClick={closeLightbox}>×</CloseButton>
-          {lightboxImage && (
-            <LightboxImage
-              image={getImage(lightboxImage)}
-              alt="Full resolution"
-              onClick={(e) => e.stopPropagation()}
-            />
-          )}
-        </Lightbox>
       </Layout>
     </PhotosPageWrapper>
   )
@@ -380,51 +312,61 @@ export const query = graphql`
   query {
     image1: file(relativePath: { eq: "DSCF2721.jpg" }) {
       childImageSharp {
-        gatsbyImageData(width: 1920, quality: 85, placeholder: NONE)
-        original {
-          width
-          height
-        }
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
       }
     }
 
     image2: file(relativePath: { eq: "DSCF1504.jpg" }) {
       childImageSharp {
-        gatsbyImageData(width: 1920, quality: 85, placeholder: NONE)
-        original {
-          width
-          height
-        }
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
       }
     }
 
     image3: file(relativePath: { eq: "DSCF2770.jpg" }) {
       childImageSharp {
-        gatsbyImageData(width: 1920, quality: 85, placeholder: NONE)
-        original {
-          width
-          height
-        }
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
       }
     }
 
     image4: file(relativePath: { eq: "DSCF2798.jpg" }) {
       childImageSharp {
-        gatsbyImageData(width: 1920, quality: 85, placeholder: NONE)
-        original {
-          width
-          height
-        }
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
       }
     }
 
     image5: file(relativePath: { eq: "_DSC1603.jpg" }) {
       childImageSharp {
-        gatsbyImageData(width: 1920, quality: 85, placeholder: NONE)
-        original {
-          width
-          height
-        }
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
       }
     }
   }
