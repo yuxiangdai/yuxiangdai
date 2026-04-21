@@ -12,17 +12,17 @@ const workPanelInset = 'clamp(1rem, 4vw, 5rem)'
 const workItems = [
   {
     company: 'Symbolica AI',
-    summary: 'building next-generation AI reasoning systems',
+    summary: 'building AI agents and next-generation reasoning systems',
     role: 'Software Engineer',
-    team: 'Core Infrastructure',
-    tenure: 'Current',
+    team: 'Applied AI',
+    tenure: '2025 - Current',
   },
   {
     company: 'Ideogram',
     summary: 'shipping creative generative AI products for millions of users',
     role: 'Member of Technical Staff',
     team: 'Product Engineering',
-    tenure: '2024',
+    tenure: '2024 - 2025',
   },
   {
     company: 'Amazon',
@@ -58,34 +58,40 @@ const PageShell = styled.div`
 `
 
 const IntroSection = styled.section`
-  min-height: 82vh;
+  min-height: clamp(28rem, 64vh, 44rem);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: clamp(6rem, 10vw, 10rem) 1.5rem clamp(4rem, 7vw, 6rem);
+  padding: clamp(4.5rem, 8vw, 7.5rem) 1.5rem clamp(1.5rem, 3vw, 2.5rem);
 
   @media (max-width: 700px) {
-    min-height: 66vh;
+    min-height: clamp(24rem, 56vh, 32rem);
     align-items: flex-end;
-    padding-top: 7rem;
+    padding-top: 5.5rem;
+    padding-bottom: 1.25rem;
   }
 `
 
 const IntroInner = styled.div`
   text-align: center;
+  transform: translateY(clamp(-1rem, -1.8vw, -1.75rem));
+
+  @media (max-width: 700px) {
+    transform: translateY(clamp(-0.5rem, -1.2vw, -0.9rem));
+  }
 `
 
 const Name = styled.h1`
   margin: 0;
   color: inherit;
   font-family: ${crimsonTextSemibold};
-  font-size: clamp(4.1rem, 11vw, 8rem);
+  font-size: clamp(3rem, 8.1vw, 5.8rem);
   line-height: 0.92;
   font-weight: 400;
   letter-spacing: normal;
 
   @media (max-width: 700px) {
-    font-size: clamp(3rem, 14vw, 4.4rem);
+    font-size: clamp(2.35rem, 10.5vw, 3.35rem);
   }
 `
 
@@ -125,14 +131,14 @@ const PaperPanel = styled.section`
   background: var(--paper);
   color: var(--text-dark);
   box-shadow: 0 24px 80px var(--paper-shadow);
-  padding: clamp(1.75rem, 4vw, 3.5rem);
+  padding: clamp(1.35rem, 3vw, 2.5rem);
 `
 
 const SectionTitle = styled.h2`
   margin: 0 0 clamp(1rem, 3vw, 2rem);
   color: var(--text-dark);
   font-family: ${crimsonTextSemibold};
-  font-size: clamp(3.3rem, 8vw, 7.75rem);
+  font-size: clamp(2.15rem, 5vw, 4.4rem);
   line-height: 0.9;
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -335,7 +341,7 @@ const PhotographyTitle = styled.h2`
   margin: 0;
   color: inherit;
   font-family: ${crimsonTextSemibold};
-  font-size: clamp(3.3rem, 8vw, 7.75rem);
+  font-size: clamp(2.45rem, 5.8vw, 5.1rem);
   line-height: 0.88;
   font-weight: 400;
   letter-spacing: -0.04em;
@@ -391,7 +397,7 @@ const ResourcesTitle = styled.h2`
   margin: 0;
   color: inherit;
   font-family: ${crimsonTextSemibold};
-  font-size: clamp(2.2rem, 4.4vw, 3.8rem);
+  font-size: clamp(1.7rem, 3.2vw, 2.7rem);
   line-height: 1;
   font-weight: 400;
 `
