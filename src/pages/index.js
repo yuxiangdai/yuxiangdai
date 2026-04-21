@@ -167,6 +167,12 @@ const InlineAnchor = styled(Link)`
   text-underline-offset: 0.12em;
 `
 
+const ExternalAnchor = styled.a`
+  color: var(--text-dark);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+`
+
 const WorkList = styled.div`
   display: grid;
   gap: clamp(2rem, 4vw, 3.2rem);
@@ -444,7 +450,16 @@ const IndexPage = ({ data }) => (
         <PaperPanel $maxWidth="96rem" id="about">
           <SectionTitle data-node-id="505:22">about</SectionTitle>
           <AboutCopy>
-            <p>I currently work at Symbolica AI.</p>
+            <p>
+              I currently work on Applied AI systems at{' '}
+              <ExternalAnchor
+                href="https://www.symbolica.ai/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Symbolica AI
+              </ExternalAnchor>.
+            </p>
             <p>
               I was previously working on generative AI products at Ideogram and
               supply chain forecasting at Amazon.

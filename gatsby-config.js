@@ -6,16 +6,6 @@ module.exports = {
     siteUrl: 'https://yuxiangdai.com',
   },
   plugins: [
-    {
-      resolve: `gatsby-plugin-google-fonts`,
-      options: {
-        fonts: [
-          `Inter:wght@400;500;600;700`,
-          `Crimson Text:wght@400;600;700`,
-        ],
-        display: 'swap'
-      },
-    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
