@@ -50,7 +50,6 @@ const PageShell = styled.div`
   --text-soft: rgba(244, 241, 234, 0.78);
   --rule: rgba(255, 255, 255, 0.08);
   background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.08), transparent 28%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 16%),
     var(--page-bg);
   color: var(--text-light);
