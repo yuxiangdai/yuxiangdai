@@ -1,19 +1,8 @@
 import { Link } from 'gatsby'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { theme } from '../styles/tokens'
-
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`
 
 const Container = styled.header`
   background: rgba(10, 11, 14, 0.95);
@@ -21,9 +10,6 @@ const Container = styled.header`
   position: sticky;
   top: 0;
   z-index: ${theme.zIndex.nav};
-
-  /* Entrance animation */
-  animation: ${fadeIn} 0.6s ${theme.motion.easing} forwards;
 `
 
 const HeaderInner = styled.div`

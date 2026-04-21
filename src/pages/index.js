@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 import Layout from '../components/layout'
 
 const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
@@ -41,18 +41,6 @@ const writingItems = [
   },
 ]
 
-const riseIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translate3d(0, 26px, 0);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-`
-
 const PageShell = styled.div`
   --page-bg: #090909;
   --paper: #d8d8d6;
@@ -86,7 +74,6 @@ const IntroSection = styled.section`
 
 const IntroInner = styled.div`
   text-align: center;
-  animation: ${riseIn} 0.9s ease-out both;
 `
 
 const Name = styled.h1`
@@ -140,7 +127,6 @@ const PaperPanel = styled.section`
   color: var(--text-dark);
   box-shadow: 0 24px 80px var(--paper-shadow);
   padding: clamp(1.75rem, 4vw, 3.5rem);
-  animation: ${riseIn} 0.8s ease-out both;
 `
 
 const SectionTitle = styled.h2`
@@ -338,7 +324,6 @@ const PhotographyContent = styled.div`
   z-index: 1;
   padding: clamp(1.5rem, 4vw, 2.5rem);
   max-width: 40rem;
-  animation: ${riseIn} 0.85s ease-out both;
 `
 
 const PhotographyTitle = styled.h2`
