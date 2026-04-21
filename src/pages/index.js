@@ -6,6 +6,8 @@ import Layout from '../components/layout'
 
 const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
 const showBlogSection = false
+const aboutRightInset = 'clamp(4rem, 12vw, 18rem)'
+const workPanelInset = 'clamp(1rem, 4vw, 5rem)'
 
 const workItems = [
   {
@@ -123,11 +125,12 @@ const MetaItem = styled.span`
 
 const PanelRow = styled.div`
   padding-left: ${({ $offset }) => $offset || '0'};
-  padding-right: 1rem;
+  padding-right: ${({ $rightOffset }) => $rightOffset || '1rem'};
   margin-bottom: clamp(1.5rem, 4vw, 3rem);
 
   @media (max-width: 1100px) {
     padding-left: 1rem;
+    padding-right: 1rem;
   }
 `
 
@@ -441,7 +444,7 @@ const IndexPage = ({ data }) => (
         </IntroInner>
       </IntroSection>
 
-      <PanelRow $offset="0">
+      <PanelRow $offset="0" $rightOffset={aboutRightInset}>
         <PaperPanel $maxWidth="96rem" id="about">
           <SectionTitle data-node-id="505:22">about</SectionTitle>
           <AboutCopy>
@@ -462,7 +465,7 @@ const IndexPage = ({ data }) => (
         </PaperPanel>
       </PanelRow>
 
-      <PanelRow $offset="clamp(1rem, 4vw, 5rem)">
+      <PanelRow $offset={workPanelInset} $rightOffset={workPanelInset}>
         <PaperPanel $maxWidth="104rem" id="work">
           <SectionTitle data-node-id="505:27">work</SectionTitle>
           <WorkList>
