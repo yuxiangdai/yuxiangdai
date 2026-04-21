@@ -289,7 +289,7 @@ const WritingLink = styled(Link)`
 
 const PhotographySection = styled.section`
   position: relative;
-  min-height: clamp(32rem, 54vw, 50rem);
+  min-height: clamp(14rem, 40vw, 46.5rem);
   margin-top: clamp(2rem, 5vw, 4rem);
   display: flex;
   align-items: flex-start;
@@ -304,9 +304,15 @@ const PhotographyImage = styled(GatsbyImage)`
   height: 100%;
   filter: saturate(1.02);
 
+  &,
+  & > div,
+  picture {
+    height: 100%;
+  }
+
   img {
     object-fit: cover !important;
-    object-position: center !important;
+    object-position: center 42% !important;
   }
 `
 
