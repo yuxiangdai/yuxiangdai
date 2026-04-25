@@ -165,6 +165,7 @@ export default function PhotosPage({ data }) {
     { key: 'image3', caption: 'garibaldi provincial park, british columbia, canada' },
     { key: 'image4', caption: 'garibaldi provincial park, british columbia, canada' },
     { key: 'image5', caption: 'lands end trail, san francisco, california' },
+    { key: 'image6', caption: 'bay bridge, san francisco, california' },
   ]
 
   const scrollToImage = (index) => {
@@ -359,6 +360,18 @@ export const query = graphql`
     }
 
     image5: file(relativePath: { eq: "_DSC1603.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+
+    image6: file(relativePath: { eq: "20260419_0003_02.jpg" }) {
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
