@@ -35,11 +35,16 @@ const workItems = [
 
 const writingItems = [
   {
-    date: 'March 2026',
-    title: 'writing archive coming soon',
-    excerpt: 'Long-form teardowns, notes on systems, and build logs will live here.',
+    date: 'lorem ipsum',
+    title: 'Lorem ipsum dolor sit amet',
+    excerpt: 'consectetur adipiscing elit, sed do eiusmod tempor incididunt...',
+    href: '/notes/lorem-ipsum/',
+    readTime: '5 min',
   },
 ]
+
+const featuredWritingItem = writingItems[0]
+const recentWritingItems = writingItems.slice(1)
 
 const PageShell = styled.div`
   --page-bg: #090909;
@@ -240,53 +245,74 @@ const WorkTenure = styled.p`
   color: var(--text-dark);
 `
 
-const WritingList = styled.div`
+const BlogPanel = styled(PaperPanel)`
   display: grid;
-  gap: 1.5rem;
-`
-
-const WritingItem = styled.article`
-  display: grid;
-  grid-template-columns: minmax(9rem, 10.5rem) minmax(0, 1fr);
-  gap: 1rem clamp(1.25rem, 4vw, 2.5rem);
+  grid-template-columns: minmax(9rem, 0.55fr) minmax(0, 1.45fr);
+  gap: clamp(1.75rem, 7vw, 9rem);
   align-items: start;
+  min-height: clamp(8rem, 15vw, 13.5rem);
 
-  @media (max-width: 720px) {
+  @media (max-width: 760px) {
     grid-template-columns: 1fr;
-    gap: 0.4rem;
+    gap: 1.4rem;
   }
 `
 
-const WritingDate = styled.p`
+const BlogTitle = styled(SectionTitle)`
   margin: 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1rem, 1.25vw, 1.15rem);
-  line-height: 1.1;
 `
 
-const WritingContent = styled.div`
-  min-width: 0;
+const BlogBody = styled.div`
+  display: grid;
+  gap: 0.85rem;
+  border-left: 1px solid rgba(8, 8, 8, 0.22);
+  padding-left: clamp(1.25rem, 3.5vw, 3rem);
+
+  @media (max-width: 760px) {
+    border-left: 0;
+    border-top: 1px solid rgba(8, 8, 8, 0.22);
+    padding-left: 0;
+    padding-top: 1.2rem;
+  }
 `
 
-const WritingTitle = styled.h3`
-  margin: 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.35rem, 2vw, 2.2rem);
-  line-height: 1.02;
-  font-weight: 400;
+const FeaturedPost = styled.article`
+  padding: 0.15rem 0 1.1rem;
+  border-bottom: 1.5px solid rgba(8, 8, 8, 0.25);
 `
 
-const WritingExcerpt = styled.p`
-  margin: 0.35rem 0 0;
-  color: var(--text-dark);
+const FeaturedKicker = styled.p`
+  margin: 0 0 0.25rem;
+  color: rgba(8, 8, 8, 0.58);
   font-family: ${crimsonTextSemibold};
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
   line-height: 1.2;
 `
 
-const WritingLink = styled(Link)`
+const FeaturedTitle = styled.h3`
+  display: inline;
+  margin: 0;
+  color: var(--text-dark);
+  font-family: ${crimsonTextSemibold};
+  font-size: clamp(1.55rem, 2.4vw, 2.65rem);
+  line-height: 1.06;
+  font-weight: 400;
+  background-image: linear-gradient(rgba(8, 8, 8, 0.85), rgba(8, 8, 8, 0.85));
+  background-repeat: no-repeat;
+  background-position: 0 93%;
+  background-size: 100% 1px;
+`
+
+const FeaturedExcerpt = styled.p`
+  max-width: 46rem;
+  margin: 0.55rem 0 0;
+  color: rgba(8, 8, 8, 0.72);
+  font-family: ${crimsonTextSemibold};
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  line-height: 1.28;
+`
+
+const BlogLink = styled(Link)`
   color: inherit;
   text-decoration: none;
   display: inline-block;
@@ -297,6 +323,54 @@ const WritingLink = styled(Link)`
     opacity: 0.7;
     transform: translateX(4px);
   }
+`
+
+const RecentPosts = styled.div`
+  display: grid;
+  gap: 0;
+`
+
+const RecentPost = styled.article`
+  display: grid;
+  grid-template-columns: minmax(5.5rem, 8rem) minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: baseline;
+  padding: 0.45rem 0;
+  border-bottom: 1px dotted rgba(8, 8, 8, 0.22);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+    gap: 0.15rem;
+  }
+`
+
+const RecentDate = styled.span`
+  color: rgba(8, 8, 8, 0.52);
+  font-family: ${crimsonTextSemibold};
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  font-weight: 600;
+  line-height: 1.2;
+`
+
+const RecentTitle = styled.h3`
+  margin: 0;
+  color: var(--text-dark);
+  font-family: ${crimsonTextSemibold};
+  font-size: clamp(1rem, 1.25vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.2;
+`
+
+const RecentReadTime = styled.span`
+  color: rgba(8, 8, 8, 0.52);
+  font-family: ${crimsonTextSemibold};
+  font-size: clamp(0.8rem, 0.9vw, 0.95rem);
+  font-style: italic;
+  line-height: 1.2;
 `
 
 const PhotographySection = styled.section`
@@ -499,26 +573,42 @@ const IndexPage = ({ data }) => (
 
       {showBlogSection ? (
         <PanelRow $offset="clamp(1rem, 9vw, 11.5rem)">
-          <PaperPanel $maxWidth="94rem" id="blog">
-            <SectionTitle data-node-id="505:112">blog</SectionTitle>
-            <WritingList>
-              {writingItems.map((item) => (
-                <WritingItem key={item.title}>
-                  <WritingDate>{item.date}</WritingDate>
-                  <WritingContent>
-                    {item.href ? (
-                      <WritingLink to={item.href}>
-                        <WritingTitle>{item.title}</WritingTitle>
-                      </WritingLink>
-                    ) : (
-                      <WritingTitle>{item.title}</WritingTitle>
-                    )}
-                    <WritingExcerpt>{item.excerpt}</WritingExcerpt>
-                  </WritingContent>
-                </WritingItem>
-              ))}
-            </WritingList>
-          </PaperPanel>
+          <BlogPanel $maxWidth="98rem" id="blog" data-node-id="505:111">
+            <BlogTitle data-node-id="505:112">blog</BlogTitle>
+            <BlogBody>
+              {featuredWritingItem ? (
+                <FeaturedPost>
+                  <FeaturedKicker>latest · {featuredWritingItem.date}</FeaturedKicker>
+                  {featuredWritingItem.href ? (
+                    <BlogLink to={featuredWritingItem.href}>
+                      <FeaturedTitle>{featuredWritingItem.title}</FeaturedTitle>
+                    </BlogLink>
+                  ) : (
+                    <FeaturedTitle>{featuredWritingItem.title}</FeaturedTitle>
+                  )}
+                  <FeaturedExcerpt>{featuredWritingItem.excerpt}</FeaturedExcerpt>
+                </FeaturedPost>
+              ) : null}
+
+              {recentWritingItems.length > 0 ? (
+                <RecentPosts>
+                  {recentWritingItems.map((item) => (
+                    <RecentPost key={`${item.date}-${item.title}`}>
+                      <RecentDate>{item.date}</RecentDate>
+                      {item.href ? (
+                        <BlogLink to={item.href}>
+                          <RecentTitle>{item.title}</RecentTitle>
+                        </BlogLink>
+                      ) : (
+                        <RecentTitle>{item.title}</RecentTitle>
+                      )}
+                      {item.readTime ? <RecentReadTime>{item.readTime}</RecentReadTime> : null}
+                    </RecentPost>
+                  ))}
+                </RecentPosts>
+              ) : null}
+            </BlogBody>
+          </BlogPanel>
         </PanelRow>
       ) : null}
 
