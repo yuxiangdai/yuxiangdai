@@ -3,6 +3,7 @@ import { graphql, Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import styled from 'styled-components'
 import Layout from '../components/layout'
+import FluidBackground from '../components/fluidBackground'
 
 const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
 const showBlogSection = false
@@ -37,7 +38,8 @@ const writingItems = [
   {
     date: 'March 2026',
     title: 'writing archive coming soon',
-    excerpt: 'Long-form teardowns, notes on systems, and build logs will live here.',
+    excerpt:
+      'Long-form teardowns, notes on systems, and build logs will live here.',
   },
 ]
 
@@ -55,6 +57,8 @@ const PageShell = styled.div`
   color: var(--text-light);
   font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
   overflow: clip;
+  position: relative;
+  isolation: isolate;
 `
 
 const IntroSection = styled.section`
@@ -290,7 +294,9 @@ const WritingLink = styled(Link)`
   color: inherit;
   text-decoration: none;
   display: inline-block;
-  transition: transform 160ms ease, opacity 160ms ease;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
 
   &:hover,
   &:focus-visible {
@@ -332,7 +338,12 @@ const PhotographyOverlay = styled.div`
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.22) 38%, rgba(0, 0, 0, 0.08) 70%),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.58) 0%,
+      rgba(0, 0, 0, 0.22) 38%,
+      rgba(0, 0, 0, 0.08) 70%
+    ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.38));
 `
 
@@ -377,10 +388,12 @@ const ArchiveButton = styled(Link)`
   text-decoration: none;
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   line-height: 1;
-  transition: transform 160ms ease, background 160ms ease;
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
 
   &::after {
-    content: "\\2192";
+    content: '\\2192';
     font-size: 0.95em;
   }
 
@@ -429,13 +442,18 @@ const resourceLinkStyles = `
   }
 `
 
-const ResourceLink = styled.a`${resourceLinkStyles}`
+const ResourceLink = styled.a`
+  ${resourceLinkStyles}
+`
 
-const ResourceRoute = styled(Link)`${resourceLinkStyles}`
+const ResourceRoute = styled(Link)`
+  ${resourceLinkStyles}
+`
 
 const IndexPage = ({ data }) => (
   <Layout showHeader={false}>
     <PageShell data-node-id="502:54">
+      <FluidBackground />
       <IntroSection>
         <IntroInner>
           <Name data-node-id="503:5">yuxiang dai</Name>
@@ -458,7 +476,8 @@ const IndexPage = ({ data }) => (
                 rel="noreferrer"
               >
                 Symbolica AI
-              </ExternalAnchor>.
+              </ExternalAnchor>
+              .
             </p>
             <p>
               I was previously working on generative AI products at Ideogram and
@@ -469,8 +488,9 @@ const IndexPage = ({ data }) => (
               Engineering Science program.
             </p>
             <p>
-              Outside of work, I enjoy <InlineAnchor to="/photos/">photography</InlineAnchor>,
-              hiking, classical music, and visiting art museums.
+              Outside of work, I enjoy{' '}
+              <InlineAnchor to="/photos/">photography</InlineAnchor>, hiking,
+              classical music, and visiting art museums.
             </p>
           </AboutCopy>
         </PaperPanel>
@@ -523,11 +543,17 @@ const IndexPage = ({ data }) => (
       ) : null}
 
       <PhotographySection id="photography">
-        <PhotographyImage image={getImage(data.photographyBanner)} alt="" loading="eager" />
+        <PhotographyImage
+          image={getImage(data.photographyBanner)}
+          alt=""
+          loading="eager"
+        />
         <PhotographyOverlay />
         <PhotographyContent>
           <PhotographyTitle data-node-id="505:40">photography</PhotographyTitle>
-          <PhotographySubtitle data-node-id="505:49">a visual archive</PhotographySubtitle>
+          <PhotographySubtitle data-node-id="505:49">
+            a visual archive
+          </PhotographySubtitle>
           <ArchiveButton to="/photos/">view archive</ArchiveButton>
         </PhotographyContent>
       </PhotographySection>
