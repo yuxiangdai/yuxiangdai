@@ -37,7 +37,8 @@ const writingItems = [
   {
     date: 'March 2026',
     title: 'writing archive coming soon',
-    excerpt: 'Long-form teardowns, notes on systems, and build logs will live here.',
+    excerpt:
+      'Long-form teardowns, notes on systems, and build logs will live here.',
   },
 ]
 
@@ -149,7 +150,7 @@ const AboutCopy = styled.div`
   color: var(--text-dark);
   font-family: ${crimsonTextSemibold};
   font-size: clamp(1rem, 1.3vw, 1.2rem);
-  line-height: 1.25;
+  line-height: 1.45;
 
   p {
     color: var(--text-dark);
@@ -187,6 +188,13 @@ const WorkItem = styled.article`
   @media (max-width: 820px) {
     grid-template-columns: 1fr;
   }
+
+  & + & {
+    @media (max-width: 820px) {
+      border-top: 1px solid rgba(8, 8, 8, 0.18);
+      padding-top: clamp(1.5rem, 4vw, 2rem);
+    }
+  }
 `
 
 const WorkPrimary = styled.div`
@@ -207,7 +215,7 @@ const WorkSummary = styled.p`
   color: var(--text-dark);
   font-family: ${crimsonTextSemibold};
   font-size: clamp(1.05rem, 1.45vw, 1.4rem);
-  line-height: 1.15;
+  line-height: 1.4;
 `
 
 const WorkMeta = styled.div`
@@ -215,7 +223,7 @@ const WorkMeta = styled.div`
   color: var(--text-dark);
   font-family: ${crimsonTextSemibold};
   font-size: clamp(1rem, 1.3vw, 1.25rem);
-  line-height: 1.15;
+  line-height: 1.4;
 
   @media (max-width: 820px) {
     text-align: left;
@@ -290,7 +298,9 @@ const WritingLink = styled(Link)`
   color: inherit;
   text-decoration: none;
   display: inline-block;
-  transition: transform 160ms ease, opacity 160ms ease;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
 
   &:hover,
   &:focus-visible {
@@ -310,10 +320,15 @@ const PhotographySection = styled.section`
 `
 
 const PhotographyImage = styled(GatsbyImage)`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  /* && beats gatsby-plugin-image's .gatsby-image-wrapper { position: relative },
+     which loads after the SSR styled-components styles in production builds */
+  && {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
   filter: saturate(1.02);
 
   &,
@@ -332,7 +347,12 @@ const PhotographyOverlay = styled.div`
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.22) 38%, rgba(0, 0, 0, 0.08) 70%),
+    linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.58) 0%,
+      rgba(0, 0, 0, 0.22) 38%,
+      rgba(0, 0, 0, 0.08) 70%
+    ),
     linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.38));
 `
 
@@ -377,10 +397,12 @@ const ArchiveButton = styled(Link)`
   text-decoration: none;
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   line-height: 1;
-  transition: transform 160ms ease, background 160ms ease;
+  transition:
+    transform 160ms ease,
+    background 160ms ease;
 
   &::after {
-    content: "\\2192";
+    content: '\\2192';
     font-size: 0.95em;
   }
 
@@ -429,26 +451,30 @@ const resourceLinkStyles = `
   }
 `
 
-const ResourceLink = styled.a`${resourceLinkStyles}`
+const ResourceLink = styled.a`
+  ${resourceLinkStyles}
+`
 
-const ResourceRoute = styled(Link)`${resourceLinkStyles}`
+const ResourceRoute = styled(Link)`
+  ${resourceLinkStyles}
+`
 
 const IndexPage = ({ data }) => (
-  <Layout showHeader={false}>
-    <PageShell data-node-id="502:54">
+  <Layout>
+    <PageShell>
       <IntroSection>
         <IntroInner>
-          <Name data-node-id="503:5">yuxiang dai</Name>
+          <Name>yuxiang dai</Name>
           <Meta>
-            <MetaItem data-node-id="504:6">software engineer</MetaItem>
-            <MetaItem data-node-id="504:7">san francisco</MetaItem>
+            <MetaItem>software engineer</MetaItem>
+            <MetaItem>san francisco</MetaItem>
           </Meta>
         </IntroInner>
       </IntroSection>
 
       <PanelRow $offset="0" $rightOffset={aboutRightInset}>
-        <PaperPanel $maxWidth="96rem" id="about">
-          <SectionTitle data-node-id="505:22">about</SectionTitle>
+        <PaperPanel $maxWidth="64rem" id="about">
+          <SectionTitle>about</SectionTitle>
           <AboutCopy>
             <p>
               I currently work on Applied AI systems at{' '}
@@ -458,7 +484,8 @@ const IndexPage = ({ data }) => (
                 rel="noreferrer"
               >
                 Symbolica AI
-              </ExternalAnchor>.
+              </ExternalAnchor>
+              .
             </p>
             <p>
               I was previously working on generative AI products at Ideogram and
@@ -469,8 +496,9 @@ const IndexPage = ({ data }) => (
               Engineering Science program.
             </p>
             <p>
-              Outside of work, I enjoy <InlineAnchor to="/photos/">photography</InlineAnchor>,
-              hiking, classical music, and visiting art museums.
+              Outside of work, I enjoy{' '}
+              <InlineAnchor to="/photos/">photography</InlineAnchor>, hiking,
+              classical music, and visiting art museums.
             </p>
           </AboutCopy>
         </PaperPanel>
@@ -478,7 +506,7 @@ const IndexPage = ({ data }) => (
 
       <PanelRow $offset={workPanelInset} $rightOffset={workPanelInset}>
         <PaperPanel $maxWidth="104rem" id="work">
-          <SectionTitle data-node-id="505:27">work</SectionTitle>
+          <SectionTitle>work</SectionTitle>
           <WorkList>
             {workItems.map((item) => (
               <WorkItem key={item.company}>
@@ -500,7 +528,7 @@ const IndexPage = ({ data }) => (
       {showBlogSection ? (
         <PanelRow $offset="clamp(1rem, 9vw, 11.5rem)">
           <PaperPanel $maxWidth="94rem" id="blog">
-            <SectionTitle data-node-id="505:112">blog</SectionTitle>
+            <SectionTitle>blog</SectionTitle>
             <WritingList>
               {writingItems.map((item) => (
                 <WritingItem key={item.title}>
@@ -523,17 +551,21 @@ const IndexPage = ({ data }) => (
       ) : null}
 
       <PhotographySection id="photography">
-        <PhotographyImage image={getImage(data.photographyBanner)} alt="" loading="eager" />
+        <PhotographyImage
+          image={getImage(data.photographyBanner)}
+          alt=""
+          loading="eager"
+        />
         <PhotographyOverlay />
         <PhotographyContent>
-          <PhotographyTitle data-node-id="505:40">photography</PhotographyTitle>
-          <PhotographySubtitle data-node-id="505:49">a visual archive</PhotographySubtitle>
+          <PhotographyTitle>photography</PhotographyTitle>
+          <PhotographySubtitle>a visual archive</PhotographySubtitle>
           <ArchiveButton to="/photos/">view archive</ArchiveButton>
         </PhotographyContent>
       </PhotographySection>
 
       <ResourcesSection id="resources">
-        <ResourcesTitle data-node-id="506:36">resources</ResourcesTitle>
+        <ResourcesTitle>resources</ResourcesTitle>
         <ResourceList>
           <ResourceLink
             href="https://www.linkedin.com/in/yuxiangdai/"
@@ -542,6 +574,14 @@ const IndexPage = ({ data }) => (
           >
             linkedin
           </ResourceLink>
+          <ResourceLink
+            href="https://github.com/yuxiangdai"
+            target="_blank"
+            rel="noreferrer"
+          >
+            github
+          </ResourceLink>
+          <ResourceRoute to="/projects/">projects</ResourceRoute>
           <ResourceRoute to="/resume/">resume</ResourceRoute>
         </ResourceList>
       </ResourcesSection>

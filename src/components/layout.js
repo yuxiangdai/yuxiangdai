@@ -4,9 +4,8 @@ import Helmet from 'react-helmet'
 import { graphql, StaticQuery } from 'gatsby'
 
 import './layout.css'
-import Header from './header'
 
-const Layout = ({ children, showHeader }) => (
+const Layout = ({ children, pageTitle }) => (
   <StaticQuery
     query={graphql`
       query SiteTitleQuery {
@@ -20,22 +19,26 @@ const Layout = ({ children, showHeader }) => (
     render={(data) => (
       <>
         <Helmet
-          title={data.site.siteMetadata.title}
+          title={
+            pageTitle
+              ? `${pageTitle} — ${data.site.siteMetadata.title}`
+              : data.site.siteMetadata.title
+          }
           meta={[
             {
               name: 'description',
               content:
-                'Yuxiang Dai - Senior software engineer working on systems, agents, and thoughtful tools. San Francisco.',
+                'Yuxiang Dai - Software engineer working on systems, agents, and thoughtful tools. San Francisco.',
             },
-            { name: 'keywords', content: 'yuxiang dai, software engineer, ai, symbolica' },
+            {
+              name: 'keywords',
+              content: 'yuxiang dai, software engineer, ai, symbolica',
+            },
           ]}
         >
           <html lang="en" />
         </Helmet>
-        {showHeader ? <Header siteTitle="yuxiang dai" /> : null}
-        <main>
-          {children}
-        </main>
+        <main>{children}</main>
       </>
     )}
   />
@@ -43,11 +46,11 @@ const Layout = ({ children, showHeader }) => (
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
-  showHeader: PropTypes.bool,
+  pageTitle: PropTypes.string,
 }
 
 Layout.defaultProps = {
-  showHeader: true,
+  pageTitle: null,
 }
 
 export default Layout

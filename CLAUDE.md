@@ -30,25 +30,21 @@ This is a personal portfolio website built with **Gatsby 5** and **React 18**, u
 - **Deployment**: GitHub Pages via gh-pages package
 
 ### Project Structure
-- `src/pages/` - Route-based pages (index.js, projects.js, photos.js, etc.)
+- `src/pages/` - Route-based pages (index.js, projects.js, photos.js, resume.js, 404.js)
 - `src/components/` - Reusable React components
-  - `layout.js` - Main layout wrapper with header and SEO
-  - `timeline.js` & `timelineStyle.js` - Custom timeline component for experience section
-  - `header.js` - Site header navigation
-  - `image.js` - Gatsby image wrapper
+  - `layout.js` - Main layout wrapper providing SEO meta tags (per-page titles via the `pageTitle` prop) and global CSS
 - `src/images/` - Static assets and images
-- `src/styles/` - CSS modules for specific pages
+- `static/fonts/` - Self-hosted Crimson Text and Inter woff2 files (preloaded in gatsby-ssr.js)
 - `gatsby-config.js` - Gatsby configuration with plugins
 
 ### Key Components
-- **Layout Component**: Uses StaticQuery for site metadata, includes Header and provides consistent page structure with SEO via react-helmet
-- **Timeline Component** (`timeline.js` + `timelineStyle.js`): Displays work experience with years, titles, and descriptions using styled-components
-- **MilkyWayBackground**: Animated canvas-based starry background with configurable star density, twinkle effects, and drift animation
+- **Layout Component**: Uses StaticQuery for site metadata and provides consistent page structure with SEO via react-helmet
+- **Photos Gallery** (`pages/photos.js`): Full-screen horizontal scroll-snap carousel with auto-advance (disabled for prefers-reduced-motion), keyboard navigation, and scroll-position sync
 
 ### Styling Approach
-- Primary styling via styled-components for component-level styles
-- CSS modules for page-specific styles (index.module.css, projects.module.css, etc.)
-- Global styles in layout.css
+- All component styling via styled-components
+- Design language: near-black page background (#090909), light "paper" panels (#d8d8d6), Crimson Text serif, lowercase headings
+- Global styles and resets in `src/components/layout.css`
 
 ### Content Management
 - Static content managed directly in React components

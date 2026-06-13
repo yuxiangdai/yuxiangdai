@@ -24,7 +24,7 @@ const GalleryContainer = styled.div`
   width: 100vw;
   position: relative;
   z-index: 1;
-  
+
   /* Hide scrollbar completely for cleaner look */
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -44,7 +44,7 @@ const ImageSlide = styled.div`
   position: relative;
   padding: 2rem 2rem 4.5rem;
   overflow: hidden;
-  
+
   /* Ensure the container doesn't constrain child images */
   & > * {
     flex-shrink: 0;
@@ -82,6 +82,12 @@ const Caption = styled.div`
   font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: lowercase;
+
+  @media (max-width: 700px) {
+    left: 1rem;
+    right: 8.5rem;
+    bottom: 1.5rem;
+  }
 `
 
 const NavigationButton = styled.button`
@@ -102,13 +108,26 @@ const NavigationButton = styled.button`
   opacity: 0.7;
   transition: all 0.2s ease;
   font-size: 18px;
-  
+
   &:hover {
     opacity: 1;
     background: rgba(0, 0, 0, 0.8);
   }
-  
-  ${props => props.direction === 'prev' ? 'left: 2rem;' : 'right: 2rem;'}
+
+  &:disabled {
+    opacity: 0.25;
+    cursor: default;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  ${(props) => (props.direction === 'prev' ? 'left: 2rem;' : 'right: 2rem;')}
+
+  @media (max-width: 700px) {
+    width: 40px;
+    height: 40px;
+    ${(props) =>
+      props.direction === 'prev' ? 'left: 0.75rem;' : 'right: 0.75rem;'}
+  }
 `
 
 const CountdownContainer = styled.div`
@@ -123,7 +142,7 @@ const CountdownContainer = styled.div`
   padding: 0.5rem 0.8rem;
   border-radius: 20px;
   backdrop-filter: blur(8px);
-  opacity: ${props => props.isVisible ? 0.8 : 0};
+  opacity: ${(props) => (props.isVisible ? 0.8 : 0)};
   transition: opacity 0.3s ease;
 `
 
@@ -140,7 +159,7 @@ const CountdownProgress = styled.div`
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 2px;
-  width: ${props => props.progress}%;
+  width: ${(props) => props.progress}%;
   transition: width 0.1s linear;
 `
 
@@ -160,10 +179,24 @@ export default function PhotosPage({ data }) {
   const [countdownProgress, setCountdownProgress] = useState(0)
 
   const photos = [
-    { key: 'image1', caption: 'the black tusk, garibaldi provincial park, british columbia, canada' },
-    { key: 'image2', caption: 'university of british columbia, vancouver, british columbia, canada' },
-    { key: 'image3', caption: 'garibaldi provincial park, british columbia, canada' },
-    { key: 'image4', caption: 'garibaldi provincial park, british columbia, canada' },
+    {
+      key: 'image1',
+      caption:
+        'the black tusk, garibaldi provincial park, british columbia, canada',
+    },
+    {
+      key: 'image2',
+      caption:
+        'university of british columbia, vancouver, british columbia, canada',
+    },
+    {
+      key: 'image3',
+      caption: 'garibaldi provincial park, british columbia, canada',
+    },
+    {
+      key: 'image4',
+      caption: 'garibaldi provincial park, british columbia, canada',
+    },
     { key: 'image5', caption: 'lands end trail, san francisco, california' },
     { key: 'image6', caption: 'bay bridge, san francisco, california' },
   ]
@@ -173,7 +206,7 @@ export default function PhotosPage({ data }) {
     if (container) {
       container.scrollTo({
         left: index * window.innerWidth,
-        behavior: 'smooth'
+        behavior: 'smooth',
       })
     }
   }
@@ -206,6 +239,37 @@ export default function PhotosPage({ data }) {
       navigateNext()
     }
   }
+
+  // Disable auto-advance for visitors who prefer reduced motion
+  React.useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setIsAutoScrolling(false)
+    }
+  }, [])
+
+  // Keep currentIndex in sync when the visitor swipes or scrolls manually
+  React.useEffect(() => {
+    const container = document.querySelector('.gallery-container')
+    if (!container) return
+
+    const handleScroll = () => {
+      const index = Math.round(container.scrollLeft / window.innerWidth)
+      setCurrentIndex((prev) => (prev === index ? prev : index))
+    }
+
+    const handleInteraction = () => pauseAutoScroll()
+
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    container.addEventListener('touchstart', handleInteraction, {
+      passive: true,
+    })
+    container.addEventListener('wheel', handleInteraction, { passive: true })
+    return () => {
+      container.removeEventListener('scroll', handleScroll)
+      container.removeEventListener('touchstart', handleInteraction)
+      container.removeEventListener('wheel', handleInteraction)
+    }
+  }, [])
 
   // Auto-scroll timer effect
   React.useEffect(() => {
@@ -258,20 +322,15 @@ export default function PhotosPage({ data }) {
     }
   }, [currentIndex, isAutoScrolling])
 
-
   return (
     <PhotosPageWrapper>
-  <Layout showHeader={false}>
-        <GalleryContainer
-          className="gallery-container"
-        >
+      <Layout pageTitle="photography">
+        <GalleryContainer className="gallery-container">
           {photos.map(({ key, caption }, index) => {
-            const imageData = data[key];
+            const imageData = data[key]
 
             return (
-              <ImageSlide
-                key={index}
-              >
+              <ImageSlide key={index}>
                 <StyledImage
                   image={getImage(imageData)}
                   alt={caption}
@@ -279,21 +338,22 @@ export default function PhotosPage({ data }) {
                 />
                 <Caption>{caption}</Caption>
               </ImageSlide>
-            );
+            )
           })}
         </GalleryContainer>
 
         <NavigationButton
           direction="prev"
           onClick={() => handleManualNavigation('prev')}
-          style={{ opacity: 0.7 }}
+          disabled={currentIndex === 0}
+          aria-label="previous photo"
         >
           ←
         </NavigationButton>
         <NavigationButton
           direction="next"
           onClick={() => handleManualNavigation('next')}
-          style={{ opacity: 0.7 }}
+          aria-label="next photo"
         >
           →
         </NavigationButton>

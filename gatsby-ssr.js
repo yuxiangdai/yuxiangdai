@@ -13,6 +13,7 @@ exports.onRenderBody = ({ setHeadComponents }) => {
       href: '/fonts/inter-400-latin.woff2',
       as: 'font',
       type: 'font/woff2',
+      crossOrigin: 'anonymous',
     }),
     React.createElement('link', {
       key: 'preload-crimson-400',
@@ -20,13 +21,7 @@ exports.onRenderBody = ({ setHeadComponents }) => {
       href: '/fonts/crimson-text-400-latin.woff2',
       as: 'font',
       type: 'font/woff2',
-    }),
-    React.createElement('link', {
-      key: 'preload-crimson-600',
-      rel: 'preload',
-      href: '/fonts/crimson-text-600-latin.woff2',
-      as: 'font',
-      type: 'font/woff2',
+      crossOrigin: 'anonymous',
     }),
   ])
 }
