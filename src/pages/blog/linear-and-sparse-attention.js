@@ -1,11 +1,30 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import Layout from '../../components/layout'
 
 const serif = "'Crimson Text', Georgia, 'Times New Roman', serif"
 const sans = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
+
+const attentionSweep = keyframes`
+  0% {
+    opacity: 0;
+    mask-position: 135% 50%;
+    -webkit-mask-position: 135% 50%;
+  }
+
+  12%,
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    mask-position: -35% 50%;
+    -webkit-mask-position: -35% 50%;
+  }
+`
 
 const ArticleShell = styled.div`
   --ink: #11110f;
@@ -119,10 +138,43 @@ const AttentionMap = styled.div`
     radial-gradient(circle, var(--ink) 0 1.6px, transparent 1.9px) 0 0 / 18px 18px,
     var(--paper-deep);
 
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, #858580 0 1.6px, transparent 1.9px) 0 0 / 18px
+      18px;
+    mask-image: linear-gradient(
+      125deg,
+      transparent 28%,
+      #000 43%,
+      #000 50%,
+      transparent 65%
+    );
+    mask-size: 220% 100%;
+    mask-position: 135% 50%;
+    mask-repeat: no-repeat;
+    -webkit-mask-image: linear-gradient(
+      125deg,
+      transparent 28%,
+      #000 43%,
+      #000 50%,
+      transparent 65%
+    );
+    -webkit-mask-size: 220% 100%;
+    -webkit-mask-position: 135% 50%;
+    -webkit-mask-repeat: no-repeat;
+    animation: ${attentionSweep} 6.5s ease-in-out infinite;
+  }
+
   &::after {
     content: '';
     position: absolute;
+    z-index: 2;
     inset: 0;
+    pointer-events: none;
     background: linear-gradient(
       135deg,
       transparent 0 37%,
@@ -131,6 +183,13 @@ const AttentionMap = styled.div`
       rgba(201, 201, 198, 0.98) 53% 67%,
       transparent 67%
     );
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::before {
+      animation: none;
+      opacity: 0;
+    }
   }
 
   @media (max-width: 760px) {
