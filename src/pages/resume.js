@@ -17,7 +17,7 @@ const ResumeTitle = styled.h1`
 
 const ResumePage = () => (
   <Layout showHeader={false}>
-    <ResumeTitle>resume</ResumeTitle>
+    <ResumeTitle>Resume</ResumeTitle>
     <iframe
       title="Resume PDF"
       src="https://drive.google.com/file/d/1pLyV-JBoSXRU-M6xu7SDHmrDfegQ0Ed2/preview"

@@ -24,7 +24,7 @@ const ElsewherePage = () => (
         paddingTop: 0,
       }}
     >
-      <h1>elsewhere</h1>
+      <h1>Elsewhere</h1>
       <Link href="https://www.linkedin.com/in/yuxiangdai/">linkedin</Link>
       <Link href="https://github.com/yuxiangdai">github</Link>
       <Link href="https://500px.com/yuxiangdai">500px</Link>

@@ -32,7 +32,7 @@ const Layout = ({ children, showHeader }) => (
         >
           <html lang="en" />
         </Helmet>
-        {showHeader ? <Header siteTitle="yuxiang dai" /> : null}
+        {showHeader ? <Header siteTitle="Yuxiang Dai" /> : null}
         <main>
           {children}
         </main>

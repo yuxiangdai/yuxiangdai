@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Layout from '../components/layout'
 
 const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
-const showBlogSection = false
+const showBlogSection = true
 const aboutRightInset = 'clamp(4rem, 12vw, 18rem)'
 const workPanelInset = 'clamp(1rem, 4vw, 5rem)'
 
@@ -35,9 +35,10 @@ const workItems = [
 
 const writingItems = [
   {
-    date: 'March 2026',
-    title: 'writing archive coming soon',
-    excerpt: 'Long-form teardowns, notes on systems, and build logs will live here.',
+    date: 'August 8, 2026',
+    title: 'Linear and Sparse Attention',
+    excerpt: 'Featuring Kimi and DeepSeek',
+    href: '/blog/linear-and-sparse-attention/',
   },
 ]
 
@@ -438,7 +439,7 @@ const IndexPage = ({ data }) => (
     <PageShell data-node-id="502:54">
       <IntroSection>
         <IntroInner>
-          <Name data-node-id="503:5">yuxiang dai</Name>
+          <Name data-node-id="503:5">Yuxiang Dai</Name>
           <Meta>
             <MetaItem data-node-id="504:6">software engineer</MetaItem>
             <MetaItem data-node-id="504:7">san francisco</MetaItem>
@@ -448,7 +449,7 @@ const IndexPage = ({ data }) => (
 
       <PanelRow $offset="0" $rightOffset={aboutRightInset}>
         <PaperPanel $maxWidth="96rem" id="about">
-          <SectionTitle data-node-id="505:22">about</SectionTitle>
+          <SectionTitle data-node-id="505:22">About</SectionTitle>
           <AboutCopy>
             <p>
               I currently work on Applied AI systems at{' '}
@@ -478,7 +479,7 @@ const IndexPage = ({ data }) => (
 
       <PanelRow $offset={workPanelInset} $rightOffset={workPanelInset}>
         <PaperPanel $maxWidth="104rem" id="work">
-          <SectionTitle data-node-id="505:27">work</SectionTitle>
+          <SectionTitle data-node-id="505:27">Work</SectionTitle>
           <WorkList>
             {workItems.map((item) => (
               <WorkItem key={item.company}>
@@ -500,7 +501,7 @@ const IndexPage = ({ data }) => (
       {showBlogSection ? (
         <PanelRow $offset="clamp(1rem, 9vw, 11.5rem)">
           <PaperPanel $maxWidth="94rem" id="blog">
-            <SectionTitle data-node-id="505:112">blog</SectionTitle>
+            <SectionTitle data-node-id="505:112">Blog</SectionTitle>
             <WritingList>
               {writingItems.map((item) => (
                 <WritingItem key={item.title}>
@@ -526,14 +527,14 @@ const IndexPage = ({ data }) => (
         <PhotographyImage image={getImage(data.photographyBanner)} alt="" loading="eager" />
         <PhotographyOverlay />
         <PhotographyContent>
-          <PhotographyTitle data-node-id="505:40">photography</PhotographyTitle>
-          <PhotographySubtitle data-node-id="505:49">a visual archive</PhotographySubtitle>
+          <PhotographyTitle data-node-id="505:40">Photography</PhotographyTitle>
+          <PhotographySubtitle data-node-id="505:49">A Visual Archive</PhotographySubtitle>
           <ArchiveButton to="/photos/">view archive</ArchiveButton>
         </PhotographyContent>
       </PhotographySection>
 
       <ResourcesSection id="resources">
-        <ResourcesTitle data-node-id="506:36">resources</ResourcesTitle>
+        <ResourcesTitle data-node-id="506:36">Resources</ResourcesTitle>
         <ResourceList>
           <ResourceLink
             href="https://www.linkedin.com/in/yuxiangdai/"
