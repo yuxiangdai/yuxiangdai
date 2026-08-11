@@ -40,6 +40,12 @@ const writingItems = [
     excerpt: 'Featuring Kimi and DeepSeek',
     href: '/blog/linear-and-sparse-attention/',
   },
+  {
+    date: 'August 8, 2026',
+    title: 'Hello World',
+    excerpt: 'A new chapter in research engineering',
+    href: '/blog/hello-world/',
+  },
 ]
 
 const PageShell = styled.div`
