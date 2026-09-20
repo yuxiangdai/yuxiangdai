@@ -560,7 +560,7 @@ const articleContent = (
     <p>
       DeepSeek has since built on DSA in{' '}
       <a
-        href="https://deepseek.com/en/news/v4-preview/"
+        href="https://arxiv.org/abs/2606.19348"
         target="_blank"
         rel="noreferrer"
       >
