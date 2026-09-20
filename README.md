@@ -14,3 +14,12 @@
 
 - Personal site: https://yuxiangdai.com
 - LinkedIn: https://linkedin.com/in/yuxiangdai
+
+### Blog equations
+
+The linear and sparse attention post renders LaTeX with KaTeX at build time.
+Use `String.raw` for equation strings, `Math` for inline notation, and `Equation`
+for display equations; display blocks scroll horizontally on narrow screens.
+Article figures, including the DSA architecture diagram, open at full size when clicked.
+Their displayed crops balance screenshot margins while preserving the original files.
+The post uses an editorial reading estimate of 8 minutes.

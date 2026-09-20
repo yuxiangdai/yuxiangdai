@@ -160,6 +160,8 @@ export default function PhotosPage({ data }) {
   const [countdownProgress, setCountdownProgress] = useState(0)
 
   const photos = [
+    { key: 'image7', caption: 'crater lake national park, oregon' },
+    { key: 'image8', caption: 'moonrise over crater lake national park, oregon' },
     { key: 'image1', caption: 'the black tusk, garibaldi provincial park, british columbia, canada' },
     { key: 'image2', caption: 'university of british columbia, vancouver, british columbia, canada' },
     { key: 'image3', caption: 'garibaldi provincial park, british columbia, canada' },
@@ -372,6 +374,30 @@ export const query = graphql`
     }
 
     image6: file(relativePath: { eq: "20260419_0003_02.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+
+    image7: file(relativePath: { eq: "_DSC8063.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 1800
+          quality: 72
+          placeholder: BLURRED
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+
+    image8: file(relativePath: { eq: "_DSC8263.jpg" }) {
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
