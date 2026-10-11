@@ -12,6 +12,7 @@ const serif = "'Crimson Text', Georgia, 'Times New Roman', serif"
 const PageShell = styled.div`
   --ink: #181815;
   --page-gutter: clamp(1.25rem, 2.65vw, 3.5rem);
+  --composition-width: 96svh;
   isolation: isolate;
   position: relative;
   display: flex;
@@ -52,6 +53,10 @@ const PageShell = styled.div`
   ::selection {
     background: #302a50;
     color: #fff4df;
+  }
+
+  @media (min-width: 761px) and (max-height: 680px) {
+    --composition-width: 88svh;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -118,7 +123,7 @@ const Composition = styled.div`
     minmax(0, calc((200% - var(--photo-gap) / 2) / 3))
     minmax(0, 1fr);
   column-gap: var(--photo-gap);
-  width: min(100%, 126vh);
+  width: min(100%, var(--composition-width));
   margin: 0 auto;
   padding-top: 0;
 
@@ -134,18 +139,22 @@ const Name = styled.h1`
   grid-column: 1 / -1;
   grid-row: 1;
   font-family: 'DM Serif Display', 'Times New Roman', serif;
-  font-size: min(12.75vw, 19.2vh);
+  font-size: min(11vw, 12svh);
   font-weight: 400;
   line-height: 0.82;
   letter-spacing: -0.055em;
   margin-left: clamp(
     -4vw,
-    calc((126vh - 100vw + 2 * var(--page-gutter)) / 2),
+    calc((var(--composition-width) - 100vw + 2 * var(--page-gutter)) / 2),
     0px
   ) !important;
   padding-bottom: 0.24em;
   width: max-content;
   z-index: 1;
+
+  @media (min-width: 761px) and (max-height: 680px) {
+    font-size: min(11vw, 10svh);
+  }
 
   @media (max-width: 760px) {
     font-size: clamp(2.75rem, 15.4vw, 7.3rem);
@@ -198,12 +207,11 @@ const Introduction = styled.section`
   grid-column: 1;
   grid-row: 3;
   width: min(31rem, 72%);
-  margin: 2rem 2rem 0 auto;
-  padding-right: 2rem;
+  margin: 1rem 2rem 0 auto;
   scroll-margin-top: 2rem;
 
   p {
-    font-size: clamp(1.25rem, 1.65vw, 1.65rem);
+    font-size: clamp(1.1rem, min(1.65vw, 2.8svh), 1.65rem);
     line-height: 1.25;
   }
 
@@ -225,7 +233,7 @@ const Writing = styled.section`
   scroll-margin-top: 2rem;
 
   h2 {
-    font-size: clamp(1.6rem, min(2.6vw, 3.8vh), 2.8rem);
+    font-size: clamp(1.4rem, min(2.6vw, 3.4svh), 2.8rem);
     font-weight: 600;
     line-height: 1.02;
     letter-spacing: -0.04em;
@@ -257,8 +265,12 @@ const Footer = styled.footer`
   align-items: center;
   gap: 1rem;
   margin-top: auto;
-  padding: 1.25rem 0;
+  padding: 0.75rem 0;
   font-size: 1rem;
+
+  @media (min-width: 761px) and (max-height: 680px) {
+    padding: 0.5rem 0;
+  }
 
   @media (max-width: 760px) {
     padding: 2.5rem 0 1.5rem;
@@ -269,6 +281,7 @@ const IndexPage = ({ data }) => {
   return (
     <Layout showHeader={false}>
       <Helmet>
+        <html className="home-page" />
         <meta
           name="description"
           content="Photographs, hiking, music, art, and things I want to understand. A personal collection by Yuxiang Dai."
@@ -302,7 +315,7 @@ const IndexPage = ({ data }) => {
                 image={getImage(data.landscape)}
                 alt="Warm evening light on a mountain ridge, alpine lake, and evergreen forest in Garibaldi Provincial Park."
                 loading="eager"
-                sizes="(max-width: 760px) calc(100vw - 2.5rem), min(63vw, 84vh)"
+                sizes="(max-width: 760px) calc(100vw - 2.5rem), min(63vw, 64svh)"
                 objectFit="contain"
               />
             </Link>
@@ -318,7 +331,7 @@ const IndexPage = ({ data }) => {
                   image={getImage(data.blackTusk)}
                   alt="Black Tusk above alpine lakes and mountain ridges in Garibaldi Provincial Park."
                   loading="eager"
-                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 42vh)"
+                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 32svh)"
                   objectFit="contain"
                 />
               </Link>
@@ -329,7 +342,7 @@ const IndexPage = ({ data }) => {
                   image={getImage(data.forest)}
                   alt="Layers of evergreen forest and mountain ridges beneath a peach evening sky in Garibaldi Provincial Park."
                   loading="eager"
-                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 42vh)"
+                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 32svh)"
                   objectFit="contain"
                 />
               </Link>

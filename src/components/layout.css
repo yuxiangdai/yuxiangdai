@@ -310,6 +310,10 @@ html {
   overflow-y: scroll;
 }
 
+html.home-page {
+  overflow-y: auto;
+}
+
 * {
   box-sizing: inherit;
 }
