@@ -24,7 +24,7 @@ const GalleryContainer = styled.div`
   width: 100vw;
   position: relative;
   z-index: 1;
-  
+
   /* Hide scrollbar completely for cleaner look */
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -44,7 +44,7 @@ const ImageSlide = styled.div`
   position: relative;
   padding: 2rem 2rem 4.5rem;
   overflow: hidden;
-  
+
   /* Ensure the container doesn't constrain child images */
   & > * {
     flex-shrink: 0;
@@ -102,13 +102,13 @@ const NavigationButton = styled.button`
   opacity: 0.7;
   transition: all 0.2s ease;
   font-size: 18px;
-  
+
   &:hover {
     opacity: 1;
     background: rgba(0, 0, 0, 0.8);
   }
-  
-  ${props => props.direction === 'prev' ? 'left: 2rem;' : 'right: 2rem;'}
+
+  ${(props) => (props.direction === 'prev' ? 'left: 2rem;' : 'right: 2rem;')}
 `
 
 const CountdownContainer = styled.div`
@@ -123,7 +123,7 @@ const CountdownContainer = styled.div`
   padding: 0.5rem 0.8rem;
   border-radius: 20px;
   backdrop-filter: blur(8px);
-  opacity: ${props => props.isVisible ? 0.8 : 0};
+  opacity: ${(props) => (props.isVisible ? 0.8 : 0)};
   transition: opacity 0.3s ease;
 `
 
@@ -140,7 +140,7 @@ const CountdownProgress = styled.div`
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 2px;
-  width: ${props => props.progress}%;
+  width: ${(props) => props.progress}%;
   transition: width 0.1s linear;
 `
 
@@ -160,14 +160,31 @@ export default function PhotosPage({ data }) {
   const [countdownProgress, setCountdownProgress] = useState(0)
 
   const photos = [
-    { key: 'image7', caption: 'crater lake national park, oregon' },
-    { key: 'image8', caption: 'moonrise over crater lake national park, oregon' },
-    { key: 'image1', caption: 'the black tusk, garibaldi provincial park, british columbia, canada' },
-    { key: 'image2', caption: 'university of british columbia, vancouver, british columbia, canada' },
-    { key: 'image3', caption: 'garibaldi provincial park, british columbia, canada' },
-    { key: 'image4', caption: 'garibaldi provincial park, british columbia, canada' },
+    {
+      key: 'image1',
+      caption:
+        'the black tusk, garibaldi provincial park, british columbia, canada',
+    },
+    {
+      key: 'image3',
+      caption: 'garibaldi provincial park, british columbia, canada',
+    },
+    {
+      key: 'image4',
+      caption: 'garibaldi provincial park, british columbia, canada',
+    },
+    {
+      key: 'image2',
+      caption:
+        'university of british columbia, vancouver, british columbia, canada',
+    },
     { key: 'image5', caption: 'lands end trail, san francisco, california' },
     { key: 'image6', caption: 'bay bridge, san francisco, california' },
+    { key: 'image7', caption: 'crater lake national park, oregon' },
+    {
+      key: 'image8',
+      caption: 'moonrise over crater lake national park, oregon',
+    },
   ]
 
   const scrollToImage = (index) => {
@@ -175,7 +192,7 @@ export default function PhotosPage({ data }) {
     if (container) {
       container.scrollTo({
         left: index * window.innerWidth,
-        behavior: 'smooth'
+        behavior: 'smooth',
       })
     }
   }
@@ -260,20 +277,15 @@ export default function PhotosPage({ data }) {
     }
   }, [currentIndex, isAutoScrolling])
 
-
   return (
     <PhotosPageWrapper>
-  <Layout showHeader={false}>
-        <GalleryContainer
-          className="gallery-container"
-        >
+      <Layout showHeader={false}>
+        <GalleryContainer className="gallery-container">
           {photos.map(({ key, caption }, index) => {
-            const imageData = data[key];
+            const imageData = data[key]
 
             return (
-              <ImageSlide
-                key={index}
-              >
+              <ImageSlide key={index}>
                 <StyledImage
                   image={getImage(imageData)}
                   alt={caption}
@@ -281,7 +293,7 @@ export default function PhotosPage({ data }) {
                 />
                 <Caption>{caption}</Caption>
               </ImageSlide>
-            );
+            )
           })}
         </GalleryContainer>
 

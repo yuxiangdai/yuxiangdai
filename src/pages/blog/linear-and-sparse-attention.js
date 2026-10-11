@@ -241,7 +241,7 @@ const MetaValue = styled.p`
 
 const Prose = styled.div`
   min-width: 0;
-  max-width: 42rem;
+  max-width: 34rem;
 
   p {
     margin: 0 0 1.45em;
@@ -637,7 +637,7 @@ const LinearAndSparseAttentionPage = () => {
         <ReadingProgress contentRef={contentRef} />
         <TopBar aria-label="Article navigation">
           <HomeLink to="/">Yuxiang Dai</HomeLink>
-          <SectionLink to="/#blog">Blog</SectionLink>
+          <SectionLink to="/writing/">All Writing</SectionLink>
         </TopBar>
 
         <Paper ref={contentRef}>
@@ -666,7 +666,7 @@ const LinearAndSparseAttentionPage = () => {
 
           <ArticleFooter>
             <FooterLink to="/">← Home</FooterLink>
-            <FooterLink to="/#blog">All Writing ↑</FooterLink>
+            <FooterLink to="/writing/">All Writing ↑</FooterLink>
           </ArticleFooter>
         </Paper>
       </ArticleShell>

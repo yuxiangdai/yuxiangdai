@@ -1,563 +1,403 @@
 import React from 'react'
 import { graphql, Link } from 'gatsby'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import Layout from '../components/layout'
+import SunriseBackground from '../components/sunrise-background'
+import ScatteredName from '../components/scattered-name'
 
-const crimsonTextSemibold = "'Crimson Text', Georgia, 'Times New Roman', serif"
-const showBlogSection = true
-const aboutRightInset = 'clamp(4rem, 12vw, 18rem)'
-const workPanelInset = 'clamp(1rem, 4vw, 5rem)'
-
-const workItems = [
-  {
-    company: 'Symbolica AI',
-    summary: 'building AI agents and next-generation reasoning systems',
-    role: 'Software Engineer',
-    team: 'Applied AI',
-    tenure: '2025 - Current',
-  },
-  {
-    company: 'Ideogram',
-    summary: 'shipping creative generative AI products for millions of users',
-    role: 'Member of Technical Staff',
-    team: 'Product Engineering',
-    tenure: '2024 - 2025',
-  },
-  {
-    company: 'Amazon',
-    summary: 'building supply chain forecasting systems at global scale',
-    role: 'Software Engineer',
-    team: 'Forecasting Infrastructure',
-    tenure: '2020 - 2024',
-  },
-]
-
-const writingItems = [
-  {
-    date: 'August 8, 2026',
-    title: 'Linear and Sparse Attention',
-    excerpt: 'Featuring Kimi and DeepSeek',
-    href: '/blog/linear-and-sparse-attention/',
-  },
-]
+const serif = "'Crimson Text', Georgia, 'Times New Roman', serif"
 
 const PageShell = styled.div`
-  --page-bg: #090909;
-  --paper: #d8d8d6;
-  --paper-shadow: rgba(0, 0, 0, 0.2);
-  --text-dark: #080808;
-  --text-light: #f4f1ea;
-  --text-soft: rgba(244, 241, 234, 0.78);
-  --rule: rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 16%),
-    var(--page-bg);
-  color: var(--text-light);
-  font-family: 'Crimson Text', Georgia, 'Times New Roman', serif;
-  overflow: clip;
-`
-
-const IntroSection = styled.section`
-  min-height: clamp(28rem, 64vh, 44rem);
+  --ink: #181815;
+  --page-gutter: clamp(1.25rem, 2.65vw, 3.5rem);
+  isolation: isolate;
+  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: clamp(4.5rem, 8vw, 7.5rem) 1.5rem clamp(1.5rem, 3vw, 2.5rem);
+  flex-direction: column;
+  min-height: 100svh;
+  padding: 0 var(--page-gutter);
+  color: var(--ink);
+  font-family: ${serif};
+  font-size: 1.125rem;
+  letter-spacing: -0.015em;
 
-  @media (max-width: 700px) {
-    min-height: clamp(24rem, 56vh, 32rem);
-    align-items: flex-end;
-    padding-top: 5.5rem;
-    padding-bottom: 1.25rem;
+  h1,
+  h2,
+  p,
+  figure {
+    margin: 0;
+    color: inherit;
+  }
+  h2 {
+    font-family: inherit;
+  }
+  p {
+    letter-spacing: inherit;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  a:focus-visible,
+  [tabindex='-1']:focus-visible {
+    outline: 2px solid #302a50;
+    outline-offset: 6px;
+  }
+  ::selection {
+    background: #302a50;
+    color: #fff4df;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .gatsby-image-wrapper img {
+      transition: none;
+    }
   }
 `
 
-const IntroInner = styled.div`
-  text-align: center;
-  transform: translateY(clamp(-1rem, -1.8vw, -1.75rem));
+const TopBar = styled.header`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0 0.3rem;
+  font-size: clamp(1.1rem, 1.4vw, 1.4rem);
+  line-height: 1.3;
 
-  @media (max-width: 700px) {
-    transform: translateY(clamp(-0.5rem, -1.2vw, -0.9rem));
+  nav {
+    display: flex;
+    gap: clamp(1.25rem, 2.2vw, 2.5rem);
+  }
+  a {
+    display: inline-block;
+    padding: 0.25rem 0;
+  }
+
+  @media (max-width: 760px) {
+    padding: 1rem 0 0.5rem;
+    font-size: 1rem;
+    gap: 0.75rem;
+    nav {
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 370px) {
+    flex-wrap: wrap;
+    nav {
+      width: 100%;
+      justify-content: flex-end;
+    }
+  }
+`
+
+const SkipLink = styled.a`
+  position: absolute;
+  top: 0.5rem;
+  left: var(--page-gutter);
+  padding: 0.5rem 1rem;
+  background: #fff1d9;
+  z-index: 5;
+  transform: translateY(-200%);
+  &:focus {
+    transform: translateY(0);
+  }
+`
+
+const Composition = styled.div`
+  --photo-gap: clamp(1rem, 2vw, 2rem);
+  display: grid;
+  /* Three 3:2 photographs: include the stack's gap when matching their heights. */
+  grid-template-columns:
+    minmax(0, calc((200% - var(--photo-gap) / 2) / 3))
+    minmax(0, 1fr);
+  column-gap: var(--photo-gap);
+  width: min(100%, 126vh);
+  margin: 0 auto;
+  padding-top: 0;
+
+  @media (max-width: 760px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-top: 1.5rem;
   }
 `
 
 const Name = styled.h1`
-  margin: 0;
-  color: inherit;
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(3rem, 8.1vw, 5.8rem);
-  line-height: 0.92;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  font-family: 'DM Serif Display', 'Times New Roman', serif;
+  font-size: min(12.75vw, 19.2vh);
   font-weight: 400;
-  letter-spacing: normal;
+  line-height: 0.82;
+  letter-spacing: -0.055em;
+  margin-left: clamp(
+    -4vw,
+    calc((126vh - 100vw + 2 * var(--page-gutter)) / 2),
+    0px
+  ) !important;
+  padding-bottom: 0.24em;
+  width: max-content;
+  z-index: 1;
 
-  @media (max-width: 700px) {
-    font-size: clamp(2.35rem, 10.5vw, 3.35rem);
+  @media (max-width: 760px) {
+    font-size: clamp(2.75rem, 15.4vw, 7.3rem);
+    margin-left: 0 !important;
+    line-height: 1;
+    padding-bottom: 0.35em;
   }
 `
 
-const Meta = styled.div`
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.85rem clamp(1.25rem, 4vw, 3.5rem);
-  margin-top: 0.75rem;
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.1rem, 2vw, 2rem);
-  line-height: 1;
-  color: var(--text-light);
+const Landscape = styled.figure`
+  grid-column: 1;
+  grid-row: 2;
+  padding-top: 0;
 
-  @media (max-width: 700px) {
-    font-size: 1rem;
+  a,
+  .gatsby-image-wrapper {
+    display: block;
+  }
+  figcaption {
+    max-width: 44rem;
+    padding: 0.6rem 0 0;
+    font-size: 0.85rem;
+    line-height: 1.35;
+    color: #3b3635;
   }
 `
 
-const MetaItem = styled.span`
-  white-space: nowrap;
-`
+const CompanionPhotos = styled.div`
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  gap: var(--photo-gap);
+  align-self: start;
+  z-index: 2;
 
-const PanelRow = styled.div`
-  padding-left: ${({ $offset }) => $offset || '0'};
-  padding-right: ${({ $rightOffset }) => $rightOffset || '1rem'};
-  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  a,
+  .gatsby-image-wrapper {
+    display: block;
+  }
 
-  @media (max-width: 1100px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  @media (max-width: 760px) {
+    width: 86%;
+    align-self: flex-end;
+    gap: 1.25rem;
+    margin: 1.75rem 0 0;
   }
 `
 
-const PaperPanel = styled.section`
-  max-width: ${({ $maxWidth }) => $maxWidth || '74rem'};
-  background: var(--paper);
-  color: var(--text-dark);
-  box-shadow: 0 24px 80px var(--paper-shadow);
-  padding: clamp(1.35rem, 3vw, 2.5rem);
-`
-
-const SectionTitle = styled.h2`
-  margin: 0 0 clamp(1rem, 3vw, 2rem);
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(2.15rem, 5vw, 4.4rem);
-  line-height: 0.9;
-  font-weight: 400;
-  letter-spacing: -0.04em;
-`
-
-const AboutCopy = styled.div`
-  max-width: 44rem;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1rem, 1.3vw, 1.2rem);
-  line-height: 1.25;
+const Introduction = styled.section`
+  grid-column: 1;
+  grid-row: 3;
+  width: min(31rem, 72%);
+  margin: 2rem 2rem 0 auto;
+  padding-right: 2rem;
+  scroll-margin-top: 2rem;
 
   p {
-    color: var(--text-dark);
-    margin: 0;
+    font-size: clamp(1.25rem, 1.65vw, 1.65rem);
+    line-height: 1.25;
   }
 
-  p + p {
-    margin-top: 0.2rem;
-  }
-`
-
-const InlineAnchor = styled(Link)`
-  color: var(--text-dark);
-  text-decoration: underline;
-  text-underline-offset: 0.12em;
-`
-
-const ExternalAnchor = styled.a`
-  color: var(--text-dark);
-  text-decoration: underline;
-  text-underline-offset: 0.12em;
-`
-
-const WorkList = styled.div`
-  display: grid;
-  gap: clamp(2rem, 4vw, 3.2rem);
-`
-
-const WorkItem = styled.article`
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(12rem, 0.75fr);
-  gap: 1.5rem clamp(1.5rem, 4vw, 4rem);
-  align-items: start;
-
-  @media (max-width: 820px) {
-    grid-template-columns: 1fr;
+  @media (max-width: 760px) {
+    width: 100%;
+    margin: 2rem 0 0;
+    padding: 0;
+    max-width: 24rem;
+    p {
+      font-size: 1.5rem;
+    }
   }
 `
 
-const WorkPrimary = styled.div`
-  min-width: 0;
-`
+const Writing = styled.section`
+  grid-column: 2;
+  grid-row: 3;
+  margin: 0.5rem 0 0 -3rem;
+  scroll-margin-top: 2rem;
 
-const WorkCompany = styled.h3`
-  margin: 0 0 0.35rem;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(2rem, 4vw, 3.8rem);
-  line-height: 0.98;
-  font-weight: 400;
-`
+  h2 {
+    font-size: clamp(1.6rem, min(2.6vw, 3.8vh), 2.8rem);
+    font-weight: 600;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  .read-essay {
+    display: inline-block;
+    margin-top: 0.65rem;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+  }
 
-const WorkSummary = styled.p`
-  margin: 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.05rem, 1.45vw, 1.4rem);
-  line-height: 1.15;
-`
-
-const WorkMeta = styled.div`
-  text-align: right;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  line-height: 1.15;
-
-  @media (max-width: 820px) {
-    text-align: left;
+  @media (max-width: 760px) {
+    margin: 2.25rem 0 0;
+    h2 {
+      font-size: clamp(2rem, 7.4vw, 3.1rem);
+      max-width: 25rem;
+    }
   }
 `
 
-const WorkRole = styled.p`
-  margin: 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.45rem, 2.3vw, 2.5rem);
-  line-height: 1.02;
-`
-
-const WorkTeam = styled.p`
-  margin: 0.35rem 0 0;
-  color: var(--text-dark);
-`
-
-const WorkTenure = styled.p`
-  margin: 0.15rem 0 0;
-  color: var(--text-dark);
-`
-
-const WritingList = styled.div`
-  display: grid;
-  gap: 1.5rem;
-`
-
-const WritingItem = styled.article`
-  display: grid;
-  grid-template-columns: minmax(9rem, 10.5rem) minmax(0, 1fr);
-  gap: 1rem clamp(1.25rem, 4vw, 2.5rem);
-  align-items: start;
-
-  @media (max-width: 720px) {
-    grid-template-columns: 1fr;
-    gap: 0.4rem;
-  }
-`
-
-const WritingDate = styled.p`
-  margin: 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1rem, 1.25vw, 1.15rem);
-  line-height: 1.1;
-`
-
-const WritingContent = styled.div`
-  min-width: 0;
-`
-
-const WritingTitle = styled.h3`
-  margin: 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.35rem, 2vw, 2.2rem);
-  line-height: 1.02;
-  font-weight: 400;
-`
-
-const WritingExcerpt = styled.p`
-  margin: 0.35rem 0 0;
-  color: var(--text-dark);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
-  line-height: 1.2;
-`
-
-const WritingLink = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-  display: inline-block;
-  transition: transform 160ms ease, opacity 160ms ease;
-
-  &:hover,
-  &:focus-visible {
-    opacity: 0.7;
-    transform: translateX(4px);
-  }
-`
-
-const PhotographySection = styled.section`
-  position: relative;
-  min-height: clamp(14rem, 40vw, 46.5rem);
-  margin-top: clamp(2rem, 5vw, 4rem);
+const Footer = styled.footer`
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  overflow: hidden;
-`
-
-const PhotographyImage = styled(GatsbyImage)`
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  filter: saturate(1.02);
-
-  &,
-  & > div,
-  picture {
-    height: 100%;
-  }
-
-  img {
-    object-fit: cover !important;
-    object-position: center 42% !important;
-  }
-`
-
-const PhotographyOverlay = styled.div`
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(90deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.22) 38%, rgba(0, 0, 0, 0.08) 70%),
-    linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.38));
-`
-
-const PhotographyContent = styled.div`
-  position: relative;
-  z-index: 1;
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  max-width: 40rem;
-`
-
-const PhotographyTitle = styled.h2`
-  margin: 0;
-  color: inherit;
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(2.45rem, 5.8vw, 5.1rem);
-  line-height: 0.88;
-  font-weight: 400;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-
-  @media (max-width: 700px) {
-    white-space: normal;
-  }
-`
-
-const PhotographySubtitle = styled.p`
-  margin: 0.65rem 0 0;
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.1rem, 1.6vw, 1.75rem);
-  color: var(--text-light);
-`
-
-const ArchiveButton = styled(Link)`
-  display: inline-flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 0.65rem;
-  margin-top: 1.5rem;
-  padding: 0.8rem 1.15rem;
-  background: rgba(240, 238, 234, 0.92);
-  color: #050505;
-  font-family: ${crimsonTextSemibold};
-  text-decoration: none;
-  font-size: clamp(1rem, 1.25vw, 1.2rem);
-  line-height: 1;
-  transition: transform 160ms ease, background 160ms ease;
+  gap: 1rem;
+  margin-top: auto;
+  padding: 1.25rem 0;
+  font-size: 1rem;
 
-  &::after {
-    content: "\\2192";
-    font-size: 0.95em;
-  }
-
-  &:hover,
-  &:focus-visible {
-    transform: translateX(5px);
-    background: #ffffff;
+  @media (max-width: 760px) {
+    padding: 2.5rem 0 1.5rem;
   }
 `
 
-const ResourcesSection = styled.footer`
-  padding: clamp(4rem, 9vw, 6rem) 1.5rem clamp(5rem, 10vw, 7rem);
-  display: grid;
-  justify-items: center;
-  gap: 1.5rem;
-  text-align: center;
-`
-
-const ResourcesTitle = styled.h2`
-  margin: 0;
-  color: inherit;
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.7rem, 3.2vw, 2.7rem);
-  line-height: 1;
-  font-weight: 400;
-`
-
-const ResourceList = styled.nav`
-  display: grid;
-  gap: 0.9rem;
-  justify-items: center;
-`
-
-const resourceLinkStyles = `
-  color: var(--text-light);
-  font-family: ${crimsonTextSemibold};
-  font-size: clamp(1.2rem, 1.8vw, 1.8rem);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 160ms ease, opacity 160ms ease;
-
-  &:hover,
-  &:focus-visible {
-    opacity: 0.72;
-    border-color: var(--rule);
-  }
-`
-
-const ResourceLink = styled.a`${resourceLinkStyles}`
-
-const ResourceRoute = styled(Link)`${resourceLinkStyles}`
-
-const IndexPage = ({ data }) => (
-  <Layout showHeader={false}>
-    <PageShell data-node-id="502:54">
-      <IntroSection>
-        <IntroInner>
-          <Name data-node-id="503:5">Yuxiang Dai</Name>
-          <Meta>
-            <MetaItem data-node-id="504:6">software engineer</MetaItem>
-            <MetaItem data-node-id="504:7">san francisco</MetaItem>
-          </Meta>
-        </IntroInner>
-      </IntroSection>
-
-      <PanelRow $offset="0" $rightOffset={aboutRightInset}>
-        <PaperPanel $maxWidth="96rem" id="about">
-          <SectionTitle data-node-id="505:22">About</SectionTitle>
-          <AboutCopy>
+const IndexPage = ({ data }) => {
+  return (
+    <Layout showHeader={false}>
+      <Helmet>
+        <meta
+          name="description"
+          content="Photographs, hiking, music, art, and things I want to understand. A personal collection by Yuxiang Dai."
+        />
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+          href="/fonts/dm-serif-display-400-latin.woff2"
+        />
+        <link rel="preload" as="image" href="/images/home/sunrise.webp" />
+      </Helmet>
+      <PageShell>
+        <SunriseBackground />
+        <SkipLink href="#about">Skip to introduction</SkipLink>
+        <TopBar>
+          <nav aria-label="Main navigation">
+            <Link to="/photos/">Photography</Link>
+            <Link to="/writing/">Writing</Link>
+            <a href="#about">About</a>
+          </nav>
+        </TopBar>
+        <Composition>
+          <Name aria-label="Yuxiang Dai">
+            <ScatteredName />
+          </Name>
+          <Landscape>
+            <Link to="/photos/" aria-label="Explore the photography collection">
+              <GatsbyImage
+                image={getImage(data.landscape)}
+                alt="Warm evening light on a mountain ridge, alpine lake, and evergreen forest in Garibaldi Provincial Park."
+                loading="eager"
+                sizes="(max-width: 760px) calc(100vw - 2.5rem), min(63vw, 84vh)"
+                objectFit="contain"
+              />
+            </Link>
+            <figcaption>
+              Shot on a Fuji X-T20 during a multi-day backpacking trip in
+              Garibaldi Provincial Park, near Vancouver, BC.
+            </figcaption>
+          </Landscape>
+          <CompanionPhotos>
+            <figure>
+              <Link to="/photos/">
+                <GatsbyImage
+                  image={getImage(data.blackTusk)}
+                  alt="Black Tusk above alpine lakes and mountain ridges in Garibaldi Provincial Park."
+                  loading="eager"
+                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 42vh)"
+                  objectFit="contain"
+                />
+              </Link>
+            </figure>
+            <figure>
+              <Link to="/photos/">
+                <GatsbyImage
+                  image={getImage(data.forest)}
+                  alt="Layers of evergreen forest and mountain ridges beneath a peach evening sky in Garibaldi Provincial Park."
+                  loading="eager"
+                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 42vh)"
+                  objectFit="contain"
+                />
+              </Link>
+            </figure>
+          </CompanionPhotos>
+          <Introduction id="about" aria-label="About Yuxiang" tabIndex={-1}>
             <p>
-              I currently work on Applied AI systems at{' '}
-              <ExternalAnchor
-                href="https://www.symbolica.ai/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Symbolica AI
-              </ExternalAnchor>.
+              Photographs, hiking, music, art, and things I want to understand.
             </p>
-            <p>
-              I was previously working on generative AI products at Ideogram and
-              supply chain forecasting at Amazon.
-            </p>
-            <p>
-              I studied Robotics Engineering at the University of Toronto&apos;s
-              Engineering Science program.
-            </p>
-            <p>
-              Outside of work, I enjoy <InlineAnchor to="/photos/">photography</InlineAnchor>,
-              hiking, classical music, and visiting art museums.
-            </p>
-          </AboutCopy>
-        </PaperPanel>
-      </PanelRow>
-
-      <PanelRow $offset={workPanelInset} $rightOffset={workPanelInset}>
-        <PaperPanel $maxWidth="104rem" id="work">
-          <SectionTitle data-node-id="505:27">Work</SectionTitle>
-          <WorkList>
-            {workItems.map((item) => (
-              <WorkItem key={item.company}>
-                <WorkPrimary>
-                  <WorkCompany>{item.company}</WorkCompany>
-                  <WorkSummary>{item.summary}</WorkSummary>
-                </WorkPrimary>
-                <WorkMeta>
-                  <WorkRole>{item.role}</WorkRole>
-                  <WorkTeam>{item.team}</WorkTeam>
-                  <WorkTenure>{item.tenure}</WorkTenure>
-                </WorkMeta>
-              </WorkItem>
-            ))}
-          </WorkList>
-        </PaperPanel>
-      </PanelRow>
-
-      {showBlogSection ? (
-        <PanelRow $offset="clamp(1rem, 9vw, 11.5rem)">
-          <PaperPanel $maxWidth="94rem" id="blog">
-            <SectionTitle data-node-id="505:112">Blog</SectionTitle>
-            <WritingList>
-              {writingItems.map((item) => (
-                <WritingItem key={item.title}>
-                  <WritingDate>{item.date}</WritingDate>
-                  <WritingContent>
-                    {item.href ? (
-                      <WritingLink to={item.href}>
-                        <WritingTitle>{item.title}</WritingTitle>
-                      </WritingLink>
-                    ) : (
-                      <WritingTitle>{item.title}</WritingTitle>
-                    )}
-                    <WritingExcerpt>{item.excerpt}</WritingExcerpt>
-                  </WritingContent>
-                </WritingItem>
-              ))}
-            </WritingList>
-          </PaperPanel>
-        </PanelRow>
-      ) : null}
-
-      <PhotographySection id="photography">
-        <PhotographyImage image={getImage(data.photographyBanner)} alt="" loading="eager" />
-        <PhotographyOverlay />
-        <PhotographyContent>
-          <PhotographyTitle data-node-id="505:40">Photography</PhotographyTitle>
-          <PhotographySubtitle data-node-id="505:49">A Visual Archive</PhotographySubtitle>
-          <ArchiveButton to="/photos/">view archive</ArchiveButton>
-        </PhotographyContent>
-      </PhotographySection>
-
-      <ResourcesSection id="resources">
-        <ResourcesTitle data-node-id="506:36">Resources</ResourcesTitle>
-        <ResourceList>
-          <ResourceLink
-            href="https://www.linkedin.com/in/yuxiangdai/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            linkedin
-          </ResourceLink>
-          <ResourceRoute to="/resume/">resume</ResourceRoute>
-        </ResourceList>
-      </ResourcesSection>
-    </PageShell>
-  </Layout>
-)
+          </Introduction>
+          <Writing id="writing" aria-labelledby="essay-title" tabIndex={-1}>
+            <span id="blog" />
+            <p>Writing</p>
+            <h2 id="essay-title">
+              <Link to="/blog/linear-and-sparse-attention/">
+                Linear and Sparse Attention
+              </Link>
+            </h2>
+            <p>Featuring Kimi and DeepSeek</p>
+            <Link
+              className="read-essay"
+              to="/blog/linear-and-sparse-attention/"
+            >
+              Read essay <span aria-hidden="true">→</span>
+            </Link>
+          </Writing>
+        </Composition>
+        <Footer>
+          <Link to="/resume/">Résumé</Link>
+          <span aria-hidden="true">/</span>
+          <a href="mailto:yuxiang.dai43@gmail.com">Contact</a>
+        </Footer>
+      </PageShell>
+    </Layout>
+  )
+}
 
 export const query = graphql`
   query IndexPageQuery {
-    photographyBanner: file(relativePath: { eq: "DSCF2798.jpg" }) {
+    landscape: file(relativePath: { eq: "DSCF2770.jpg" }) {
       childImageSharp {
         gatsbyImageData(
-          layout: FULL_WIDTH
-          quality: 72
-          placeholder: BLURRED
+          layout: CONSTRAINED
+          width: 1600
+          quality: 90
+          placeholder: DOMINANT_COLOR
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+    blackTusk: file(relativePath: { eq: "DSCF2721.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 800
+          quality: 90
+          placeholder: DOMINANT_COLOR
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+    forest: file(relativePath: { eq: "DSCF2798.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 800
+          quality: 90
+          placeholder: DOMINANT_COLOR
           formats: [AUTO, WEBP, AVIF]
         )
       }
