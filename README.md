@@ -14,7 +14,3 @@
 
 - Personal site: https://yuxiangdai.com
 - LinkedIn: https://linkedin.com/in/yuxiangdai
-
-### Homepage layout
-
-The desktop homepage scales its name, photographs, and spacing to fit laptop browser viewports, including heights down to 600px. Mobile and smaller or zoomed windows can scroll so all content remains accessible.
