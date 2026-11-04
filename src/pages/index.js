@@ -135,7 +135,7 @@ const Name = styled.h1`
   line-height: 1.08;
   letter-spacing: -0.075em;
   padding-bottom: 0.1em;
-  text-shadow: 0 2px 24px #152d36;
+  text-shadow: none;
   z-index: 3;
 
   @media (max-width: 760px) {
@@ -158,6 +158,28 @@ const PhotoWall = styled.div`
   }
   a {
     box-shadow: 0 8px 24px #10232b55;
+  }
+  .tree a,
+  .sunset a,
+  .tusk a {
+    box-shadow: none;
+  }
+
+  .tree a {
+    position: relative;
+    isolation: isolate;
+  }
+
+  /* Gently lift the photo's dark upper corners without changing the asset. */
+  .tree a::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    background:
+      radial-gradient(ellipse 28% 20% at top left, #ffffff0d, transparent),
+      radial-gradient(ellipse 28% 20% at top right, #ffffff0d, transparent);
   }
 
   /* Size each print against both available dimensions, without cropping. */
@@ -342,7 +364,11 @@ const IndexPage = ({ data }) => {
               ],
             ].map(([position, photo, alt]) => (
               <figure key={position} className={position}>
-                <Link to="/photos/">
+                <Link
+                  to={`/photos/?photo=${encodeURIComponent(
+                    photo.relativePath
+                  )}`}
+                >
                   <GatsbyImage
                     image={getImage(photo)}
                     alt={alt}
@@ -384,6 +410,7 @@ const IndexPage = ({ data }) => {
 export const query = graphql`
   query IndexPageQuery {
     tree: file(relativePath: { eq: "_DSC1603.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -395,6 +422,7 @@ export const query = graphql`
       }
     }
     sunset: file(relativePath: { eq: "_DSC8263.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -406,6 +434,7 @@ export const query = graphql`
       }
     }
     landscape: file(relativePath: { eq: "DSCF2770.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -417,6 +446,7 @@ export const query = graphql`
       }
     }
     blackTusk: file(relativePath: { eq: "DSCF2721.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -428,6 +458,7 @@ export const query = graphql`
       }
     }
     forest: file(relativePath: { eq: "DSCF2798.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED

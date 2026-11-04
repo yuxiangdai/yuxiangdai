@@ -153,8 +153,9 @@ const CountdownText = styled.span`
   text-transform: lowercase;
 `
 
-export default function PhotosPage({ data }) {
-  const [currentIndex, setCurrentIndex] = useState(0)
+export default function PhotosPage({ data, location }) {
+  const galleryRef = React.useRef(null)
+  const [isReady, setIsReady] = useState(false)
   const [isAutoScrolling, setIsAutoScrolling] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
   const [countdownProgress, setCountdownProgress] = useState(0)
@@ -187,11 +188,33 @@ export default function PhotosPage({ data }) {
     },
   ]
 
+  const requestedPhoto = new URLSearchParams(location?.search || '').get(
+    'photo'
+  )
+  const initialIndex = Math.max(
+    0,
+    photos.findIndex(({ key }) => data[key]?.relativePath === requestedPhoto)
+  )
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
+
+  React.useEffect(() => {
+    const container = galleryRef.current
+    if (!container) return
+
+    container.scrollTo({
+      left: initialIndex * container.clientWidth,
+      behavior: 'instant',
+    })
+    setCurrentIndex(initialIndex)
+    setCountdownProgress(0)
+    setIsReady(true)
+  }, [initialIndex])
+
   const scrollToImage = (index) => {
-    const container = document.querySelector('.gallery-container')
+    const container = galleryRef.current
     if (container) {
       container.scrollTo({
-        left: index * window.innerWidth,
+        left: index * container.clientWidth,
         behavior: 'smooth',
       })
     }
@@ -280,7 +303,11 @@ export default function PhotosPage({ data }) {
   return (
     <PhotosPageWrapper>
       <Layout showHeader={false}>
-        <GalleryContainer className="gallery-container">
+        <GalleryContainer
+          ref={galleryRef}
+          className="gallery-container"
+          style={{ visibility: isReady ? 'visible' : 'hidden' }}
+        >
           {photos.map(({ key, caption }, index) => {
             const imageData = data[key]
 
@@ -289,7 +316,7 @@ export default function PhotosPage({ data }) {
                 <StyledImage
                   image={getImage(imageData)}
                   alt={caption}
-                  loading={index === 0 ? 'eager' : 'lazy'}
+                  loading={index === initialIndex ? 'eager' : 'lazy'}
                 />
                 <Caption>{caption}</Caption>
               </ImageSlide>
@@ -326,6 +353,7 @@ export default function PhotosPage({ data }) {
 export const query = graphql`
   query {
     image1: file(relativePath: { eq: "DSCF2721.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -338,6 +366,7 @@ export const query = graphql`
     }
 
     image2: file(relativePath: { eq: "DSCF1504.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -350,6 +379,7 @@ export const query = graphql`
     }
 
     image3: file(relativePath: { eq: "DSCF2770.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -362,6 +392,7 @@ export const query = graphql`
     }
 
     image4: file(relativePath: { eq: "DSCF2798.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -374,6 +405,7 @@ export const query = graphql`
     }
 
     image5: file(relativePath: { eq: "_DSC1603.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -386,6 +418,7 @@ export const query = graphql`
     }
 
     image6: file(relativePath: { eq: "20260419_0003_02.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -398,6 +431,7 @@ export const query = graphql`
     }
 
     image7: file(relativePath: { eq: "_DSC8063.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
@@ -410,6 +444,7 @@ export const query = graphql`
     }
 
     image8: file(relativePath: { eq: "_DSC8263.jpg" }) {
+      relativePath
       childImageSharp {
         gatsbyImageData(
           layout: CONSTRAINED
