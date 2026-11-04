@@ -19,6 +19,7 @@
 
 The homepage name and upper three photos have no shadows; the lower photos retain their shadows.
 The tree photo uses a subtle CSS overlay to soften its dark upper corners; the original image is unchanged.
+The homepage writing card uses a nearly opaque blue-gray background and a soft shadow to stand out against the trees.
 
 Homepage photos open the gallery on the selected image. Gallery links support
 `/photos/?photo=DSCF2770.jpg`; missing or unknown filenames open the first photo.

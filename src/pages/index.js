@@ -242,7 +242,8 @@ const PhotoWall = styled.div`
 const Writing = styled.section`
   justify-self: end;
   padding: 0.5rem 0.8rem;
-  background: rgba(12, 30, 38, 0.82);
+  background: rgba(24, 48, 59, 0.96);
+  box-shadow: 0 4px 18px rgba(5, 16, 22, 0.24);
   display: grid;
   grid-template-columns: auto auto;
   gap: 0.15rem 1.25rem;
