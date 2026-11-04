@@ -4,20 +4,20 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import Layout from '../components/layout'
-import SunriseBackground from '../components/sunrise-background'
-import ScatteredName from '../components/scattered-name'
+import AlpineBackground from '../components/alpine-background'
 
 const serif = "'Crimson Text', Georgia, 'Times New Roman', serif"
 
 const PageShell = styled.div`
-  --ink: #181815;
+  --ink: #f5f4ec;
   --page-gutter: clamp(1.25rem, 2.65vw, 3.5rem);
-  --composition-width: 96svh;
+  --composition-width: 110svh;
   isolation: isolate;
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
+  height: 100svh;
+  min-height: 0;
   padding: 0 var(--page-gutter);
   color: var(--ink);
   font-family: ${serif};
@@ -47,7 +47,7 @@ const PageShell = styled.div`
   }
   a:focus-visible,
   [tabindex='-1']:focus-visible {
-    outline: 2px solid #302a50;
+    outline: 2px solid #f5f4ec;
     outline-offset: 6px;
   }
   ::selection {
@@ -56,7 +56,7 @@ const PageShell = styled.div`
   }
 
   @media (min-width: 761px) and (max-height: 680px) {
-    --composition-width: 88svh;
+    --composition-width: 110svh;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -72,6 +72,7 @@ const TopBar = styled.header`
   align-items: center;
   gap: 1rem;
   padding: 0.8rem 0 0.3rem;
+  text-shadow: 0 1px 8px #10232b;
   font-size: clamp(1.1rem, 1.4vw, 1.4rem);
   line-height: 1.3;
 
@@ -107,7 +108,7 @@ const SkipLink = styled.a`
   top: 0.5rem;
   left: var(--page-gutter);
   padding: 0.5rem 1rem;
-  background: #fff1d9;
+  background: #17303a;
   z-index: 5;
   transform: translateY(-200%);
   &:focus {
@@ -116,145 +117,148 @@ const SkipLink = styled.a`
 `
 
 const Composition = styled.div`
-  --photo-gap: clamp(1rem, 2vw, 2rem);
   display: grid;
-  /* Three 3:2 photographs: include the stack's gap when matching their heights. */
-  grid-template-columns:
-    minmax(0, calc((200% - var(--photo-gap) / 2) / 3))
-    minmax(0, 1fr);
-  column-gap: var(--photo-gap);
+  grid-template-rows: auto minmax(0, 1fr) auto;
   width: min(100%, var(--composition-width));
+  flex: 1;
+  min-height: 0;
   margin: 0 auto;
-  padding-top: 0;
-
-  @media (max-width: 760px) {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-top: 1.5rem;
-  }
+  padding: 0.5rem 0;
+  gap: 1svh;
 `
 
 const Name = styled.h1`
   grid-column: 1 / -1;
-  grid-row: 1;
-  font-family: 'DM Serif Display', 'Times New Roman', serif;
-  font-size: min(11vw, 12svh);
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
+  font-size: clamp(2rem, min(8vw, 9svh), 6rem);
   font-weight: 400;
-  line-height: 0.82;
-  letter-spacing: -0.055em;
-  margin-left: clamp(
-    -4vw,
-    calc((var(--composition-width) - 100vw + 2 * var(--page-gutter)) / 2),
-    0px
-  ) !important;
-  padding-bottom: 0.24em;
-  width: max-content;
-  z-index: 1;
-
-  @media (min-width: 761px) and (max-height: 680px) {
-    font-size: min(11vw, 10svh);
-  }
+  line-height: 1.08;
+  letter-spacing: -0.075em;
+  padding-bottom: 0.1em;
+  text-shadow: 0 2px 24px #152d36;
+  z-index: 3;
 
   @media (max-width: 760px) {
-    font-size: clamp(2.75rem, 15.4vw, 7.3rem);
-    margin-left: 0 !important;
-    line-height: 1;
-    padding-bottom: 0.35em;
+    font-size: min(12vw, 8svh);
+    padding-bottom: 0.1em;
   }
 `
 
-const Landscape = styled.figure`
-  grid-column: 1;
-  grid-row: 2;
-  padding-top: 0;
+const PhotoWall = styled.div`
+  position: relative;
+  min-height: 0;
+  container-type: size;
 
+  figure {
+    position: absolute;
+  }
   a,
   .gatsby-image-wrapper {
     display: block;
   }
-  figcaption {
-    max-width: 44rem;
-    padding: 0.6rem 0 0;
-    font-size: 0.85rem;
-    line-height: 1.35;
-    color: #3b3635;
-  }
-`
-
-const CompanionPhotos = styled.div`
-  grid-column: 2;
-  grid-row: 2;
-  display: grid;
-  gap: var(--photo-gap);
-  align-self: start;
-  z-index: 2;
-
-  a,
-  .gatsby-image-wrapper {
-    display: block;
+  a {
+    box-shadow: 0 8px 24px #10232b55;
   }
 
-  @media (max-width: 760px) {
-    width: 86%;
-    align-self: flex-end;
-    gap: 1.25rem;
-    margin: 1.75rem 0 0;
+  /* Size each print against both available dimensions, without cropping. */
+  .tree {
+    left: 2%;
+    top: 0;
+    width: min(22cqw, 37cqh);
   }
-`
-
-const Introduction = styled.section`
-  grid-column: 1;
-  grid-row: 3;
-  width: min(31rem, 72%);
-  margin: 1rem 2rem 0 auto;
-  scroll-margin-top: 2rem;
-
-  p {
-    font-size: clamp(1.1rem, min(1.65vw, 2.8svh), 1.65rem);
-    line-height: 1.25;
+  .sunset {
+    left: 33%;
+    top: 6%;
+    width: min(22cqw, 37cqh);
+  }
+  .tusk {
+    right: 10%;
+    top: 3%;
+    width: min(34cqw, 52cqh);
+  }
+  .ridge {
+    left: 8%;
+    bottom: 0;
+    width: min(37cqw, 48cqh);
+  }
+  .forest {
+    right: 10%;
+    bottom: 3%;
+    width: min(38cqw, 48cqh);
   }
 
   @media (max-width: 760px) {
-    width: 100%;
-    margin: 2rem 0 0;
-    padding: 0;
-    max-width: 24rem;
-    p {
-      font-size: 1.5rem;
+    .tree {
+      left: 0;
+      top: 0;
+      width: min(36cqw, 29cqh);
+    }
+    .sunset {
+      left: auto;
+      right: 3%;
+      top: 4%;
+      width: min(36cqw, 29cqh);
+    }
+    .ridge {
+      left: 0;
+      bottom: 25%;
+      width: min(53cqw, 32cqh);
+    }
+    .tusk {
+      right: 0;
+      top: 49%;
+      width: min(40cqw, 27cqh);
+    }
+    .forest {
+      right: 10%;
+      bottom: 0;
+      width: min(56cqw, 33cqh);
     }
   }
 `
 
 const Writing = styled.section`
-  grid-column: 2;
-  grid-row: 3;
-  margin: 0.5rem 0 0 -3rem;
-  scroll-margin-top: 2rem;
+  justify-self: end;
+  padding: 0.5rem 0.8rem;
+  background: rgba(12, 30, 38, 0.82);
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.15rem 1.25rem;
+  align-items: center;
 
   h2 {
-    font-size: clamp(1.4rem, min(2.6vw, 3.4svh), 2.8rem);
-    font-weight: 600;
-    line-height: 1.02;
-    letter-spacing: -0.04em;
+    grid-column: 1;
+    font-size: clamp(1.1rem, 2.5svh, 1.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
   }
   p {
-    font-size: 1rem;
-    line-height: 1.3;
+    font-size: 0.85rem;
+    line-height: 1.2;
   }
   .read-essay {
-    display: inline-block;
-    margin-top: 0.65rem;
+    grid-column: 2;
+    grid-row: 1 / 4;
+    font-size: 0.9rem;
     text-decoration: underline;
     text-decoration-thickness: 1px;
     text-underline-offset: 0.22em;
   }
+  #blog {
+    position: absolute;
+  }
 
   @media (max-width: 760px) {
-    margin: 2.25rem 0 0;
+    justify-self: stretch;
+    gap: 0.15rem 0.6rem;
+    padding: 0.4rem 0.6rem;
     h2 {
-      font-size: clamp(2rem, 7.4vw, 3.1rem);
-      max-width: 25rem;
+      font-size: 1rem;
+    }
+    p,
+    .read-essay {
+      font-size: 0.75rem;
     }
   }
 `
@@ -264,8 +268,9 @@ const Footer = styled.footer`
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
-  margin-top: auto;
-  padding: 0.75rem 0;
+  flex-shrink: 0;
+  padding: 0.4rem 0;
+  text-shadow: 0 1px 8px #10232b;
   font-size: 1rem;
 
   @media (min-width: 761px) and (max-height: 680px) {
@@ -273,7 +278,8 @@ const Footer = styled.footer`
   }
 
   @media (max-width: 760px) {
-    padding: 2.5rem 0 1.5rem;
+    padding: 0.35rem 0 0.6rem;
+    font-size: 0.85rem;
   }
 `
 
@@ -284,75 +290,70 @@ const IndexPage = ({ data }) => {
         <html className="home-page" />
         <meta
           name="description"
-          content="Photographs, hiking, music, art, and things I want to understand. A personal collection by Yuxiang Dai."
+          content="Photography and writing by Yuxiang Dai."
         />
         <link
           rel="preload"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
-          href="/fonts/dm-serif-display-400-latin.woff2"
+          href="/fonts/inter-400-latin.woff2"
         />
-        <link rel="preload" as="image" href="/images/home/sunrise.webp" />
+        <link rel="preload" as="image" href="/images/home/alpine.webp" />
       </Helmet>
       <PageShell>
-        <SunriseBackground />
-        <SkipLink href="#about">Skip to introduction</SkipLink>
+        <AlpineBackground />
+        <SkipLink href="#writing">Skip to writing</SkipLink>
         <TopBar>
           <nav aria-label="Main navigation">
             <Link to="/photos/">Photography</Link>
             <Link to="/writing/">Writing</Link>
-            <a href="#about">About</a>
+            <Link to="/resume/">About</Link>
           </nav>
         </TopBar>
         <Composition>
-          <Name aria-label="Yuxiang Dai">
-            <ScatteredName />
-          </Name>
-          <Landscape>
-            <Link to="/photos/" aria-label="Explore the photography collection">
-              <GatsbyImage
-                image={getImage(data.landscape)}
-                alt="Warm evening light on a mountain ridge, alpine lake, and evergreen forest in Garibaldi Provincial Park."
-                loading="eager"
-                sizes="(max-width: 760px) calc(100vw - 2.5rem), min(63vw, 64svh)"
-                objectFit="contain"
-              />
-            </Link>
-            <figcaption>
-              Shot on a Fuji X-T20 during a multi-day backpacking trip in
-              Garibaldi Provincial Park, near Vancouver, BC.
-            </figcaption>
-          </Landscape>
-          <CompanionPhotos>
-            <figure>
-              <Link to="/photos/">
-                <GatsbyImage
-                  image={getImage(data.blackTusk)}
-                  alt="Black Tusk above alpine lakes and mountain ridges in Garibaldi Provincial Park."
-                  loading="eager"
-                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 32svh)"
-                  objectFit="contain"
-                />
-              </Link>
-            </figure>
-            <figure>
-              <Link to="/photos/">
-                <GatsbyImage
-                  image={getImage(data.forest)}
-                  alt="Layers of evergreen forest and mountain ridges beneath a peach evening sky in Garibaldi Provincial Park."
-                  loading="eager"
-                  sizes="(max-width: 760px) calc(86vw - 2.15rem), min(31vw, 32svh)"
-                  objectFit="contain"
-                />
-              </Link>
-            </figure>
-          </CompanionPhotos>
-          <Introduction id="about" aria-label="About Yuxiang" tabIndex={-1}>
-            <p>
-              Photographs, hiking, music, art, and things I want to understand.
-            </p>
-          </Introduction>
+          <Name>Yuxiang Dai</Name>
+          <PhotoWall aria-label="Selected photography">
+            {[
+              [
+                'ridge',
+                data.landscape,
+                'Warm evening light on a mountain ridge, alpine lake, and evergreen forest in Garibaldi Provincial Park.',
+              ],
+              [
+                'tree',
+                data.tree,
+                'A tall evergreen silhouetted against a blue sky and a small moon.',
+              ],
+              [
+                'sunset',
+                data.sunset,
+                'A crescent moon above a volcanic lake and mountain ridges at sunset.',
+              ],
+              [
+                'tusk',
+                data.blackTusk,
+                'Black Tusk above alpine lakes and mountain ridges in Garibaldi Provincial Park.',
+              ],
+              [
+                'forest',
+                data.forest,
+                'Layers of evergreen forest and mountain ridges beneath a peach evening sky in Garibaldi Provincial Park.',
+              ],
+            ].map(([position, photo, alt]) => (
+              <figure key={position} className={position}>
+                <Link to="/photos/">
+                  <GatsbyImage
+                    image={getImage(photo)}
+                    alt={alt}
+                    loading="eager"
+                    sizes="(max-width: 760px) 90vw, 55vw"
+                    objectFit="contain"
+                  />
+                </Link>
+              </figure>
+            ))}
+          </PhotoWall>
           <Writing id="writing" aria-labelledby="essay-title" tabIndex={-1}>
             <span id="blog" />
             <p>Writing</p>
@@ -382,6 +383,28 @@ const IndexPage = ({ data }) => {
 
 export const query = graphql`
   query IndexPageQuery {
+    tree: file(relativePath: { eq: "_DSC1603.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 500
+          quality: 90
+          placeholder: DOMINANT_COLOR
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
+    sunset: file(relativePath: { eq: "_DSC8263.jpg" }) {
+      childImageSharp {
+        gatsbyImageData(
+          layout: CONSTRAINED
+          width: 500
+          quality: 90
+          placeholder: DOMINANT_COLOR
+          formats: [AUTO, WEBP, AVIF]
+        )
+      }
+    }
     landscape: file(relativePath: { eq: "DSCF2770.jpg" }) {
       childImageSharp {
         gatsbyImageData(
