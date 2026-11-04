@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import Layout from '../components/layout'
+import photoIds from '../utils/photo-ids'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import { graphql } from 'gatsby'
 
@@ -181,7 +182,6 @@ export default function PhotosPage({ data, location }) {
     },
     { key: 'image5', caption: 'lands end trail, san francisco, california' },
     { key: 'image6', caption: 'bay bridge, san francisco, california' },
-    { key: 'image7', caption: 'crater lake national park, oregon' },
     {
       key: 'image8',
       caption: 'moonrise over crater lake national park, oregon',
@@ -193,7 +193,9 @@ export default function PhotosPage({ data, location }) {
   )
   const initialIndex = Math.max(
     0,
-    photos.findIndex(({ key }) => data[key]?.relativePath === requestedPhoto)
+    photos.findIndex(
+      ({ key }) => photoIds[data[key]?.relativePath] === requestedPhoto
+    )
   )
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
 
@@ -418,19 +420,6 @@ export const query = graphql`
     }
 
     image6: file(relativePath: { eq: "20260419_0003_02.jpg" }) {
-      relativePath
-      childImageSharp {
-        gatsbyImageData(
-          layout: CONSTRAINED
-          width: 1800
-          quality: 72
-          placeholder: BLURRED
-          formats: [AUTO, WEBP, AVIF]
-        )
-      }
-    }
-
-    image7: file(relativePath: { eq: "_DSC8063.jpg" }) {
       relativePath
       childImageSharp {
         gatsbyImageData(

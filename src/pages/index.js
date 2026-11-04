@@ -4,6 +4,7 @@ import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import Helmet from 'react-helmet'
 import styled from 'styled-components'
 import Layout from '../components/layout'
+import photoIds from '../utils/photo-ids'
 import AlpineBackground from '../components/alpine-background'
 
 const serif = "'Crimson Text', Georgia, 'Times New Roman', serif"
@@ -366,8 +367,8 @@ const IndexPage = ({ data }) => {
             ].map(([position, photo, alt]) => (
               <figure key={position} className={position}>
                 <Link
-                  to={`/photos/?photo=${encodeURIComponent(
-                    photo.relativePath
+                  to={`/photos?photo=${encodeURIComponent(
+                    photoIds[photo.relativePath]
                   )}`}
                 >
                   <GatsbyImage
