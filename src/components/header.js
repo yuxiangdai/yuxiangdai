@@ -54,24 +54,6 @@ const Nav = styled.nav`
   }
 `
 
-const NavLink = styled.a`
-  font-family: ${theme.fonts.body};
-  font-size: ${theme.typography.small.size};
-  font-weight: 400;
-  color: ${theme.colors.textMuted};
-  text-decoration: none;
-  transition: color ${theme.motion.duration} ${theme.motion.easing};
-
-  &:hover {
-    color: ${theme.colors.text};
-  }
-
-  &:focus {
-    outline: 2px solid ${theme.colors.accent};
-    outline-offset: 4px;
-  }
-`
-
 const NavLinkGatsby = styled(Link)`
   font-family: ${theme.fonts.body};
   font-size: ${theme.typography.small.size};
@@ -95,7 +77,7 @@ const Header = ({ siteTitle }) => (
     <HeaderInner>
       <SiteTitle to="/">{siteTitle}</SiteTitle>
       <Nav>
-        <NavLink href="/#about">About</NavLink>
+        <NavLinkGatsby to="/about/">About</NavLinkGatsby>
         <NavLinkGatsby to="/writing/">Writing</NavLinkGatsby>
         <NavLinkGatsby to="/photos/">Photography</NavLinkGatsby>
         <NavLinkGatsby to="/resume/">Resume</NavLinkGatsby>

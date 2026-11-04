@@ -5,6 +5,7 @@ import { Link } from 'gatsby'
 import Helmet from 'react-helmet'
 import styled, { keyframes } from 'styled-components'
 import Layout from '../../components/layout'
+import AlpineBackground from '../../components/alpine-background'
 import ReadingProgress from '../../components/reading-progress'
 import attentionHistory from '../../images/kimi-linear-attention-history.png'
 import dsaArchitecture from '../../images/deepseek-sparse-attention-architecture.png'
@@ -33,14 +34,27 @@ const attentionSweep = keyframes`
 `
 
 const ArticleShell = styled.div`
-  --ink: #11110f;
-  --paper: #d8d8d6;
-  --paper-deep: #c9c9c6;
-  --night: #090909;
-  --night-soft: #777773;
-  min-height: 100vh;
-  background: var(--night);
+  --ink: #f5f4ec;
+  --paper: rgba(24, 48, 59, 0.98);
+  --paper-deep: #17303a;
+  position: relative;
+  isolation: isolate;
+  min-height: 100svh;
+  padding-bottom: clamp(1.25rem, 2.65vw, 3.5rem);
   color: var(--ink);
+
+  a:focus-visible,
+  [tabindex='0']:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 6px;
+  }
+`
+
+const Backdrop = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 `
 
 const TopBar = styled.nav`
@@ -48,15 +62,18 @@ const TopBar = styled.nav`
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  max-width: 92rem;
-  margin: 0 auto;
-  padding: 1.2rem clamp(1.25rem, 4vw, 3.5rem);
+  padding: 0.8rem clamp(1.25rem, 2.65vw, 3.5rem) 0.3rem;
+  min-height: 3rem;
+  text-shadow: 0 1px 8px #10232b;
   color: #f4f1ea;
   font-family: ${serif};
 `
 
 const HomeLink = styled(Link)`
   color: inherit;
+  font-family: ${sans};
+  font-weight: 400;
+  letter-spacing: -0.075em;
   font-size: 1.15rem;
   text-decoration: none;
 
@@ -67,7 +84,7 @@ const HomeLink = styled(Link)`
 `
 
 const SectionLink = styled(Link)`
-  color: rgba(244, 241, 234, 0.68);
+  color: var(--ink);
   font-size: 1rem;
   text-decoration: none;
 
@@ -78,17 +95,17 @@ const SectionLink = styled(Link)`
 `
 
 const Paper = styled.article`
-  width: min(100% - clamp(1rem, 4vw, 4rem), 92rem);
-  margin: 0 auto clamp(1rem, 4vw, 4rem);
+  width: min(100% - clamp(2.5rem, 5.3vw, 7rem), 72rem);
+  margin: clamp(2rem, 7svh, 5rem) auto 0;
   background: var(--paper);
-  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 4px 18px rgba(5, 16, 22, 0.24);
 `
 
 const Hero = styled.header`
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.32fr);
   min-height: clamp(20rem, 42vh, 30rem);
-  border-bottom: 1px solid rgba(17, 17, 15, 0.24);
+  border-bottom: 1px solid rgba(245, 244, 236, 0.2);
 
   @media (max-width: 760px) {
     grid-template-columns: 1fr;
@@ -103,7 +120,9 @@ const HeroCopy = styled.div`
   padding: clamp(1.5rem, 4vw, 4rem);
 
   @media (max-width: 760px) {
-    min-height: 17rem;
+    min-height: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 `
 
@@ -117,11 +136,11 @@ const Title = styled.h1`
   max-width: 12ch;
   margin: 0;
   color: var(--ink);
-  font-family: ${serif};
-  font-size: clamp(3rem, 6.5vw, 7rem);
+  font-family: ${sans};
+  font-size: clamp(2.5rem, 5.5vw, 5rem);
   font-weight: 400;
-  letter-spacing: -0.055em;
-  line-height: 0.78;
+  letter-spacing: -0.075em;
+  line-height: 1.08;
   text-align: left;
 `
 
@@ -139,7 +158,7 @@ const AttentionMap = styled.div`
   grid-template-rows: repeat(12, 1fr);
   min-height: 100%;
   overflow: hidden;
-  border-left: 1px solid rgba(17, 17, 15, 0.24);
+  border-left: 1px solid rgba(245, 244, 236, 0.2);
   background:
     radial-gradient(circle, var(--ink) 0 1.6px, transparent 1.9px) 0 0 / 18px
       18px,
@@ -151,7 +170,7 @@ const AttentionMap = styled.div`
     z-index: 1;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle, #858580 0 1.6px, transparent 1.9px) 0
+    background: radial-gradient(circle, #8daeb2 0 1.6px, transparent 1.9px) 0
       0 / 18px 18px;
     mask-image: linear-gradient(
       125deg,
@@ -185,9 +204,9 @@ const AttentionMap = styled.div`
     background: linear-gradient(
       135deg,
       transparent 0 37%,
-      rgba(201, 201, 198, 0.94) 37% 49%,
+      rgba(23, 48, 58, 0.94) 37% 49%,
       transparent 49% 53%,
-      rgba(201, 201, 198, 0.98) 53% 67%,
+      rgba(23, 48, 58, 0.98) 53% 67%,
       transparent 67%
     );
   }
@@ -201,7 +220,7 @@ const AttentionMap = styled.div`
 
   @media (max-width: 760px) {
     min-height: 9rem;
-    border-top: 1px solid rgba(17, 17, 15, 0.24);
+    border-top: 1px solid rgba(245, 244, 236, 0.2);
     border-left: 0;
   }
 `
@@ -209,9 +228,9 @@ const AttentionMap = styled.div`
 const ArticleBody = styled.div`
   display: grid;
   grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
-  gap: clamp(2rem, 7vw, 8rem);
-  padding: clamp(2.5rem, 5vw, 5rem) clamp(1.5rem, 9vw, 10rem)
-    clamp(4rem, 9vw, 9rem);
+  gap: clamp(2rem, 4vw, 4rem);
+  padding: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 4vw, 4rem)
+    clamp(3rem, 6vw, 6rem);
 
   @media (max-width: 720px) {
     grid-template-columns: 1fr;
@@ -221,16 +240,25 @@ const ArticleBody = styled.div`
 
 const ArticleMeta = styled.aside`
   font-family: ${sans};
-  font-size: 0.72rem;
-  line-height: 1.5;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  letter-spacing: 0;
+
+  @media (max-width: 720px) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem 1.25rem;
+    p,
+    span {
+      margin: 0;
+    }
+  }
 `
 
 const MetaLabel = styled.span`
   display: block;
   margin-bottom: 0.25rem;
-  color: rgba(17, 17, 15, 0.52);
+  color: #d4dedc;
 `
 
 const MetaValue = styled.p`
@@ -248,7 +276,7 @@ const Prose = styled.div`
     color: var(--ink);
     font-family: ${serif};
     font-size: clamp(1.05rem, 1.2vw, 1.18rem);
-    line-height: 1.5;
+    line-height: 1.6;
     letter-spacing: 0;
   }
 
@@ -277,7 +305,7 @@ const Prose = styled.div`
     font-size: clamp(2rem, 3.5vw, 3.2rem);
     font-weight: 400;
     letter-spacing: -0.035em;
-    line-height: 0.95;
+    line-height: 1.1;
   }
 
   ul,
@@ -287,7 +315,7 @@ const Prose = styled.div`
     color: var(--ink);
     font-family: ${serif};
     font-size: clamp(1.05rem, 1.2vw, 1.18rem);
-    line-height: 1.5;
+    line-height: 1.6;
   }
 
   li {
@@ -359,7 +387,7 @@ const ArticleFigure = styled.figure`
 
   figcaption {
     margin-top: 0.75rem;
-    color: rgba(17, 17, 15, 0.75);
+    color: #d4dedc;
     font-family: ${serif};
     font-size: 0.95rem;
     line-height: 1.4;
@@ -371,7 +399,7 @@ const ArticleFooter = styled.footer`
   justify-content: space-between;
   gap: 1rem;
   padding: 1.5rem clamp(1.5rem, 5vw, 5.5rem);
-  border-top: 1px solid rgba(17, 17, 15, 0.24);
+  border-top: 1px solid rgba(245, 244, 236, 0.2);
   font-family: ${serif};
 `
 
@@ -394,10 +422,9 @@ const articleContent = (
     <p>
       Linear and sparse attention are two approaches to improving the efficiency
       of LLMs that have recently been implemented by two leading open source
-      model labs, Kimi and DeepSeek.
-      Kimi focuses on linear attention with Kimi Delta Attention (KDA), whereas
-      DeepSeek has introduced an improved sparse-attention mechanism with
-      DeepSeek Sparse Attention (DSA).
+      model labs, Kimi and DeepSeek. Kimi focuses on linear attention with Kimi
+      Delta Attention (KDA), whereas DeepSeek has introduced an improved
+      sparse-attention mechanism with DeepSeek Sparse Attention (DSA).
     </p>
     <h2>Kimi Delta Attention</h2>
     <p>
@@ -460,8 +487,8 @@ const articleContent = (
       tex={String.raw`\mathbf{S}_t = {\color{#b52622}\alpha_t}(\mathbf{I} - \beta_t\mathbf{k}_t\mathbf{k}_t^\top)\mathbf{S}_{t-1} + \beta_t\mathbf{k}_t\mathbf{v}_t^\top.`}
     />
     <p>
-      Finally, Kimi Delta Attention replaces that scalar gate with the
-      diagonal gate{' '}
+      Finally, Kimi Delta Attention replaces that scalar gate with the diagonal
+      gate{' '}
       <Math
         tex={String.raw`\color{#b52622}\operatorname{Diag}(\boldsymbol{\alpha}_t)`}
       />
@@ -592,9 +619,8 @@ const articleContent = (
     </p>
     <p>
       Specifically, in GLM-5.2, every 4 transformer layers share a lightweight
-      indexer. Top-k indices are reused for 4 layers, significantly reducing
-      the number of indexer dot product and top-k operations that need be
-      performed.
+      indexer. Top-k indices are reused for 4 layers, significantly reducing the
+      number of indexer dot product and top-k operations that need be performed.
     </p>
     <h2>How Might We Learn?</h2>
     <p>
@@ -611,8 +637,8 @@ const articleContent = (
       >
         research on how humans learn how to learn
       </a>{' '}
-      and the ideas of the trade-off between retention and repetition.
-      For humans, too, learning involves a balance between what we commit to
+      and the ideas of the trade-off between retention and repetition. For
+      humans, too, learning involves a balance between what we commit to
       immediate memory and what we trust we can reconstruct.
     </p>
   </>
@@ -634,6 +660,9 @@ const LinearAndSparseAttentionPage = () => {
         />
       </Helmet>
       <ArticleShell>
+        <Backdrop>
+          <AlpineBackground />
+        </Backdrop>
         <ReadingProgress contentRef={contentRef} />
         <TopBar aria-label="Article navigation">
           <HomeLink to="/">Yuxiang Dai</HomeLink>

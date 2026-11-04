@@ -331,7 +331,7 @@ const IndexPage = ({ data }) => {
           <nav aria-label="Main navigation">
             <Link to="/photos/">Photography</Link>
             <Link to="/writing/">Writing</Link>
-            <Link to="/resume/">About</Link>
+            <Link to="/about/">About</Link>
           </nav>
         </TopBar>
         <Composition>
@@ -394,7 +394,7 @@ const IndexPage = ({ data }) => {
               className="read-essay"
               to="/blog/linear-and-sparse-attention/"
             >
-              Read essay <span aria-hidden="true">→</span>
+              Read <span aria-hidden="true">→</span>
             </Link>
           </Writing>
         </Composition>

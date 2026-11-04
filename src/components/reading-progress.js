@@ -6,14 +6,14 @@ const ProgressTrack = styled.div`
   z-index: 100;
   inset: 0 0 auto;
   height: 4px;
-  background: #c9c9c6;
+  background: #17303a;
   pointer-events: none;
 
   &::after {
     content: '';
     display: block;
     height: 100%;
-    background: #11110f;
+    background: #f5f4ec;
     transform: scaleX(var(--reading-progress, 0));
     transform-origin: left;
   }

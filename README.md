@@ -23,3 +23,12 @@ The homepage writing card uses a nearly opaque blue-gray background and a soft s
 
 Homepage photos open the gallery on the selected image. Gallery links support
 `/photos/?photo=DSCF2770.jpg`; missing or unknown filenames open the first photo.
+
+### Writing and About
+
+`/writing/` and `/about/` share the homepage’s alpine backdrop, typography, and
+blue-gray reading panel. About restores the biography and career history from
+the previous homepage; résumé access remains separate at `/resume/`.
+
+The attention article uses the same alpine palette with a fixed scenic backdrop,
+a dark reading surface, and an Inter title. Article text, math, and figures are preserved.
